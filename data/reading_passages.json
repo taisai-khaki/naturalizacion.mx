@@ -1,0 +1,1106 @@
+[
+  {
+    "id": 1,
+    "title": "El Grito de Dolores y el mes patrio",
+    "topic": "Historia y cultura civica",
+    "source_hint": "Reconstruccion basada en lecturas culturales de naturalizacion",
+    "text": "En Mexico, la noche del 15 de septiembre tiene un significado especial. En plazas de todo el pais, miles de personas se reunen para escuchar la ceremonia conocida como el Grito. Esta conmemoracion recuerda el llamado a levantarse contra el dominio espanol realizado en 1810 por Miguel Hidalgo y Costilla, en Dolores. Aunque no existe un registro textual unico de las palabras exactas de ese primer llamado, historicamente se reconoce como el inicio de la lucha de Independencia. Con el paso del tiempo, la ceremonia evoluciono y se convirtio en un acto civico nacional. Hoy, autoridades de distintos niveles repiten la ceremonia en sus localidades, mientras la gente porta banderas, escucha musica regional y participa en festejos comunitarios. En ese contexto, el simbolismo patriotico tiene un papel central: los colores verde, blanco y rojo aparecen en edificios, ropa y decoraciones. Comprender esta celebracion ayuda a entender por que septiembre es considerado mes patrio y por que el Grito no es solo una fiesta, sino tambien una memoria compartida de identidad historica.",
+    "questions": [
+      {
+        "question": "Que se conmemora en la ceremonia del Grito?",
+        "options": [
+          "La consumacion de la Independencia",
+          "El inicio de la lucha de Independencia",
+          "La Revolucion Mexicana",
+          "La promulgacion de la Constitucion de 1917"
+        ],
+        "correct": "El inicio de la lucha de Independencia"
+      },
+      {
+        "question": "En que ano se ubica historicamente el llamado de Hidalgo?",
+        "options": [
+          "1810",
+          "1821",
+          "1857",
+          "1910"
+        ],
+        "correct": "1810"
+      },
+      {
+        "question": "Que elemento se menciona como parte del simbolismo patriotico?",
+        "options": [
+          "Los colores verde, blanco y rojo",
+          "Solo fuegos artificiales",
+          "Unicamente musica clasica",
+          "Escudos regionales extranjeros"
+        ],
+        "correct": "Los colores verde, blanco y rojo"
+      },
+      {
+        "question": "Segun el texto, el Grito actual se entiende principalmente como:",
+        "options": [
+          "Un acto comercial",
+          "Una ceremonia civica con memoria historica",
+          "Un evento deportivo",
+          "Una celebracion privada"
+        ],
+        "correct": "Una ceremonia civica con memoria historica"
+      },
+      {
+        "question": "Que afirma el texto sobre las palabras exactas del primer Grito?",
+        "options": [
+          "Se conservan en audio original",
+          "No existe un registro textual unico",
+          "Fueron dictadas por el Congreso",
+          "Se escribieron un siglo despues por decreto"
+        ],
+        "correct": "No existe un registro textual unico"
+      },
+      {
+        "question": "Por que septiembre se considera mes patrio en el texto?",
+        "options": [
+          "Por ser fin de cosecha",
+          "Por la conmemoracion del inicio de la Independencia",
+          "Por el inicio de clases",
+          "Por una tradicion exclusivamente religiosa"
+        ],
+        "correct": "Por la conmemoracion del inicio de la Independencia"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Refranes mexicanos y lenguaje cotidiano",
+    "topic": "Lengua y cultura popular",
+    "source_hint": "Reconstruccion inspirada en articulos de refranes mexicanos",
+    "text": "Los refranes forman parte de la vida cotidiana en Mexico. Son frases breves que transmiten experiencia, consejo o una forma de ver la realidad. Muchas veces se usan para orientar una decision sin dar una explicacion larga. Por ejemplo, cuando alguien dice \"Mas vale tarde que nunca\", sugiere que es preferible completar una accion, aunque sea despues del momento ideal. Otro refran muy conocido es \"Al mal tiempo, buena cara\", que invita a mantener una actitud positiva frente a las dificultades. Tambien se escucha \"A darle que es mole de olla\", expresion que anima a comenzar una tarea con energia. El valor de estos dichos no esta solo en su significado literal, sino en su funcion social: permiten resumir ideas complejas en pocas palabras y facilitan la comunicacion entre generaciones. En muchos hogares, abuelos y padres comparten refranes con ninas, ninos y jovenes como parte de una educacion informal. Asi, el lenguaje popular se convierte en una via para conservar memoria cultural y fortalecer la identidad comunitaria.",
+    "questions": [
+      {
+        "question": "Para que se usan principalmente los refranes en el texto?",
+        "options": [
+          "Para reemplazar leyes",
+          "Para resumir consejos y experiencias",
+          "Para escribir documentos tecnicos",
+          "Para traducir idiomas extranjeros"
+        ],
+        "correct": "Para resumir consejos y experiencias"
+      },
+      {
+        "question": "Que idea transmite \"Mas vale tarde que nunca\"?",
+        "options": [
+          "Nunca hay que intentar",
+          "Es mejor no actuar",
+          "Es preferible hacer algo tarde que no hacerlo",
+          "Solo importa la rapidez"
+        ],
+        "correct": "Es preferible hacer algo tarde que no hacerlo"
+      },
+      {
+        "question": "Que sugiere \"Al mal tiempo, buena cara\"?",
+        "options": [
+          "Ignorar los problemas",
+          "Mantener actitud positiva ante dificultades",
+          "Evitar conversar",
+          "Cambiar de ciudad"
+        ],
+        "correct": "Mantener actitud positiva ante dificultades"
+      },
+      {
+        "question": "Como interpreta el texto \"A darle que es mole de olla\"?",
+        "options": [
+          "Detener una actividad",
+          "Comenzar una tarea con energia",
+          "Preparar comida diariamente",
+          "Evitar el trabajo en equipo"
+        ],
+        "correct": "Comenzar una tarea con energia"
+      },
+      {
+        "question": "Que papel tienen las familias en la transmision de refranes?",
+        "options": [
+          "No participan",
+          "Solo los escriben en libros",
+          "Los comparten como educacion informal",
+          "Los sustituyen por lenguaje tecnico"
+        ],
+        "correct": "Los comparten como educacion informal"
+      },
+      {
+        "question": "Segun el texto, los refranes ayudan a:",
+        "options": [
+          "Debilitar la identidad comunitaria",
+          "Conservar memoria cultural",
+          "Eliminar diferencias regionales",
+          "Reducir vocabulario"
+        ],
+        "correct": "Conservar memoria cultural"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Parque Nacional Canon del Sumidero",
+    "topic": "Geografia y patrimonio natural",
+    "source_hint": "Inspirado en lecturas de examen y datos publicos de CONANP",
+    "text": "El Canon del Sumidero, en Chiapas, es uno de los paisajes naturales mas representativos del sur de Mexico. Se formo a lo largo de un extenso proceso geologico y hoy destaca por sus paredes rocosas de gran altura sobre el rio Grijalva. Ademas de su belleza escenica, la zona tiene valor ambiental por su diversidad de ecosistemas y especies. En reconocimiento a esa importancia, el area cuenta con una figura de proteccion oficial como Parque Nacional. Tambien se le asocia con programas de conservacion por su relevancia hidrologica y su funcion ecologica regional. Para muchas personas visitantes, el recorrido por el canon es una oportunidad de observar vegetacion, fauna y formaciones geologicas en un mismo espacio. Sin embargo, el texto subraya que su valor no depende solo del turismo: conservarlo implica cuidado del agua, vigilancia ambiental y acciones comunitarias sostenidas. Entender el Canon del Sumidero como patrimonio natural ayuda a relacionar cultura y territorio, porque la identidad regional tambien se construye desde los paisajes que una comunidad protege.",
+    "questions": [
+      {
+        "question": "En que estado se ubica el Canon del Sumidero?",
+        "options": [
+          "Chiapas",
+          "Oaxaca",
+          "Yucatan",
+          "Puebla"
+        ],
+        "correct": "Chiapas"
+      },
+      {
+        "question": "Que rio se menciona en el texto?",
+        "options": [
+          "Rio Lerma",
+          "Rio Grijalva",
+          "Rio Balsas",
+          "Rio Usumacinta"
+        ],
+        "correct": "Rio Grijalva"
+      },
+      {
+        "question": "Que categoria de proteccion se menciona?",
+        "options": [
+          "Reserva privada",
+          "Parque Nacional",
+          "Zona arqueologica",
+          "Monumento historico"
+        ],
+        "correct": "Parque Nacional"
+      },
+      {
+        "question": "Segun el texto, conservar el canon implica:",
+        "options": [
+          "Solo promocion turistica",
+          "Cuidado del agua y vigilancia ambiental",
+          "Construccion de carreteras",
+          "Reducir vegetacion local"
+        ],
+        "correct": "Cuidado del agua y vigilancia ambiental"
+      },
+      {
+        "question": "Por que se considera valioso el sitio?",
+        "options": [
+          "Por su valor militar",
+          "Por su diversidad ecologica y geologica",
+          "Solo por su ubicacion urbana",
+          "Solo por comercio internacional"
+        ],
+        "correct": "Por su diversidad ecologica y geologica"
+      },
+      {
+        "question": "Que relacion destaca el texto?",
+        "options": [
+          "Cultura y territorio",
+          "Industria y mineria",
+          "Transporte y puertos",
+          "Mercado y moneda"
+        ],
+        "correct": "Cultura y territorio"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Dia de Muertos: memoria y comunidad",
+    "topic": "Tradicion cultural",
+    "source_hint": "Inspirado en lecturas de examen y referencias UNESCO",
+    "text": "La celebracion del Dia de Muertos es una de las tradiciones mas representativas de Mexico. Se realiza a finales de octubre y principios de noviembre, con practicas que varian por region, pero mantienen elementos comunes: ofrendas, velas, flores, alimentos y recuerdos de las personas fallecidas. En muchos hogares se prepara un altar con objetos significativos, como agua, pan de muerto, papel picado y fotografias. Lejos de ser una despedida definitiva, la tradicion expresa la idea de un reencuentro simbolico con quienes ya partieron. La dimension comunitaria es fundamental: familias completas participan en la preparacion de ofrendas, visitas a cementerios y actividades culturales. Tambien existe una relacion profunda con ciclos agricolas y memorias historicas locales. Por esa riqueza simbolica y social, esta festividad ha sido reconocida internacionalmente como patrimonio cultural inmaterial. El texto destaca que su fuerza no radica en repetir un formato unico, sino en la capacidad de cada comunidad para mantener viva la memoria, transmitiendo valores de respeto, continuidad y pertenencia entre generaciones.",
+    "questions": [
+      {
+        "question": "Cuando se ubica la celebracion segun el texto?",
+        "options": [
+          "Finales de octubre e inicios de noviembre",
+          "Solo en septiembre",
+          "Solo en diciembre",
+          "Durante todo julio"
+        ],
+        "correct": "Finales de octubre e inicios de noviembre"
+      },
+      {
+        "question": "Que elementos se mencionan en la ofrenda?",
+        "options": [
+          "Agua, pan de muerto y papel picado",
+          "Solo frutas importadas",
+          "Unicamente velas electricas",
+          "Documentos oficiales"
+        ],
+        "correct": "Agua, pan de muerto y papel picado"
+      },
+      {
+        "question": "Que idea central sobre la muerte refleja la tradicion?",
+        "options": [
+          "Olvido total",
+          "Reencuentro simbolico con los difuntos",
+          "Celebracion deportiva",
+          "Ritual sin memoria familiar"
+        ],
+        "correct": "Reencuentro simbolico con los difuntos"
+      },
+      {
+        "question": "Que dimension es fundamental en la festividad?",
+        "options": [
+          "La dimension comunitaria",
+          "La competencia comercial",
+          "La uniformidad regional",
+          "La actividad militar"
+        ],
+        "correct": "La dimension comunitaria"
+      },
+      {
+        "question": "Como se describe su reconocimiento internacional?",
+        "options": [
+          "Patrimonio cultural inmaterial",
+          "Patrimonio industrial",
+          "Sitio arqueologico subacuatico",
+          "Monumento natural exclusivamente"
+        ],
+        "correct": "Patrimonio cultural inmaterial"
+      },
+      {
+        "question": "Segun el texto, la fortaleza de la tradicion esta en:",
+        "options": [
+          "Un formato unico e inflexible",
+          "La transmision viva entre generaciones",
+          "El uso obligatorio de un solo altar",
+          "La eliminacion de variantes regionales"
+        ],
+        "correct": "La transmision viva entre generaciones"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "La leyenda del Cenote Zaci",
+    "topic": "Leyendas y memoria regional",
+    "source_hint": "Reconstruccion inspirada en lecturas de examen de idioma",
+    "text": "En Valladolid, Yucatan, el cenote Zaci es conocido tanto por su valor natural como por las narraciones historicas y legendarias asociadas al lugar. Un cenote es un deposito de agua dulce formado por procesos de erosion en rocas calizas, caracteristico de la peninsula. En versiones populares de la leyenda, aparecen personajes de linajes locales, conflictos de poder y decisiones dramaticas que terminan vinculadas al agua del cenote. Mas alla de los detalles que cambian entre relatos, la historia cumple una funcion cultural clara: explicar simbolicamente el origen de ciertos nombres, emociones colectivas y recuerdos compartidos. En la preparacion para examenes de comprension lectora, este tipo de textos suele utilizarse porque combina descripcion, contexto historico y secuencia narrativa. Para comprenderlo bien, no basta memorizar un dato suelto: se requiere identificar relaciones entre personajes, lugares y acciones. Esa habilidad, segun el texto, es justamente la que se evalua cuando se presentan preguntas sobre fragmentos de una leyenda.",
+    "questions": [
+      {
+        "question": "En que ciudad se ubica el cenote Zaci segun el texto?",
+        "options": [
+          "Valladolid",
+          "Merida",
+          "Campeche",
+          "Tuxtla Gutierrez"
+        ],
+        "correct": "Valladolid"
+      },
+      {
+        "question": "Como define el texto un cenote?",
+        "options": [
+          "Pozo de agua dulce en roca caliza",
+          "Lago salado artificial",
+          "Rio subterraneo navegable",
+          "Canal agricola"
+        ],
+        "correct": "Pozo de agua dulce en roca caliza"
+      },
+      {
+        "question": "Que combina este tipo de lectura para el examen?",
+        "options": [
+          "Descripcion, contexto historico y narracion",
+          "Solo fechas numericas",
+          "Solo vocabulario tecnico",
+          "Solo listas de nombres"
+        ],
+        "correct": "Descripcion, contexto historico y narracion"
+      },
+      {
+        "question": "Que se evalua principalmente segun el texto?",
+        "options": [
+          "Memoria fotografica",
+          "Comprension de relaciones entre personajes y acciones",
+          "Velocidad de escritura",
+          "Pronunciacion de idiomas extranjeros"
+        ],
+        "correct": "Comprension de relaciones entre personajes y acciones"
+      },
+      {
+        "question": "Que tema aparece en las versiones legendarias?",
+        "options": [
+          "Conflictos de poder y decisiones dramaticas",
+          "Reglamentos de transito",
+          "Historia economica europea",
+          "Recetas medicas"
+        ],
+        "correct": "Conflictos de poder y decisiones dramaticas"
+      },
+      {
+        "question": "Segun el texto, para comprender la leyenda se requiere:",
+        "options": [
+          "Memorizar un dato aislado",
+          "Relacionar personajes, lugares y acciones",
+          "Solo conocer el titulo",
+          "Ignorar el contexto"
+        ],
+        "correct": "Relacionar personajes, lugares y acciones"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Los volcanes y la leyenda de amor",
+    "topic": "Leyenda prehispanica y paisaje",
+    "source_hint": "Inspirado en lecturas de examen y notas de INAH sobre Izta-Popo",
+    "text": "Entre las leyendas mas conocidas del centro de Mexico esta la del guerrero Popocatepetl y la joven Iztaccihuatl. En distintas versiones, un joven combatiente parte a la guerra con la promesa de regresar para casarse. Durante su ausencia, una noticia falsa provoca dolor en la joven, y el desenlace tragico explica simbolicamente la presencia de dos montanas unidas en el horizonte. Junto con su dimension romantica, la narracion expresa la relacion entre naturaleza y memoria colectiva. Investigaciones culturales y arqueologicas han mostrado que estas cumbres tambien fueron consideradas espacios sagrados en epocas prehispanicas. Por eso, cuando hoy se habla de los volcanes, no se trata solo de geografia fisica: tambien se habla de identidad, ritual y continuidad historica. En ejercicios de comprension lectora, estos textos exigen identificar causas y consecuencias dentro de la trama, asi como distinguir entre hecho historico, interpretacion simbolica y descripcion del paisaje.",
+    "questions": [
+      {
+        "question": "Que personajes protagonizan la leyenda mencionada?",
+        "options": [
+          "Popocatepetl e Iztaccihuatl",
+          "Hidalgo y Morelos",
+          "Cortes y Malintzin",
+          "Quetzalcoatl y Tlaloc"
+        ],
+        "correct": "Popocatepetl e Iztaccihuatl"
+      },
+      {
+        "question": "Que explica simbolicamente la leyenda?",
+        "options": [
+          "La presencia de dos montanas",
+          "El origen del calendario gregoriano",
+          "La fundacion de Veracruz",
+          "La escritura alfabetica"
+        ],
+        "correct": "La presencia de dos montanas"
+      },
+      {
+        "question": "Como fueron consideradas estas cumbres en epocas prehispanicas?",
+        "options": [
+          "Espacios sagrados",
+          "Puertos comerciales",
+          "Campos de futbol",
+          "Fronteras aduanales"
+        ],
+        "correct": "Espacios sagrados"
+      },
+      {
+        "question": "Que pide este tipo de lectura en comprension?",
+        "options": [
+          "Solo copiar frases",
+          "Identificar causas y consecuencias",
+          "Dibujar mapas",
+          "Resolver operaciones matematicas"
+        ],
+        "correct": "Identificar causas y consecuencias"
+      },
+      {
+        "question": "Segun el texto, hablar de volcanes implica tambien hablar de:",
+        "options": [
+          "Identidad y ritual",
+          "Solo mineria",
+          "Unicamente turismo internacional",
+          "Solo transporte aereo"
+        ],
+        "correct": "Identidad y ritual"
+      },
+      {
+        "question": "Que elemento desencadena el desenlace tragico en la narracion?",
+        "options": [
+          "Una noticia falsa",
+          "Una erupcion registrada",
+          "Una sequia prolongada",
+          "Un decreto presidencial"
+        ],
+        "correct": "Una noticia falsa"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Mayab, tierra del faisan y del venado",
+    "topic": "Tradicion maya",
+    "source_hint": "Reconstruccion inspirada en leyendas de Yucatan",
+    "text": "En relatos tradicionales del sureste mexicano, Mayab aparece como una tierra de gran belleza, asociada con cenotes, selvas y fauna simbolica. La expresion \"tierra del faisan y del venado\" representa abundancia natural y armonia entre comunidad y entorno. En estas narraciones, figuras miticas ordenan el territorio y le dan sentido cultural: no solo describen un paisaje, tambien explican por que ciertos lugares son valiosos para la memoria colectiva. Con el tiempo, estas historias se transmitieron de manera oral y luego escrita, adaptandose a cada epoca sin perder su nucleo simbolico. Para una lectura de comprension, lo importante es reconocer la idea principal del texto y la funcion de los simbolos. Cuando un relato menciona animales o elementos naturales, no siempre lo hace de forma literal; muchas veces expresa identidad regional, pertenencia y respeto por la tierra. En ese marco, la leyenda funciona como puente entre pasado y presente.",
+    "questions": [
+      {
+        "question": "Que expresa la frase \"tierra del faisan y del venado\"?",
+        "options": [
+          "Abundancia natural y armonia",
+          "Escasez de agua",
+          "Conflicto fronterizo",
+          "Produccion industrial"
+        ],
+        "correct": "Abundancia natural y armonia"
+      },
+      {
+        "question": "Que elementos se asocian a Mayab en el texto?",
+        "options": [
+          "Cenotes, selvas y fauna simbolica",
+          "Desiertos nevados",
+          "Puertos petroleros",
+          "Solo centros urbanos"
+        ],
+        "correct": "Cenotes, selvas y fauna simbolica"
+      },
+      {
+        "question": "Como se transmitieron estas historias?",
+        "options": [
+          "Oralmente y despues por escrito",
+          "Solo por decreto",
+          "Solo por radio moderna",
+          "Unicamente en mapas"
+        ],
+        "correct": "Oralmente y despues por escrito"
+      },
+      {
+        "question": "Que se busca en la lectura de comprension segun el texto?",
+        "options": [
+          "Memorizar fechas aisladas",
+          "Reconocer idea principal y simbolos",
+          "Aprender formulas fisicas",
+          "Traducir al ingles tecnico"
+        ],
+        "correct": "Reconocer idea principal y simbolos"
+      },
+      {
+        "question": "Que funcion cumple la leyenda en este contexto?",
+        "options": [
+          "Puente entre pasado y presente",
+          "Registro contable",
+          "Manual de maquinaria",
+          "Noticia meteorologica"
+        ],
+        "correct": "Puente entre pasado y presente"
+      },
+      {
+        "question": "Cuando se mencionan animales en la narracion, generalmente representan:",
+        "options": [
+          "Identidad regional y pertenencia",
+          "Solo catalogos biologicos",
+          "Precios de mercado",
+          "Normas de construccion"
+        ],
+        "correct": "Identidad regional y pertenencia"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "La leyenda del maiz",
+    "topic": "Mundo mesoamericano",
+    "source_hint": "Reconstruccion inspirada en textos tradicionales del maiz",
+    "text": "En diversas tradiciones mesoamericanas, el maiz no es solo un alimento: es una base simbolica de la vida comunitaria. Algunas versiones narran que, en tiempos antiguos, las personas no tenian acceso a este grano porque permanecia oculto tras montanas. Los dioses intentaron obtenerlo por fuerza, pero no lo lograron. Entonces, la astucia y la perseverancia permitieron descubrir el camino para compartirlo con la comunidad. Esta estructura narrativa explica, de manera simbolica, por que el maiz ocupa un lugar central en la historia cultural de Mexico. Ademas, conecta alimentacion, agricultura y organizacion social. En terminos de comprension lectora, textos como este suelen preguntar por secuencia de hechos, causa de un problema y resultado final de las acciones. Tambien pueden evaluar si la persona distingue entre dato literal y mensaje simbolico. Entender la leyenda del maiz implica reconocer que una narracion tradicional puede comunicar valores colectivos como cooperacion, paciencia y cuidado del territorio.",
+    "questions": [
+      {
+        "question": "Como presenta el texto al maiz?",
+        "options": [
+          "Solo como producto comercial",
+          "Como alimento y simbolo comunitario",
+          "Como recurso exclusivamente industrial",
+          "Como elemento sin valor cultural"
+        ],
+        "correct": "Como alimento y simbolo comunitario"
+      },
+      {
+        "question": "Que obstaculo inicial aparece en la narracion?",
+        "options": [
+          "El maiz estaba oculto tras montanas",
+          "No habia lluvia en la costa",
+          "Faltaban caminos maritimos",
+          "No existia intercambio cultural"
+        ],
+        "correct": "El maiz estaba oculto tras montanas"
+      },
+      {
+        "question": "Que permitio resolver el problema segun el texto?",
+        "options": [
+          "Astucia y perseverancia",
+          "Un tratado comercial",
+          "Una conquista militar",
+          "Una migracion forzada"
+        ],
+        "correct": "Astucia y perseverancia"
+      },
+      {
+        "question": "Que relacion destaca la leyenda?",
+        "options": [
+          "Alimentacion, agricultura y vida social",
+          "Solo astronomia",
+          "Solo ingenieria",
+          "Solo comercio exterior"
+        ],
+        "correct": "Alimentacion, agricultura y vida social"
+      },
+      {
+        "question": "Que tipo de pregunta de comprension menciona el texto?",
+        "options": [
+          "Secuencia de hechos y consecuencias",
+          "Calculo diferencial",
+          "Analisis de laboratorio",
+          "Pronunciacion fonetica internacional"
+        ],
+        "correct": "Secuencia de hechos y consecuencias"
+      },
+      {
+        "question": "Que valores colectivos comunica la narracion?",
+        "options": [
+          "Cooperacion y cuidado del territorio",
+          "Competencia individual extrema",
+          "Aislamiento social",
+          "Rechazo a la agricultura"
+        ],
+        "correct": "Cooperacion y cuidado del territorio"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Chinampas de Xochimilco",
+    "topic": "Tecnicas agricolas tradicionales",
+    "source_hint": "Inspirado en informacion publica sobre chinampas y Xochimilco",
+    "text": "Las chinampas son un sistema agricola tradicional desarrollado en zonas lacustres del Valle de Mexico. Consisten en parcelas construidas de forma artificial sobre aguas someras, con tecnicas que permiten alta productividad y manejo cuidadoso del entorno. En Xochimilco, este metodo ha sostenido por siglos la produccion de hortalizas, flores y plantas de consumo local. Su valor no es solo economico: tambien representa conocimiento historico sobre suelos, agua y biodiversidad. Por esa razon, se considera un patrimonio cultural y ambiental de gran relevancia. Aunque hoy enfrenta presiones urbanas y ambientales, diversas comunidades y proyectos trabajan para conservarlo mediante restauracion ecologica, reforestacion y fortalecimiento productivo. En una lectura de examen, este tipo de texto puede incluir preguntas sobre funcion de las chinampas, su origen historico y los riesgos actuales que enfrentan. Comprenderlo exige relacionar tecnica tradicional con sostenibilidad y vida comunitaria en la ciudad.",
+    "questions": [
+      {
+        "question": "Que son las chinampas segun el texto?",
+        "options": [
+          "Parcelas artificiales en zonas lacustres",
+          "Canales de navegacion comercial",
+          "Bosques de altura",
+          "Minas subterraneas"
+        ],
+        "correct": "Parcelas artificiales en zonas lacustres"
+      },
+      {
+        "question": "En que zona se destacan historicamente?",
+        "options": [
+          "Xochimilco",
+          "Sierra Tarahumara",
+          "Istmo de Tehuantepec",
+          "Desierto de Sonora"
+        ],
+        "correct": "Xochimilco"
+      },
+      {
+        "question": "Que producen tradicionalmente?",
+        "options": [
+          "Hortalizas y flores",
+          "Petroleo y gas",
+          "Solo madera",
+          "Equipos electronicos"
+        ],
+        "correct": "Hortalizas y flores"
+      },
+      {
+        "question": "Que valor adicional tienen, ademas del economico?",
+        "options": [
+          "Conocimiento historico de agua y suelos",
+          "Uso militar",
+          "Exclusivamente recreativo",
+          "Valor bursatil"
+        ],
+        "correct": "Conocimiento historico de agua y suelos"
+      },
+      {
+        "question": "Que riesgos menciona el texto?",
+        "options": [
+          "Presiones urbanas y ambientales",
+          "Actividad volcanica constante",
+          "Bloqueo internacional",
+          "Escasez de tecnologia digital"
+        ],
+        "correct": "Presiones urbanas y ambientales"
+      },
+      {
+        "question": "Que exige comprender este texto?",
+        "options": [
+          "Relacionar tecnica tradicional y sostenibilidad",
+          "Memorizar una lista de calles",
+          "Traducir latin",
+          "Resolver ecuaciones avanzadas"
+        ],
+        "correct": "Relacionar tecnica tradicional y sostenibilidad"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Reserva de la Biosfera Mariposa Monarca",
+    "topic": "Patrimonio natural y cultural",
+    "source_hint": "Inspirado en informacion de SEMARNAT/CONANP e INAH",
+    "text": "Cada ano, millones de mariposas monarca viajan miles de kilometros desde Norteamerica hasta bosques templados de Mexico, principalmente en Michoacan y Estado de Mexico. Este fenomeno migratorio destaca por su precision y continuidad, pues las colonias regresan de manera recurrente a zonas de hibernacion. La region ha sido reconocida por su relevancia ecologica y por el valor cultural que comunidades locales le atribuyen. En algunos contextos, la llegada de la monarca coincide con temporadas de memoria y celebracion comunitaria, lo que fortalece su simbolismo. La conservacion de estos bosques requiere acciones coordinadas: manejo forestal, vigilancia, restauracion y participacion social. Por eso, estudiar la monarca no significa solo conocer una especie; implica entender la relacion entre biodiversidad, territorio y cultura. En ejercicios de comprension, suelen preguntarse datos de ubicacion, finalidad de proteccion y mensaje central del texto.",
+    "questions": [
+      {
+        "question": "A donde llegan las mariposas monarca segun el texto?",
+        "options": [
+          "Bosques de Michoacan y Estado de Mexico",
+          "Selvas de Chiapas y Tabasco",
+          "Playas de Baja California",
+          "Valles de Sonora"
+        ],
+        "correct": "Bosques de Michoacan y Estado de Mexico"
+      },
+      {
+        "question": "Que destaca del fenomeno migratorio?",
+        "options": [
+          "Precision y continuidad anual",
+          "Cambio diario de ruta local",
+          "Ausencia de ciclos",
+          "Migracion exclusivamente nocturna urbana"
+        ],
+        "correct": "Precision y continuidad anual"
+      },
+      {
+        "question": "Que tipo de valor tiene la region ademas del ecologico?",
+        "options": [
+          "Valor cultural comunitario",
+          "Uso industrial pesado",
+          "Unicamente valor inmobiliario",
+          "Solo valor deportivo"
+        ],
+        "correct": "Valor cultural comunitario"
+      },
+      {
+        "question": "Que requiere su conservacion?",
+        "options": [
+          "Acciones coordinadas de manejo y participacion social",
+          "Solo publicidad",
+          "Cierre total de comunidades",
+          "Eliminar vegetacion local"
+        ],
+        "correct": "Acciones coordinadas de manejo y participacion social"
+      },
+      {
+        "question": "Que relacion central propone el texto?",
+        "options": [
+          "Biodiversidad, territorio y cultura",
+          "Moneda y comercio internacional",
+          "Mineria y puertos",
+          "Moda y espectaculo"
+        ],
+        "correct": "Biodiversidad, territorio y cultura"
+      },
+      {
+        "question": "Que tipo de preguntas menciona el texto para comprension?",
+        "options": [
+          "Ubicacion, proteccion y mensaje central",
+          "Solo ortografia tecnica",
+          "Calculo de impuestos",
+          "Historia de inventos europeos"
+        ],
+        "correct": "Ubicacion, proteccion y mensaje central"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "title": "Mariachi: musica de cuerdas, canto y trompeta",
+    "topic": "Musica tradicional mexicana",
+    "source_hint": "Inspirado en informacion cultural de INAH/UNESCO",
+    "text": "El mariachi es una expresion musical ampliamente reconocida como simbolo de Mexico. Su evolucion incluye una vertiente tradicional de cuerdas y otra moderna que incorpora trompetas, vihuela, guitarron y violines en formaciones mas amplias. A lo largo del tiempo, su repertorio ha integrado sones, jarabes, corridos, valses y canciones rancheras, entre otros generos. Mas que un estilo sonoro, el mariachi funciona como practica social: se interpreta en fiestas familiares, celebraciones comunitarias y actos civicos. Tambien ha sido una via de transmision intergeneracional de memoria local, lenguaje y afecto por la region de origen. En diversos espacios culturales se reconoce su papel como patrimonio inmaterial por su capacidad de articular identidad y pertenencia. En lectura de comprension, este tema suele evaluar si la persona distingue entre caracteristicas del mariachi tradicional y del moderno, y si identifica su importancia cultural mas alla de la musica.",
+    "questions": [
+      {
+        "question": "Que instrumentos se mencionan en la variante moderna?",
+        "options": [
+          "Trompetas, violines, vihuela y guitarron",
+          "Piano y flauta transversal",
+          "Solo bateria electrica",
+          "Saxofon y acordeon exclusivamente"
+        ],
+        "correct": "Trompetas, violines, vihuela y guitarron"
+      },
+      {
+        "question": "Que generos se citan dentro del repertorio?",
+        "options": [
+          "Sones, jarabes y corridos",
+          "Opera italiana exclusivamente",
+          "Jazz contemporaneo unicamente",
+          "Musica electronica de club"
+        ],
+        "correct": "Sones, jarabes y corridos"
+      },
+      {
+        "question": "Como define el texto al mariachi ademas de estilo musical?",
+        "options": [
+          "Practica social y cultural",
+          "Metodo de construccion",
+          "Sistema de transporte",
+          "Disciplina militar"
+        ],
+        "correct": "Practica social y cultural"
+      },
+      {
+        "question": "En que espacios suele interpretarse?",
+        "options": [
+          "Fiestas familiares, comunidad y actos civicos",
+          "Solo auditorios cerrados",
+          "Solo universidades extranjeras",
+          "Solo ceremonias deportivas"
+        ],
+        "correct": "Fiestas familiares, comunidad y actos civicos"
+      },
+      {
+        "question": "Que reconoce su declaratoria cultural?",
+        "options": [
+          "Su papel en identidad y pertenencia",
+          "Su utilidad industrial",
+          "Su funcion bancaria",
+          "Su uso medico"
+        ],
+        "correct": "Su papel en identidad y pertenencia"
+      },
+      {
+        "question": "Que puede evaluar una pregunta de comprension sobre este tema?",
+        "options": [
+          "Diferencias entre mariachi tradicional y moderno",
+          "Solo velocidad de lectura",
+          "Caligrafia artistica",
+          "Memoria de fechas sin contexto"
+        ],
+        "correct": "Diferencias entre mariachi tradicional y moderno"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "title": "Cocina tradicional mexicana",
+    "topic": "Patrimonio alimentario",
+    "source_hint": "Inspirado en divulgacion UNESCO sobre cocina tradicional mexicana",
+    "text": "La cocina tradicional mexicana se entiende como un patrimonio vivo que une ingredientes, tecnicas, saberes comunitarios y celebraciones. Su valor cultural no depende de un solo platillo, sino de una red de practicas que inicia en el campo y continua en mercados, cocinas familiares y fiestas locales. El maiz ocupa un lugar central en ese sistema, junto con procesos como nixtamalizacion, uso de comales y preparaciones regionales que cambian segun territorio y temporada. En 2010, esta cocina fue inscrita en la Lista Representativa del Patrimonio Cultural Inmaterial de la Humanidad, reconocimiento que subraya su relevancia social y su capacidad de transmitir conocimiento entre generaciones. El texto tambien destaca la dimension de sostenibilidad: proteger semillas, valorar a productores locales y mantener tecnicas tradicionales fortalece comunidades y ecosistemas. En comprension lectora, suelen aparecer preguntas sobre idea principal, fecha de reconocimiento y relacion entre alimentacion e identidad.",
+    "questions": [
+      {
+        "question": "Como define el texto la cocina tradicional mexicana?",
+        "options": [
+          "Patrimonio vivo de practicas comunitarias",
+          "Conjunto de recetas importadas",
+          "Industria exclusivamente urbana",
+          "Lista fija de un solo estado"
+        ],
+        "correct": "Patrimonio vivo de practicas comunitarias"
+      },
+      {
+        "question": "Que ingrediente se menciona como central?",
+        "options": [
+          "Maiz",
+          "Trigo",
+          "Avena",
+          "Centeno"
+        ],
+        "correct": "Maiz"
+      },
+      {
+        "question": "En que ano se reconoce en la Lista Representativa?",
+        "options": [
+          "2010",
+          "2008",
+          "2015",
+          "2020"
+        ],
+        "correct": "2010"
+      },
+      {
+        "question": "Que aspecto resalta el reconocimiento internacional?",
+        "options": [
+          "Transmision social y cultural del conocimiento",
+          "Uso exclusivo de maquinaria",
+          "Homogeneidad nacional obligatoria",
+          "Sustitucion total de tecnicas tradicionales"
+        ],
+        "correct": "Transmision social y cultural del conocimiento"
+      },
+      {
+        "question": "Que dimension adicional menciona el texto?",
+        "options": [
+          "Sostenibilidad y apoyo a productores locales",
+          "Espectaculo deportivo",
+          "Mercados financieros",
+          "Turismo de lujo exclusivamente"
+        ],
+        "correct": "Sostenibilidad y apoyo a productores locales"
+      },
+      {
+        "question": "Que tipo de pregunta de comprension puede aparecer?",
+        "options": [
+          "Idea principal y fecha de reconocimiento",
+          "Formulas quimicas avanzadas",
+          "Historia de la aviacion",
+          "Pronunciacion en latin"
+        ],
+        "correct": "Idea principal y fecha de reconocimiento"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "title": "Alebrijes y cartoneria",
+    "topic": "Arte popular",
+    "source_hint": "Inspirado en fuentes culturales de CDMX y patrimonio artesanal",
+    "text": "Los alebrijes son figuras fantasticas del arte popular mexicano, elaboradas tradicionalmente en cartoneria y madera policromada, segun la region. En la narrativa mas difundida, su origen moderno se asocia al artesano Pedro Linares, quien imagino criaturas de formas inesperadas y gran colorido. Con el tiempo, esta expresion crecio en talleres familiares, ferias, desfiles y espacios culturales. Mas alla de lo visual, los alebrijes representan creatividad colectiva y transmision de oficio entre generaciones. Muchas piezas combinan rasgos de varios animales para construir un ser simbolico unico, lo que permite experimentar con identidad, imaginacion y memoria local. En algunas ciudades, su elaboracion se ha reconocido como patrimonio cultural intangible por su importancia artistica y comunitaria. En una lectura de comprension, este tema permite evaluar si se identifican origen, materiales y funcion cultural de la artesania sin reducirla a un objeto decorativo.",
+    "questions": [
+      {
+        "question": "Que son los alebrijes segun el texto?",
+        "options": [
+          "Figuras fantasticas del arte popular",
+          "Instrumentos musicales",
+          "Trajes ceremoniales",
+          "Edificios historicos"
+        ],
+        "correct": "Figuras fantasticas del arte popular"
+      },
+      {
+        "question": "Con que artesano se asocia su origen moderno?",
+        "options": [
+          "Pedro Linares",
+          "Diego Rivera",
+          "Jose Maria Velasco",
+          "Enrique Carbajal"
+        ],
+        "correct": "Pedro Linares"
+      },
+      {
+        "question": "Que materiales se mencionan?",
+        "options": [
+          "Cartoneria y madera policromada",
+          "Solo acero",
+          "Solo vidrio",
+          "Concreto y marmol"
+        ],
+        "correct": "Cartoneria y madera policromada"
+      },
+      {
+        "question": "Que representan culturalmente ademas de su aspecto visual?",
+        "options": [
+          "Creatividad colectiva y oficio familiar",
+          "Normas fiscales",
+          "Tecnologia militar",
+          "Manual de arquitectura"
+        ],
+        "correct": "Creatividad colectiva y oficio familiar"
+      },
+      {
+        "question": "Como se construye un ser simbolico en estas piezas?",
+        "options": [
+          "Combinando rasgos de varios animales",
+          "Repitiendo una sola forma",
+          "Copiando planos tecnicos",
+          "Usando fotografia oficial"
+        ],
+        "correct": "Combinando rasgos de varios animales"
+      },
+      {
+        "question": "Que busca evaluar el texto en comprension lectora?",
+        "options": [
+          "Origen, materiales y funcion cultural",
+          "Solo precio de mercado",
+          "Solo cantidad de pintura",
+          "Solo longitud de la pieza"
+        ],
+        "correct": "Origen, materiales y funcion cultural"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "title": "Popocatepetl: la montana que humea",
+    "topic": "Geografia, lengua y simbolismo",
+    "source_hint": "Inspirado en divulgacion del INAH",
+    "text": "El nombre Popocatepetl proviene del nahuatl y se interpreta como \"montana que humea\". Esta denominacion refleja la observacion historica de su actividad volcanica y la relacion que los pueblos del altiplano han mantenido con el entorno. Desde tiempos prehispanicos, las fumarolas del volcan se han asociado con fuerza, respeto y significado ritual. Su presencia domina el paisaje de regiones cercanas a Puebla, Estado de Mexico y Morelos, donde ha influido en rutas, asentamientos y relatos locales. El texto subraya que un volcan puede leerse desde dos planos: el cientifico, que estudia procesos geologicos, y el cultural, que conserva memorias, leyendas y practicas comunitarias. En comprension lectora, esta combinacion de perspectivas obliga a distinguir dato linguistico, descripcion natural e interpretacion simbolica. Al hacerlo, la persona lectora demuestra que no solo identifica informacion puntual, sino tambien la estructura de sentido que une territorio e historia.",
+    "questions": [
+      {
+        "question": "Que significa Popocatepetl en nahuatl segun el texto?",
+        "options": [
+          "Montana que humea",
+          "Mujer blanca",
+          "Tierra del faisan",
+          "Agua profunda"
+        ],
+        "correct": "Montana que humea"
+      },
+      {
+        "question": "Que elemento historico refleja ese nombre?",
+        "options": [
+          "Observacion de su actividad volcanica",
+          "Diseno colonial de rutas",
+          "Uso de calendarios europeos",
+          "Traduccion francesa moderna"
+        ],
+        "correct": "Observacion de su actividad volcanica"
+      },
+      {
+        "question": "Que regiones se mencionan alrededor del volcan?",
+        "options": [
+          "Puebla, Estado de Mexico y Morelos",
+          "Sonora, Sinaloa y Nayarit",
+          "Campeche, Yucatan y Quintana Roo",
+          "Chihuahua, Durango y Coahuila"
+        ],
+        "correct": "Puebla, Estado de Mexico y Morelos"
+      },
+      {
+        "question": "Que dos planos de lectura propone el texto?",
+        "options": [
+          "Cientifico y cultural",
+          "Juridico y financiero",
+          "Militar y comercial",
+          "Electrico y digital"
+        ],
+        "correct": "Cientifico y cultural"
+      },
+      {
+        "question": "Que debe distinguir la persona lectora en comprension?",
+        "options": [
+          "Dato linguistico, descripcion natural e interpretacion simbolica",
+          "Solo numeros de altitud",
+          "Solo nombres propios",
+          "Solo fechas historicas"
+        ],
+        "correct": "Dato linguistico, descripcion natural e interpretacion simbolica"
+      },
+      {
+        "question": "Que relacion general muestra el texto?",
+        "options": [
+          "Territorio e historia",
+          "Mercado y bolsa",
+          "Puertos y aduanas",
+          "Medicina y farmacia"
+        ],
+        "correct": "Territorio e historia"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "title": "Parque Nacional Izta-Popo",
+    "topic": "Area natural protegida",
+    "source_hint": "Inspirado en informacion publica de SEMARNAT",
+    "text": "El Parque Nacional Iztaccihuatl-Popocatepetl es una de las areas naturales protegidas mas conocidas del centro de Mexico. Su importancia radica en la biodiversidad, los servicios ambientales y la funcion hidrologica que cumple para regiones cercanas. En sus montanas y valles existen ecosistemas que ayudan a regular clima, conservar suelos y mantener procesos biologicos clave. Tambien tiene valor historico: en su entorno se desarrollaron comunidades que domesticaron cultivos fundamentales para la dieta local, como maiz, frijol y calabaza. Este doble caracter, natural y cultural, explica por que su conservacion exige estrategias de largo plazo y participacion social. No se trata solo de proteger paisajes: se trata de sostener condiciones de vida para poblaciones humanas y no humanas. En comprension lectora, un texto asi puede preguntar por objetivo de proteccion, ejemplos de biodiversidad o la relacion entre patrimonio natural y conocimiento comunitario.",
+    "questions": [
+      {
+        "question": "Que tipo de espacio es Izta-Popo segun el texto?",
+        "options": [
+          "Area natural protegida",
+          "Zona industrial",
+          "Corredor ferroviario",
+          "Puerto comercial"
+        ],
+        "correct": "Area natural protegida"
+      },
+      {
+        "question": "Que razon principal se menciona para su importancia?",
+        "options": [
+          "Biodiversidad y servicios ambientales",
+          "Explotacion minera",
+          "Comercio maritimo",
+          "Turismo de playa"
+        ],
+        "correct": "Biodiversidad y servicios ambientales"
+      },
+      {
+        "question": "Que cultivos se nombran como parte de su valor historico?",
+        "options": [
+          "Maiz, frijol y calabaza",
+          "Cebada y avena",
+          "Cafe y cacao",
+          "Trigo y centeno"
+        ],
+        "correct": "Maiz, frijol y calabaza"
+      },
+      {
+        "question": "Que exige su conservacion segun el texto?",
+        "options": [
+          "Estrategias de largo plazo y participacion social",
+          "Solo campanas publicitarias",
+          "Cierre total de acceso",
+          "Privatizacion completa"
+        ],
+        "correct": "Estrategias de largo plazo y participacion social"
+      },
+      {
+        "question": "Que diferencia destaca el texto sobre conservar?",
+        "options": [
+          "No es solo paisaje, tambien condiciones de vida",
+          "Es solo estetica visual",
+          "Es solo deporte de montana",
+          "Es solo regulacion de trafico"
+        ],
+        "correct": "No es solo paisaje, tambien condiciones de vida"
+      },
+      {
+        "question": "Que puede preguntar un examen de comprension con este texto?",
+        "options": [
+          "Objetivo de proteccion y relacion natural-cultural",
+          "Solo ortografia extranjera",
+          "Unicamente operaciones algebraicas",
+          "Historia de moneda colonial"
+        ],
+        "correct": "Objetivo de proteccion y relacion natural-cultural"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "title": "Lectura de leyenda y preguntas por fragmento",
+    "topic": "Estrategia de comprension",
+    "source_hint": "Basado en experiencias compartidas de examen de idioma",
+    "text": "En la preparacion para el examen de idioma de naturalizacion, muchas personas reportan que aparecen fragmentos de textos culturales o leyendas con preguntas de opcion multiple. En lugar de presentar siempre una lectura completa, el sistema puede mostrar parrafos separados para evaluar comprension puntual. Por eso, una estrategia util es leer con atencion cada fragmento y responder segun la informacion explicita, sin agregar supuestos externos. Tambien conviene identificar personajes, tiempo, lugar, accion principal y consecuencia inmediata. Si una pregunta pide un detalle especifico, suele encontrarse en una frase cercana dentro del mismo parrafo. Otra recomendacion es administrar el tiempo: primero responder preguntas directas y despues revisar las mas interpretativas. Esta metodologia reduce errores por distraccion y mejora el rendimiento general. El objetivo no es memorizar textos palabra por palabra, sino demostrar que se entiende lo que se lee y que se puede sostener una respuesta clara.",
+    "questions": [
+      {
+        "question": "Que tipo de material reportan muchas personas en el examen?",
+        "options": [
+          "Fragmentos de textos culturales con opcion multiple",
+          "Solo imagenes sin texto",
+          "Audio en otro idioma",
+          "Ensayo libre sin preguntas"
+        ],
+        "correct": "Fragmentos de textos culturales con opcion multiple"
+      },
+      {
+        "question": "Que estrategia recomienda el texto?",
+        "options": [
+          "Responder segun informacion explicita del fragmento",
+          "Inventar contexto adicional",
+          "Memorizar sin leer",
+          "Omitir detalles especificos"
+        ],
+        "correct": "Responder segun informacion explicita del fragmento"
+      },
+      {
+        "question": "Que elementos conviene identificar en cada parrafo?",
+        "options": [
+          "Personaje, tiempo, lugar, accion y consecuencia",
+          "Solo nombres propios",
+          "Solo adjetivos",
+          "Solo signos de puntuacion"
+        ],
+        "correct": "Personaje, tiempo, lugar, accion y consecuencia"
+      },
+      {
+        "question": "Donde suele estar un detalle especifico de respuesta?",
+        "options": [
+          "En una frase cercana del mismo parrafo",
+          "En un texto no mostrado",
+          "En otro examen",
+          "En una pagina externa obligatoria"
+        ],
+        "correct": "En una frase cercana del mismo parrafo"
+      },
+      {
+        "question": "Que recomendacion de tiempo se menciona?",
+        "options": [
+          "Resolver primero preguntas directas",
+          "Responder al azar todas",
+          "Leer solo el titulo",
+          "Usar todo el tiempo en una pregunta"
+        ],
+        "correct": "Resolver primero preguntas directas"
+      },
+      {
+        "question": "Cual es el objetivo central de esta parte del examen?",
+        "options": [
+          "Demostrar comprension lectora clara",
+          "Recitar textos de memoria",
+          "Traducir documentos legales",
+          "Escribir ensayo academico largo"
+        ],
+        "correct": "Demostrar comprension lectora clara"
+      }
+    ]
+  }
+]

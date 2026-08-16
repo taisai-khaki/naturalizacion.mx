@@ -1,0 +1,62 @@
+{
+  "interview": [
+    {
+      "question": "¿Por qué desea obtener la nacionalidad mexicana?",
+      "tip": "Explica motivo personal, integración social y compromiso cívico."
+    },
+    {
+      "question": "¿Cuánto tiempo lleva viviendo en México?",
+      "tip": "Menciona fecha aproximada de llegada, ciudad y estabilidad de residencia."
+    },
+    {
+      "question": "¿A qué se dedica actualmente?",
+      "tip": "Describe tu ocupación, funciones principales y aporte concreto."
+    },
+    {
+      "question": "¿Qué le gusta de vivir en México?",
+      "tip": "Incluye ejemplos reales sobre comunidad, cultura o calidad de vida."
+    },
+    {
+      "question": "¿Por qué decidió establecerse en este país?",
+      "tip": "Relaciona razones familiares, laborales o académicas con un proyecto de vida."
+    },
+    {
+      "question": "¿Qué actividades realiza en su comunidad?",
+      "tip": "Da ejemplos puntuales: voluntariado, apoyo vecinal o actividades escolares."
+    },
+    {
+      "question": "¿Cómo practica el español en su vida diaria?",
+      "tip": "Menciona conversación, lectura, trabajo y trámites en español."
+    },
+    {
+      "question": "¿Qué planes tiene para los próximos años en México?",
+      "tip": "Presenta metas realistas y continuidad de tu vida en el país."
+    },
+    {
+      "question": "¿Qué valores de la cultura mexicana considera importantes?",
+      "tip": "Comenta respeto, solidaridad, convivencia y diversidad cultural."
+    },
+    {
+      "question": "Describa un reto personal y cómo lo resolvió.",
+      "tip": "Usa estructura: contexto breve, acción, resultado y aprendizaje."
+    }
+  ],
+  "writing": [
+    "Explique por qué desea naturalizarse mexicano.",
+    "Describa cómo participa en su comunidad local.",
+    "Cuente una experiencia importante que haya vivido en México.",
+    "Explique qué aporta usted a México desde su trabajo o estudios.",
+    "Describa una tradición mexicana que valore y por qué."
+  ],
+  "writingChecklist": [
+    "Claridad",
+    "Estructura",
+    "Conectores",
+    "Ejemplo concreto",
+    "Cierre"
+  ],
+  "writingWordRange": [
+    80,
+    120
+  ]
+}
