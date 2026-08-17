@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Naturalización MX — Examen de Ciudadanía</title>
+<style>
+:root{--bg:#022c22;--bg2:#064e3b;--card:rgba(255,255,255,.05);--line:rgba(255,255,255,.12);--ink:#ecfdf5;--mut:#a7f3d0;--gold:#fcd34d;--rose:#fb7185;--green:#6ee7b7;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,var(--bg),var(--bg2));color:var(--ink);min-height:100vh}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input{font:inherit}
+.wrap{max-width:960px;margin:0 auto;padding:20px 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px}
+.btn{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(90deg,#fcd34d,#f59e0b);color:#06281e;font-weight:700;padding:10px 18px;border-radius:12px;transition:filter .15s}
+.btn:hover{filter:brightness(1.08)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.ghost{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--ink)}
+.btn.ghost:hover{background:rgba(255,255,255,.12)}
+.pill{display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.1);color:#d1fae5;border:1px solid var(--line)}
+.pill.gold{background:rgba(252,211,77,.15);color:#fde68a;border-color:rgba(252,211,77,.3)}
+.pill.green{background:rgba(110,231,183,.15);color:#a7f3d0;border-color:rgba(110,231,183,.3)}
+.pill.rose{background:rgba(251,113,133,.15);color:#fecdd3;border-color:rgba(251,113,133,.3)}
+h1{font-size:26px;letter-spacing:-.02em}
+h2{font-size:20px}
+.mut{color:var(--mut)}
+.small{font-size:12px}
+.opt{display:block;width:100%;text-align:left;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:6px 0;transition:background .15s}
+.opt:hover{background:rgba(255,255,255,.1)}
+.opt.sel{border-color:var(--gold);background:rgba(252,211,77,.18)}
+.opt.ok{border-color:var(--green);background:rgba(110,231,183,.15)}
+.opt.bad{border-color:var(--rose);background:rgba(251,113,133,.15)}
+.opt.locked{opacity:.4}
+.en{color:#bfdbfe;font-style:italic;font-size:14px;margin-top:6px;padding:8px 10px;background:rgba(59,130,246,.08);border-left:3px solid #3b82f6;border-radius:6px;white-space:pre-wrap}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+.tab{padding:9px 15px;border-radius:12px;font-size:14px;font-weight:600;background:rgba(255,255,255,.06);border:1px solid var(--line)}
+.tab.on{background:linear-gradient(90deg,#fcd34d,#f59e0b);color:#06281e;border-color:transparent}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.stat b{font-size:24px}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:999px;overflow:hidden}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,#fcd34d,#fb7185);border-radius:999px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.loginbox{max-width:420px;margin:8vh auto}
+.field{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;margin:6px 0 12px}
+textarea.field{min-height:120px}
+.timer{font-variant-numeric:tabular-nums;font-weight:700}
+.passage{max-height:46vh;overflow:auto;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:12px;padding:14px;line-height:1.55}
+#flashcard{margin:20px 0}
+.qtext{font-size:19px;font-weight:700;line-height:1.4;margin:12px 0}
+.footer{margin-top:28px;text-align:center;color:var(--mut);font-size:12px}
+.marker{color:#34d399;font-weight:700}
+.badmark{color:#fda4af;font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+.badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px}
+.badge.ok{background:rgba(110,231,183,.18);color:#6ee7b7}
+.badge.no{background:rgba(251,113,133,.18);color:#fb7185}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+window.__APP_DATA__ = /*__DATA__*/;
+</script>
+<script>
+(function(){
+"use strict";
+var D = window.__APP_DATA__;
+var HIST = D.hist;       // [{id, pregunta, opciones:[], correct:i, explicacion, categoria, subtema, dificultad, pregunta_en, opciones_en, explicacion_en}]
+var PASSAGES = D.passages; // [{id, title, topic, text, text_en, questions:[{question, options, correct:i, question_en, options_en}]}]
+var IW = D.iw;           // {interview:[{question,tip}], writing:[], writingChecklist:[], writingWordRange:[]}
+var EN_FLAG = false;
+var phone = localStorage.getItem("nmx_phone") || "";
+var DB = loadDB();
+
+function key(){ return "nmx_db_" + (phone||"").trim(); }
+function loadDB(){
+  try { return JSON.parse(localStorage.getItem(key()) || "{}") || {}; }
+  catch(e){ return {}; }
+}
+function saveDB(){ localStorage.setItem(key(), JSON.stringify(DB)); }
+function user(){ return DB.user || {id:1,name:"",practiceSession:0,totalCorrect:0,totalAnswered:0,masteredCount:0,simuladorApproved:false,lecturaApproved:false}; }
+function today(){ return new Date().toISOString().slice(0,10); }
+function setUser(patch){ DB.user = Object.assign({}, user(), patch); saveDB(); }
+function correctDays(){
+  var m = {};
+  (DB.correctDays || {}).forEach ? null : null;
+  var cd = DB.correctDays || {};
+  for(var qid in cd){ m[qid] = (cd[qid]||[]).length; }
+  return {map:m, cd:cd};
+}
+function sessionDay(){ var u=user(); return (u.practiceSession||0)+1; }
+
+/* ---------- views ---------- */
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+function render(){ 
+  var root=document.getElementById("app");
+  if(!phone){ root.innerHTML = loginHTML(); bindLogin(); }
+  else { root.innerHTML = appHTML(); bindApp(); }
+}
+function loginHTML(){
+  return '<div class="loginbox card">'+
+    '<div class="pill gold" style="margin-bottom:10px">Práctica de naturalización mexicana</div>'+
+    '<h1 style="font-size:34px;margin-bottom:6px">Examen de <span style="font-style:italic;font-family:Georgia,serif">Naturalización</span></h1>'+
+    '<p class="mut" style="margin-bottom:18px">Simulador (10 preguntas, pasa con 8) · Lectura (6, pasa con 5) · Entrevista y Redacción · Flashcards · Banco. Tu progreso se guarda en este dispositivo.</p>'+
+    '<label class="small" for="ph">Número de teléfono</label>'+
+    '<input id="ph" class="field" placeholder="+52 55 1234 5678" />'+
+    '<label class="small" for="nm">Tu nombre (opcional)</label>'+
+    '<input id="nm" class="field" placeholder="Juan Pérez" />'+
+    '<button class="btn" style="width:100%;justify-content:center" id="go">Entrar / Registrarme</button>'+
+    '<p class="small mut" style="margin-top:14px">Funciona sin internet y sin servidor. Cada persona ve su propio progreso en su navegador.</p>'+
+  '</div>';
+}
+function bindLogin(){
+  document.getElementById("go").onclick=function(){
+    var ph=document.getElementById("ph").value.trim();
+    if(ph.length<5){ alert("Escribe tu número de teléfono"); return; }
+    phone=ph;
+    var db=loadDB();
+    if(!db.user){ db.user={id:1,name:document.getElementById("nm").value.trim(),practiceSession:0,totalCorrect:0,totalAnswered:0,masteredCount:0,simuladorApproved:false,lecturaApproved:false}; }
+    else if(document.getElementById("nm").value.trim()){ db.user.name=document.getElementById("nm").value.trim(); }
+    if(!db.correctDays) db.correctDays={};
+    if(!db.attempts) db.attempts=[];
+    if(!db.flashcards) db.flashcards={};
+    if(!db.daily) db.daily={};
+    DB=db; saveDB();
+    render();
+  };
+}
+function appHTML(){
+  var u=user();
+  var stats=[
+    ["Dominadas",u.masteredCount,"5 días correctos cada una"],
+    ["Correctas",u.totalCorrect,"respuestas correctas"],
+    ["Sesión","#"+(u.practiceSession+1),"cada práctica cuenta como día"],
+    ["Estado", u.simuladorApproved&&u.lecturaApproved?"¡Listo!":"En progreso", ""]
+  ];
+  var tabs=[["sim","Simulador"],["lec","Lectura"],["ent","Entrevista"],["fl","Flashcards"],["ban","Banco"],["pro","Progreso"]];
+  var t=tabs.map(function(t){return '<button class="tab'+(t[0]===STATE.tab?' on':'')+'" data-tab="'+t[0]+'">'+t[1]+'</button>';}).join("");
+  return '<div class="wrap">'+
+    '<div class="top">'+
+      '<div><div style="display:flex;gap:8px;align-items:center"><span style="font-size:22px">🇲🇽</span><h1>Naturalización <span style="color:#fcd34d">MX</span></h1></div>'+
+      '<div class="small mut">Hola, '+(esc(u.name)||"estudiante")+' · '+esc(phone)+'</div></div>'+
+      '<div class="row"><button class="btn ghost" id="en">EN '+(EN_FLAG?"on":"off")+'</button><button class="btn ghost" id="out">Salir</button></div>'+
+    '</div>'+
+    '<div class="grid" style="margin-bottom:14px">'+stats.map(function(s){return '<div class="stat"><b>'+s[1]+'</b><div class="small mut">'+s[0]+'</div><div class="small" style="opacity:.6">'+s[2]+'</div></div>';}).join("")+'</div>'+
+    '<div class="tabs">'+t+'</div>'+
+    '<div id="content">'+viewHTML(STATE.tab)+'</div>'+
+    '<div class="footer">Naturalización MX · datos del banco oficial de práctica · progreso guardado localmente (localStorage)</div>'+
+  '</div>';
+}
+function viewHTML(tab){
+  if(tab==="sim") return simHTML();
+  if(tab==="lec") return lecHTML();
+  if(tab==="ent") return entHTML();
+  if(tab==="fl") return flHTML();
+  if(tab==="ban") return banHTML();
+  if(tab==="pro") return proHTML();
+  return "";
+}
+function bindApp(){
+  document.querySelectorAll(".tab").forEach(function(b){ b.onclick=function(){ STATE.tab=b.getAttribute("data-tab"); STATE.view=null; render(); }; });
+  document.getElementById("out").onclick=function(){ phone=""; STATE.view=null; render(); };
+  document.getElementById("en").onclick=function(){ EN_FLAG=!EN_FLAG; render(); };
+  bindView();
+}
+var STATE={tab:"sim",view:null,sel:{},timer:null};
+function en(txt){ if(!txt) return ""; return EN_FLAG ? '<div class="en">'+esc(txt)+'</div>' : ''; }
+function qpills(q){ 
+  var p='';
+  if(q.categoria)p+='<span class="pill gold">'+esc(q.categoria)+'</span>';
+  if(q.subtema)p+=' <span class="pill">'+esc(q.subtema)+'</span>';
+  if(q.dificultad)p+=' <span class="pill green">'+esc(q.dificultad)+'</span>';
+  return p;
+}
+function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+
+/* ---------- Simulador ---------- */
+function simHTML(){
+  if(!STATE.view){ STATE.view={qs:shuffle(HIST).slice(0,10),idx:0,ans:{},left:600,phase:"active"}; startTimer(); }
+  var v=STATE.view;
+  if(v.phase==="review") return simReviewHTML(v);
+  var q=v.qs[v.idx];
+  return '<div class="card"><div class="top"><div>'+qpills(q)+'<div class="qtext">'+(v.idx+1)+'. '+esc(q.pregunta)+'</div>'+en(q.pregunta_en)+'</div>'+
+    '<div class="timer">'+fmt(v.left)+'</div></div>'+
+    '<div id="opts">'+q.opciones.map(function(o,i){return '<button class="opt'+(v.ans[q.id]===i?' sel':'')+'" data-i="'+i+'"><b style="color:#fcd34d">'+String.fromCharCode(65+i)+'.</b> '+esc(o)+(EN_FLAG&&q.opciones_en&&q.opciones_en[i]?'<div class="small" style="color:#bfdbfe">'+esc(q.opciones_en[i])+'</div>':'')+'</button>';}).join("")+'</div>'+
+    '<div class="row" style="margin-top:12px">'+(v.idx>0?'<button class="btn ghost" id="prev">Atrás</button>':'')+
+    (v.idx<9?'<button class="btn" id="next" '+(v.ans[q.id]==null?'disabled':'')+'>Siguiente</button>':'<button class="btn" id="fin" '+(v.ans[q.id]==null?'disabled':'')+'>Terminar y ver resultado</button>')+
+    '</div></div>';
+}
+function startTimer(){
+  clearInterval(STATE.timer);
+  STATE.timer=setInterval(function(){
+    var v=STATE.view; if(!v) return;
+    if(v.phase==="active"&&v.left>0){ v.left--; var el=document.querySelector(".timer"); if(el)el.textContent=fmt(v.left); if(v.left<=0){ clearInterval(STATE.timer); submitSim(true); } }
+  },1000);
+}
+function submitSim(force){
+  var v=STATE.view; if(!v||v.phase!=="active") return;
+  clearInterval(STATE.timer);
+  var list=v.qs.map(function(q){return {id:q.id, ans:v.ans[q.id], correct:q.correct};});
+  var correct=list.filter(function(x){return x.ans===x.correct;}).length;
+  var total=v.qs.length;
+  var passed=correct>=8;
+  recordAnswers(list);
+  recordAttempt("simulador",correct,total,passed);
+  if(passed) setUser({simuladorApproved:true});
+  v.phase="review"; v.correct=correct; v.total=total; v.passed=passed; v.list=list;
+  render();
+}
+function recordAnswers(list){
+  var day=sessionDay();
+  var cd=DB.correctDays||{};
+  list.forEach(function(x){ if(x.ans===x.correct){ var arr=cd[x.id]||[]; if(arr.indexOf(day)<0){arr.push(day); arr.sort(function(a,b){return a-b;});} cd[x.id]=arr; } });
+  DB.correctDays=cd;
+  var u=user(); u.totalAnswered+=(list.filter(function(x){return x.ans!=null;}).length); u.totalCorrect+=(list.filter(function(x){return x.ans===x.correct;}).length); u.practiceSession=day;
+  u.masteredCount=Object.keys(cd).filter(function(k){return cd[k].length>=5;}).length;
+  setUser(u);
+  var d=DB.daily[today()]||{flashcards:0,simulador:false,lectura:false};
+  d.simulador=true; DB.daily[today()]=d; saveDB();
+}
+function simReviewHTML(v){
+  return '<div class="card"><div class="top"><h2>'+(v.passed?'✅ APROBADO':'❌ NO APROBADO')+'</h2></div>'+
+    '<p class="mut" style="margin-bottom:10px">Obtuviste <b>'+v.correct+'</b> de '+v.total+' (necesitas 8).</p>'+
+    '<button class="btn" id="again">Repetir simulador</button></div>'+
+    v.list.map(function(x,i){var q=byHistId(x.id); return '<div class="card"><div class="row" style="justify-content:space-between"><div><b>'+(i+1)+'. '+esc(q.pregunta)+'</b></div><span class="badge '+(x.ans===x.correct?'ok':'no')+'">'+(x.ans===x.correct?'Correcta':'Incorrecta')+'</span></div>'+en(q.pregunta_en)+
+      '<div>'+q.opciones.map(function(o,oi){var cls="opt locked"; if(oi===q.correct)cls="opt ok"; else if(oi===x.ans)cls="opt bad"; return '<div class="'+cls+'">'+esc(o)+(oi===q.correct?' <span class="marker">✓</span>':(oi===x.ans?' <span class="badmark">✗</span>':''))+'</div>';}).join("")+'</div>'+
+      (q.explicacion?'<p class="small mut" style="margin-top:8px">'+esc(q.explicacion)+'</p>':'')+'</div>';}).join("");
+}
+function byHistId(id){ for(var i=0;i<HIST.length;i++){ if(HIST[i].id===id) return HIST[i]; } return {pregunta:"",opciones:[],correct:0}; }
+
+/* ---------- Lectura ---------- */
+function lecHTML(){
+  if(!STATE.view){ var p=shuffle(PASSAGES)[0]; STATE.view={p:p,qs:p.questions,ans:{},left:1200,phase:"active"}; startTimer(); }
+  var v=STATE.view;
+  if(v.phase==="review") return lecReviewHTML(v);
+  return '<div class="grid" style="grid-template-columns:1fr 1fr;gap:16px">'+
+    '<div><div class="card"><div class="top"><div><h2>'+esc(v.p.title)+'</h2>'+(v.p.topic?'<span class="pill gold">'+esc(v.p.topic)+'</span>':'')+'</div><div class="timer">'+fmt(v.left)+'</div></div>'+
+    '<div class="passage">'+esc(v.p.text)+'</div>'+en(v.p.text_en)+'</div></div>'+
+    '<div>'+v.qs.map(function(q,i){return '<div class="card"><div class="qtext">'+(i+1)+'. '+esc(q.question)+'</div>'+en(q.question_en)+
+      q.options.map(function(o,oi){return '<button class="opt'+(v.ans[q.id]===oi?' sel':'')+'" data-id="'+q.id+'" data-i="'+oi+'"><b style="color:#fcd34d">'+String.fromCharCode(65+oi)+'.</b> '+esc(o)+(EN_FLAG&&q.options_en?'<div class="small" style="color:#bfdbfe">'+esc(q.options_en[oi])+'</div>':'')+'</button>';}).join("")+'</div>';}).join("")+
+    '<button class="btn" id="finlec" style="width:100%;justify-content:center">Enviar respuestas de lectura</button></div></div>';
+}
+function submitLec(){
+  var v=STATE.view; if(!v||v.phase!=="active") return;
+  clearInterval(STATE.timer);
+  var list=v.qs.map(function(q){return {id:q.id, ans:v.ans[q.id], correct:q.correct};});
+  var correct=list.filter(function(x){return x.ans===x.correct;}).length;
+  var total=v.qs.length, passed=correct>=5;
+  recordAnswers(list);
+  recordAttempt("lectura",correct,total,passed);
+  if(passed) setUser({lecturaApproved:true});
+  v.phase="review"; v.correct=correct; v.total=total; v.passed=passed; v.list=list;
+  render();
+}
+function lecReviewHTML(v){
+  return '<div class="card"><div class="top"><h2>'+(v.passed?'✅ APROBADO':'❌ NO APROBADO')+'</h2></div>'+
+    '<p class="mut" style="margin-bottom:10px">Obtuviste <b>'+v.correct+'</b> de '+v.total+' (necesitas 5).</p><button class="btn" id="againlec">Repetir lectura</button></div>'+
+    v.list.map(function(x,i){var q=byLecId(x.id); return '<div class="card"><div class="row" style="justify-content:space-between"><b>'+(i+1)+'. '+esc(q.question)+'</b><span class="badge '+(x.ans===x.correct?'ok':'no')+'">'+(x.ans===x.correct?'Correcta':'Incorrecta')+'</span></div>'+en(q.question_en)+
+      '<div>'+q.options.map(function(o,oi){var cls="opt locked"; if(oi===q.correct)cls="opt ok"; else if(oi===x.ans)cls="opt bad"; return '<div class="'+cls+'">'+esc(o)+(oi===q.correct?' <span class="marker">✓</span>':(oi===x.ans?' <span class="badmark">✗</span>':''))+'</div>';}).join("")+'</div></div>';}).join("");
+}
+function byLecId(id){ for(var i=0;i<PASSAGES.length;i++){ var qs=PASSAGES[i].questions; for(var j=0;j<qs.length;j++){ if(qs[j].id===id) return qs[j]; } } return {question:"",options:[],correct:0}; }
+function recordAttempt(type,score,total,passed){ (DB.attempts=DB.attempts||[]).unshift({type:type,score:score,total:total,passed:passed,at:Date.now()}); DB.attempts=DB.attempts.slice(0,20); saveDB(); }
+
+/* ---------- Entrevista ---------- */
+function entHTML(){
+  var sel=STATE.sel.ent||0;
+  return '<div class="grid" style="grid-template-columns:1fr 1fr;gap:16px">'+
+  '<div class="card"><h2 style="margin-bottom:10px">Preguntas de entrevista</h2>'+
+  IW.interview.map(function(item,i){return '<button class="opt'+(i===sel?' sel':'')+'" data-ent="'+i+'">'+(i+1)+'. '+esc(item.question)+'</button>';}).join("")+
+  '<div class="card" style="margin-top:10px;background:rgba(252,211,77,.08);border-color:rgba(252,211,77,.25)"><b>💡 Tip:</b> '+esc(IW.interview[sel].tip)+'</div></div>'+
+  '<div class="card"><h2 style="margin-bottom:10px">Redacción</h2><p class="small mut">'+IW.writingWordRange[0]+'–'+IW.writingWordRange[1]+' palabras</p>'+
+  '<div class="card" style="margin:10px 0;background:rgba(255,255,255,.04)"><b>'+esc(IW.writing[STATE.sel.wr||0])+'</b></div>'+
+  '<div class="row">'+IW.writingChecklist.map(function(c){return '<span class="pill green">'+esc(c)+'</span>';}).join("")+'</div>'+
+  '<textarea class="field" id="write" placeholder="Escribe aquí tu respuesta (no se guarda en el banco, es solo práctica)…"></textarea>'+
+  '<div class="row"><button class="btn ghost" id="prevwr">← Anterior</button><button class="btn ghost" id="nextwr">Siguiente →</button></div>'+
+  '<p class="small mut" style="margin-top:8px">Responde con idea principal, ejemplo real y cierre breve.</p></div></div>';
+}
+
+/* ---------- Flashcards ---------- */
+function flHTML(){
+  var arch=archivedIds();
+  var studied=(DB.daily[today()]||{}).flashcards||0;
+  if(!STATE.view){ var pool=HIST.filter(function(q){return arch.indexOf(q.id)<0;}); if(!pool.length)pool=HIST; STATE.view={q:shuffle(pool)[0],revealed:false}; }
+  var v=STATE.view,q=v.q;
+  return '<div class="card"><div class="row" style="margin-bottom:8px"><span class="pill gold">Hoy: '+studied+'/30</span><span class="pill green">Archivadas: '+arch.length+'</span></div>'+
+    qpills(q)+'<div class="qtext">'+esc(q.pregunta)+'</div>'+en(q.pregunta_en)+
+    '<div id="flashcard">'+(v.revealed?('<div class="card" style="background:rgba(110,231,183,.1);border-color:rgba(110,231,183,.3)"><b>Respuesta:</b> '+esc(q.opciones[q.correct])+(q.explicacion?'<p class="small mut">'+esc(q.explicacion)+'</p>':'')+'</div>'):'')+'</div>'+
+    '<div class="row">'+(v.revealed?
+      '<button class="btn" id="flfacil">👍 Fácil</button><button class="btn ghost" id="fldificil">👎 Difícil</button>'
+      :'<button class="btn ghost" id="flshow">Mostrar respuesta</button>')+
+    '</div><p class="small mut" style="margin-top:8px">Se archiva al marcarla <b>fácil</b> 3 veces consecutivas.</p></div>';
+}
+function archivedIds(){
+  var fc=DB.flashcards||{}, out=[];
+  for(var qid in fc){ var m=fc[qid]; if(m.length>=3 && m.slice(-3).every(function(x){return x==="facil";})) out.push(+qid); }
+  return out;
+}
+function markFlash(mark){
+  var v=STATE.view,q=v.q;
+  (DB.flashcards=DB.flashcards||{})[q.id]=(DB.flashcards[q.id]||[]).concat([mark]);
+  var d=DB.daily[today()]||{flashcards:0,simulador:false,lectura:false};
+  var ids={}; for(var qid in DB.flashcards){ ids[qid]=1; }
+  d.flashcards=Object.keys(ids).length; DB.daily[today()]=d;
+  saveDB(); STATE.view=null; render();
+}
+
+/* ---------- Banco ---------- */
+function banHTML(){
+  var q=(STATE.sel.banq||"").toLowerCase();
+  var mode=STATE.sel.banmode||"hist";
+  var hits=[];
+  if(mode==="hist"){ hits=HIST.filter(function(x){ if(!q) return true; var hay=x.pregunta+" "+(x.subtema||"")+" "+(x.categoria||"")+" "+x.opciones.join(" "); return hay.toLowerCase().indexOf(q)>=0; }).slice(0,80); }
+  var lechits=[];
+  if(mode==="lec"){ lechits=PASSAGES.filter(function(p){ if(!q) return true; return (p.title+" "+p.text).toLowerCase().indexOf(q)>=0; }); }
+  var modes=[["hist","Historia y cultura"],["lec","Lecturas"],["conv","Conversación"]];
+  var m=modes.map(function(x){return '<button class="tab'+(mode===x[0]?' on':'')+'" data-banmode="'+x[0]+'">'+x[1]+'</button>';}).join("");
+  var body="";
+  if(mode==="hist"){ body='<p class="small mut">'+hits.length+' pregunta(s) encontradas.</p>'+hits.map(function(x){return '<div class="card"><div class="row">'+qpills(x)+'</div><div class="qtext" style="font-size:16px">'+esc(x.pregunta)+'</div>'+en(x.pregunta_en)+
+    x.opciones.map(function(o,i){return '<div class="opt locked">'+esc(o)+(i===x.correct?' <span class="marker">[CORRECTA]</span>':'')+'</div>';}).join("")+
+    (x.explicacion?'<p class="small mut">'+esc(x.explicacion)+'</p>':'')+'</div>';}).join(""); }
+  else if(mode==="lec"){ body='<p class="small mut">'+lechits.length+' texto(s) encontrado(s).</p>'+lechits.map(function(p){return '<div class="card"><h2>LECTURA: '+esc(p.title)+'</h2>'+(p.topic?'<span class="pill gold">'+esc(p.topic)+'</span>':'')+
+    '<div class="passage" style="margin:10px 0">'+esc(p.text)+'</div>'+en(p.text_en)+
+    p.questions.map(function(q,i){return '<div style="margin:8px 0"><b>'+(i+1)+'. '+esc(q.question)+'</b>'+en(q.question_en)+q.options.map(function(o,oi){return '<div class="opt locked">'+esc(o)+(oi===q.correct?' <span class="marker">[CORRECTA]</span>':'')+'</div>';}).join("")+'</div>';}).join("")+'</div>';}).join(""); }
+  else { body='<div class="grid" style="grid-template-columns:1fr 1fr;gap:16px"><div class="card"><h2 style="margin-bottom:8px">Conversación</h2>'+IW.interview.map(function(x,i){return '<div style="margin:8px 0"><b>'+(i+1)+'. '+esc(x.question)+'</b><div class="small mut">Sugerencia: '+esc(x.tip)+'</div></div>';}).join("")+'</div><div class="card"><h2 style="margin-bottom:8px">Redacción</h2>'+IW.writing.map(function(w,i){return '<div style="margin:6px 0">'+(i+1)+'. '+esc(w)+'</div>';}).join("")+'</div></div>'; }
+  return '<div class="card"><div class="top"><div class="tabs" style="margin:0">'+m+'</div>'+(mode!=="conv"?'<input class="field" style="max-width:280px;margin:0" id="banq" placeholder="Buscar palabra o tema…" value="'+esc(STATE.sel.banq||"")+'">':'')+'</div>'+body+'</div>';
+}
+
+/* ---------- Progreso ---------- */
+function proHTML(){
+  var u=user(); var cd=DB.correctDays||{};
+  var mastered=Object.keys(cd).filter(function(k){return cd[k].length>=5;}).length;
+  var arch=archivedIds();
+  var d=DB.daily[today()]||{flashcards:0,simulador:false,lectura:false};
+  var dailyDone=d.flashcards>=30&&d.simulador&&d.lectura;
+  var attempts=(DB.attempts||[]);
+  return '<div class="card"><div class="top"><h2>Meta diaria</h2>'+(dailyDone?'<span class="pill green">¡COMPLETADA!</span>':'')+'</div>'+
+    '<div class="grid"><div class="stat"><b>'+d.flashcards+'<span style="font-size:14px;color:#a7f3d0">/30</span></b><div class="small mut">Flashcards hoy</div></div>'+
+    '<div class="stat"><b>'+(d.simulador?'✅':'⬜')+'</b><div class="small mut">Simulador hoy</div></div>'+
+    '<div class="stat"><b>'+(d.lectura?'✅':'⬜')+'</b><div class="small mut">Lectura hoy</div></div></div></div>'+
+    '<div class="grid"><div class="stat"><b>'+HIST.length+'</b><div class="small mut">Banco historia</div></div>'+
+    '<div class="stat"><b>'+PASSAGES.length+'</b><div class="small mut">Lecturas</div></div>'+
+    '<div class="stat"><b>'+mastered+'</b><div class="small mut">Dominadas (5 días)</div></div>'+
+    '<div class="stat"><b>'+u.totalCorrect+'</b><div class="small mut">Correctas totales</div></div></div>'+
+    '<div class="card"><h2 style="margin-bottom:8px">Últimos intentos</h2>'+(attempts.length?'<table><tr><th>Tipo</th><th>Resultado</th><th>Fecha</th></tr>'+attempts.slice(0,10).map(function(a){return '<tr><td>'+(a.type==="simulador"?"Simulador":"Lectura")+'</td><td>'+a.score+'/'+a.total+' <span class="badge '+(a.passed?'ok':'no')+'">'+(a.passed?'Aprobado':'No aprobado')+'</span></td><td class="small mut">'+new Date(a.at).toLocaleString()+'</td></tr>';}).join("")+'</table>':'<p class="small mut">Aún no hay intentos registrados.</p>')+'</div>'+
+    '<div class="card"><h2 style="margin-bottom:8px">Preguntas archivadas <span class="pill green">'+arch.length+'</span></h2>'+(arch.length?arch.slice(0,40).map(function(id){var q=byHistId(id);return '<div class="small" style="margin:4px 0">• '+esc(q.pregunta)+'</div>';}).join(""):'<p class="small mut">Marca tarjetas como <b>fácil</b> 3 veces consecutivas.</p>')+'</div>';
+}
+
+/* ---------- bind per view ---------- */
+function bindView(){
+  var tab=STATE.tab;
+  if(tab==="sim"){
+    var v=STATE.view;
+    if(v.phase==="review"){ document.getElementById("again").onclick=function(){ STATE.view=null; render(); }; return; }
+    document.querySelectorAll("#opts .opt").forEach(function(b){ b.onclick=function(){ v.ans[v.qs[v.idx].id]=+b.getAttribute("data-i"); render(); }; });
+    var prev=document.getElementById("prev"); if(prev)prev.onclick=function(){v.idx--;render();};
+    var next=document.getElementById("next"); if(next)next.onclick=function(){v.idx++;render();};
+    var fin=document.getElementById("fin"); if(fin)fin.onclick=function(){submitSim(false);};
+  }
+  if(tab==="lec"){
+    var lv=STATE.view;
+    if(lv.phase==="review"){ document.getElementById("againlec").onclick=function(){ STATE.view=null; render(); }; return; }
+    document.querySelectorAll(".opt[data-id]").forEach(function(b){ b.onclick=function(){ lv.ans[+b.getAttribute("data-id")]=+b.getAttribute("data-i"); render(); }; });
+    document.getElementById("finlec").onclick=submitLec;
+  }
+  if(tab==="ent"){
+    document.querySelectorAll(".opt[data-ent]").forEach(function(b){ b.onclick=function(){ STATE.sel.ent=+b.getAttribute("data-ent"); render(); }; });
+    var pv=document.getElementById("prevwr"), nx=document.getElementById("nextwr");
+    if(pv)pv.onclick=function(){ STATE.sel.wr=((STATE.sel.wr||0)-1+IW.writing.length)%IW.writing.length; render(); };
+    if(nx)nx.onclick=function(){ STATE.sel.wr=((STATE.sel.wr||0)+1)%IW.writing.length; render(); };
+  }
+  if(tab==="fl"){
+    var fv=STATE.view;
+    var sh=document.getElementById("flshow"); if(sh)sh.onclick=function(){fv.revealed=true;render();};
+    var fa=document.getElementById("flfacil"); if(fa)fa.onclick=function(){markFlash("facil");};
+    var di=document.getElementById("fldificil"); if(di)di.onclick=function(){markFlash("dificil");};
+  }
+  if(tab==="ban"){
+    document.querySelectorAll(".tab[data-banmode]").forEach(function(b){ b.onclick=function(){ STATE.sel.banmode=b.getAttribute("data-banmode"); render(); }; });
+    var bq=document.getElementById("banq"); if(bq){ bq.oninput=function(){ STATE.sel.banq=bq.value; }; }
+  }
+  if(tab==="pro"){ /* static */ }
+}
+function fmt(s){ s=Math.max(0,s|0); return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0"); }
+render();
+})();
+</script>
+</body>
+</html>
