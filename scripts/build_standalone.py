@@ -21,6 +21,9 @@ for q in hist:
         "pregunta_en": q.get("pregunta_en"),
         "opciones_en": q.get("opciones_en"),
         "explicacion_en": q.get("explicacion_en"),
+        "pregunta_fa": q.get("pregunta_fa"),
+        "opciones_fa": q.get("opciones_fa"),
+        "explicacion_fa": q.get("explicacion_fa"),
     })
 
 PASSAGES = []
@@ -34,6 +37,8 @@ for p in passages:
             "correct": q["options"].index(q["correct"]),
             "question_en": q.get("question_en"),
             "options_en": q.get("options_en"),
+            "question_fa": q.get("question_fa"),
+            "options_fa": q.get("options_fa"),
         })
     PASSAGES.append({
         "id": p["id"],
@@ -41,6 +46,7 @@ for p in passages:
         "topic": p.get("topic"),
         "text": p["text"],
         "text_en": p.get("text_en"),
+        "text_fa": p.get("text_fa"),
         "questions": qs,
     })
 

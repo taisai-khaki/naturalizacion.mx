@@ -30,9 +30,16 @@ yarn-error.log*
 # local embedded postgres (PGlite)
 /.pglite/
 
+# resumable machine-translation cache
+/.farsi-translation-cache.json
+
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Python
+__pycache__/
+*.py[cod]
