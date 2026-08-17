@@ -18,7 +18,7 @@ preguntas real extraído de las aplicaciones de escritorio originales
 - Progreso guardado por **número de teléfono** (sin contraseñas).
 - Una pregunta se considera **dominada** al acertarla en **5 sesiones distintas**.
 - Estado **"¡Listo!"** cuando apruebas simulador y lectura.
-- Botón **EN** para ver la **traducción al inglés** de cada texto/pregunta/opción.
+- Botones **EN** y **FA** para ver las traducciones al **inglés** o **farsi/persa** de cada texto, pregunta y opción. El farsi se muestra de derecha a izquierda y se guarda en el navegador después de cargarlo por primera vez.
 
 ## Datos
 
@@ -26,9 +26,11 @@ Todo en `data/`:
 
 - `questions.json` — banco de Historia/Cultura **limpio y deduplicado**: 604 preguntas
   (33 conceptos únicos del banco original + 571 redactadas de tus flashcards), todas
-  **con acentos y traducción al inglés**.
+  **con acentos y traducción al inglés**. La app obtiene y almacena en el navegador la
+  traducción al farsi cuando se activa **FA**.
 - `reading_passages.json` — **16 pasajes** con 6 preguntas cada uno (**96**), todos con
-  acentos y **traducción al inglés** (texto + preguntas + opciones).
+  acentos y **traducción al inglés** (texto + preguntas + opciones), además de la
+  traducción al farsi bajo demanda.
 - `interview_writing.json` — entrevista + redacción.
 - `questions_from_images.json` — las **576 preguntas únicas** extraídas por OCR de tus
   imágenes.
@@ -51,8 +53,9 @@ tarjetas duplicadas o con texto ilegible que se reformularon. Ver
 ## 🌐 App en GitHub Pages (un solo archivo)
 
 `index.html` es una **app autocontenida**: funciona sin servidor y sin base de datos
-(guarda el progreso de cada persona en `localStorage` del navegador). Se genera a partir
-de los datos de `data/` con:
+(guarda el progreso de cada persona en `localStorage` del navegador). La primera carga
+de cada traducción al farsi requiere conexión; después también queda guardada en
+`localStorage`. Se genera a partir de los datos de `data/` con:
 
 ```bash
 python3 scripts/build_standalone.py
@@ -95,6 +98,7 @@ npm run typecheck    # verificación de tipos
 python3 scripts/merge_added.py      # añade las preguntas de scripts/qa_batch*.py
 python3 scripts/dedupe_original.py  # deduplica el banco original (33 conceptos)
 python3 scripts/complete_passages.py # completa/acentúa las 16 lecturas
+python3 scripts/add_farsi_translations.py # traduce al farsi los campos nuevos o faltantes
 python3 scripts/build_standalone.py # regenera index.html
 ```
 
