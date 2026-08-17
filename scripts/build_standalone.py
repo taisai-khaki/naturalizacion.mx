@@ -50,8 +50,9 @@ tmpl = open(os.path.join(root, "scripts", "standalone.template.html"), encoding=
 payload = json.dumps(APP_DATA, ensure_ascii=False).replace("</", "<\\/")
 html = tmpl.replace("/*__DATA__*/", payload)
 
-out = os.path.join(root, "public", "full.html")
-os.makedirs(os.path.dirname(out), exist_ok=True)
+# `index.html` en la raíz: GitHub Pages lo sirve directamente como la página
+# principal del sitio (Settings → Pages → "Deploy from a branch" → main → /).
+out = os.path.join(root, "index.html")
 open(out, "w", encoding="utf-8").write(html)
 
 print(f"OK -> {out}  ({len(HIST)} history questions, {len(PASSAGES)} passages, {os.path.getsize(out)/1024:.0f} KB)")

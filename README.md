@@ -50,8 +50,9 @@ tarjetas duplicadas o con texto ilegible que se reformularon. Ver
 
 ## 🌐 App en GitHub Pages (un solo archivo)
 
-`public/full.html` es una **app autocontenida**: funciona sin servidor y sin base de
-datos (guarda el progreso de cada persona en `localStorage` del navegador). Se genera con:
+`index.html` es una **app autocontenida**: funciona sin servidor y sin base de datos
+(guarda el progreso de cada persona en `localStorage` del navegador). Se genera a partir
+de los datos de `data/` con:
 
 ```bash
 python3 scripts/build_standalone.py
@@ -59,12 +60,14 @@ python3 scripts/build_standalone.py
 
 Para publicarla como página de GitHub **del mismo repo**:
 
-1. Empuja/mergea la rama a `main`.
-2. En GitHub → **Settings → Pages → Build and deployment → Source = "GitHub Actions"**.
-3. El workflow `.github/workflows/deploy-pages.yml` compila `public/full.html` y lo
-   despliega automáticamente en cada push.
+1. Empuja/mergea `index.html` a `main`.
+2. En GitHub → **Settings → Pages → Build and deployment**:
+   - *Source* = **Deploy from a branch**.
+   - *Branch* = **main** · *Folder* = **/ (root)**.
+3. Guarda. En unos segundos la app queda en:
+   `https://<tu-usuario>.github.io/naturalizacion.mx/`
 
-La app queda en: `https://<tu-usuario>.github.io/naturalizacion.mx/`
+No requiere workflow ni compilación: GitHub sirve `index.html` tal cual.
 
 ## Stack
 
@@ -92,7 +95,7 @@ npm run typecheck    # verificación de tipos
 python3 scripts/merge_added.py      # añade las preguntas de scripts/qa_batch*.py
 python3 scripts/dedupe_original.py  # deduplica el banco original (33 conceptos)
 python3 scripts/complete_passages.py # completa/acentúa las 16 lecturas
-python3 scripts/build_standalone.py # regenera public/full.html
+python3 scripts/build_standalone.py # regenera index.html
 ```
 
 ## 🚀 Desplegar en producción (Vercel + Neon)
