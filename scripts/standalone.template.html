@@ -431,7 +431,7 @@ function banHTML(){
   var q=(STATE.sel.banq||"").toLowerCase();
   var mode=STATE.sel.banmode||"hist";
   var hits=[];
-  if(mode==="hist"){ hits=HIST.filter(function(x){ if(!q) return true; var hay=x.pregunta+" "+(x.pregunta_en||"")+" "+(x.pregunta_fa||"")+" "+(x.subtema||"")+" "+(x.categoria||"")+" "+x.opciones.join(" ")+" "+(x.opciones_en||[]).join(" ")+" "+(x.opciones_fa||[]).join(" "); return hay.toLowerCase().indexOf(q)>=0; }).slice(0,80); }
+  if(mode==="hist"){ hits=HIST.filter(function(x){ if(!q) return true; var hay=x.pregunta+" "+(x.pregunta_en||"")+" "+(x.pregunta_fa||"")+" "+(x.subtema||"")+" "+(x.categoria||"")+" "+x.opciones.join(" ")+" "+(x.opciones_en||[]).join(" ")+" "+(x.opciones_fa||[]).join(" "); return hay.toLowerCase().indexOf(q)>=0; }).slice(0,604); }
   var lechits=[];
   if(mode==="lec"){ lechits=PASSAGES.filter(function(p){ if(!q) return true; return (p.title+" "+p.text+" "+(p.text_en||"")+" "+(p.text_fa||"")).toLowerCase().indexOf(q)>=0; }); }
   var modes=[["hist","Historia y cultura"],["lec","Lecturas"],["conv","Conversación"]];
