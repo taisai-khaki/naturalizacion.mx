@@ -227,7 +227,7 @@ function currentFarsiWork(){
     var mode=STATE.sel.banmode||"hist";
     var query=(STATE.sel.banq||"").toLowerCase();
     if(mode==="hist"){
-      HIST.filter(function(x){if(!query)return true;return (x.pregunta+" "+(x.pregunta_en||"")+" "+(x.subtema||"")).toLowerCase().indexOf(query)>=0;}).slice(0,604).forEach(function(q){addHistoryFarsiSources(out,q);});
+      HIST.filter(function(x){if(!query)return true;return (x.pregunta+" "+(x.pregunta_en||"")+" "+(x.subtema||"")).toLowerCase().indexOf(query)>=0;}).slice(0,10).forEach(function(q){addHistoryFarsiSources(out,q);});
     } else if(mode==="lec"){
       PASSAGES.filter(function(p){if(!query)return true;return (p.title+" "+p.text+" "+(p.text_en||"")).toLowerCase().indexOf(query)>=0;}).slice(0,2).forEach(function(p){addFarsiSource(out,p.text_en,p.text_fa);p.questions.forEach(function(q){addReadingFarsiSources(out,q);});});
     }
