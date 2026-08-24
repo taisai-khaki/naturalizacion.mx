@@ -5,14 +5,11 @@ import {
   userProgress,
   examAttempts,
   dailyStats,
+  flashcards,
 } from "@/db/schema";
-import { sql, eq } from "drizzle-orm";
+import { sql, eq, and } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
-import {
-  SIMULADOR_PASS,
-  LECTURA_PASS,
-  MASTERY_SESSIONS,
-} from "@/lib/constants";
+import { SIMULADOR_PASS, LECTURA_PASS } from "@/lib/constants";
 
 type Answer = { questionId?: number; answerIndex?: number };
 
@@ -58,6 +55,31 @@ export async function POST(req: NextRequest) {
       await db
         .insert(userProgress)
         .values({ userId: uid, questionId: qId, sessionDay, isCorrect });
+
+      // Si es simulador: mover la pregunta a flashcards (si no está ya)
+      if (type === "simulador") {
+        const existing = await db
+          .select()
+          .from(flashcards)
+          .where(
+            and(
+              eq(flashcards.userId, uid),
+              eq(flashcards.questionId, qId),
+            ),
+          )
+          .limit(1);
+        if (!existing.length) {
+          await db.insert(flashcards).values({
+            userId: uid,
+            questionId: qId,
+            mark: "facil",
+            createdAt: new Date(),
+            lastReviewedAt: new Date(),
+            correctCount: 0,
+            learned: false,
+          });
+        }
+      }
     }
 
     const total = answered.length;
@@ -76,17 +98,13 @@ export async function POST(req: NextRequest) {
     const totalAnswered = parseInt(s.total_answered, 10);
     const totalCorrect = parseInt(s.total_correct, 10);
 
-    // Dominadas = preguntas correctas en >= N sesiones distintas
-    const masteredRow = await db.execute(sql`
-      SELECT COUNT(DISTINCT question_id)::int AS m FROM (
-        SELECT question_id
-        FROM user_progress
-        WHERE user_id = ${uid} AND is_correct = true
-        GROUP BY question_id
-        HAVING COUNT(DISTINCT session_day) >= ${MASTERY_SESSIONS}
-      ) t
+    // Preguntas aprendidas en flashcards (learned = true)
+    const learnedRow = await db.execute(sql`
+      SELECT COUNT(*)::int AS l
+      FROM flashcards
+      WHERE user_id = ${uid} AND learned = true
     `);
-    const masteredCount = parseInt((masteredRow.rows[0] as any).m, 10);
+    const learnedCount = parseInt((learnedRow.rows[0] as any).l, 10);
 
     // Registrar intento
     await db
@@ -109,7 +127,7 @@ export async function POST(req: NextRequest) {
     const patch: Record<string, any> = {
       totalCorrect,
       totalAnswered,
-      masteredCount,
+      masteredCount: learnedCount,
       practiceSession: sessionDay,
       lastActive: new Date(),
     };
@@ -128,7 +146,7 @@ export async function POST(req: NextRequest) {
       passed,
       passBar,
       sessionDay,
-      masteredCount,
+      masteredCount: learnedCount,
       user: fresh[0],
     });
   } catch (e: any) {

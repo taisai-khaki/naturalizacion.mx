@@ -8,6 +8,13 @@
       "when": 1786846719044,
       "tag": "0000_daily_sphinx",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1787581704439,
+      "tag": "0001_bitter_terror",
+      "breakpoints": true
     }
   ]
 }
