@@ -80,6 +80,7 @@ var FA_ERROR = "";
 var FA_LAST_VIEW = "";
 var phone = localStorage.getItem("nmx_phone") || "";
 var DB = loadDB();
+migrateFlashcards();
 
 function key(){ return "nmx_db_" + (phone||"").trim(); }
 function loadDB(){
@@ -96,6 +97,20 @@ function saveFarsiCache(){
   catch(e){ /* Translation still works for this session if storage is full. */ }
 }
 function user(){ return DB.user || {id:1,name:"",practiceSession:0,totalCorrect:0,totalAnswered:0,masteredCount:0,simuladorApproved:false,lecturaApproved:false}; }
+function migrateFlashcards(){
+  var fc=DB.flashcards||{};
+  var changed=false;
+  for(var qid in fc){
+    var val=fc[qid];
+    if(Array.isArray(val)){
+      // Migrate from old format (array of marks) to new format (object)
+      var correctCount=val.filter(function(x){return x==="facil";}).length;
+      fc[qid]={correctCount:correctCount,learned:correctCount>=5,lastReviewedAt:new Date().toISOString()};
+      changed=true;
+    }
+  }
+  if(changed){ DB.flashcards=fc; saveDB(); }
+}
 function today(){ return new Date().toISOString().slice(0,10); }
 function setUser(patch){ DB.user = Object.assign({}, user(), patch); saveDB(); }
 function correctDays(){
@@ -146,7 +161,7 @@ function bindLogin(){
 function appHTML(){
   var u=user();
   var stats=[
-    ["Dominadas",u.masteredCount,"5 días correctos cada una"],
+    ["Aprendidas",u.masteredCount,"5 respuestas correctas en flashcards"],
     ["Correctas",u.totalCorrect,"respuestas correctas"],
     ["Sesión","#"+(u.practiceSession+1),"cada práctica cuenta como día"],
     ["Estado", u.simuladorApproved&&u.lecturaApproved?"¡Listo!":"En progreso", ""]
@@ -298,7 +313,7 @@ function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor
 
 /* ---------- Simulador ---------- */
 function simHTML(){
-  if(!STATE.view){ STATE.view={qs:shuffle(HIST).slice(0,10),idx:0,ans:{},left:600,phase:"active"}; startTimer(); }
+  if(!STATE.view){ var simPool=HIST.filter(function(q){ var card=(DB.flashcards||{})[q.id]; return !card||!card.learned; }); if(simPool.length<10)simPool=HIST; STATE.view={qs:shuffle(simPool).slice(0,10),idx:0,ans:{},left:600,phase:"active"}; startTimer(); }
   var v=STATE.view;
   if(v.phase==="review") return simReviewHTML(v);
   var q=v.qs[v.idx];
@@ -335,7 +350,12 @@ function recordAnswers(list){
   list.forEach(function(x){ if(x.ans===x.correct){ var arr=cd[x.id]||[]; if(arr.indexOf(day)<0){arr.push(day); arr.sort(function(a,b){return a-b;});} cd[x.id]=arr; } });
   DB.correctDays=cd;
   var u=user(); u.totalAnswered+=(list.filter(function(x){return x.ans!=null;}).length); u.totalCorrect+=(list.filter(function(x){return x.ans===x.correct;}).length); u.practiceSession=day;
-  u.masteredCount=Object.keys(cd).filter(function(k){return cd[k].length>=5;}).length;
+  // Auto-add questions to flashcards after simulator/lectura
+  var fc=DB.flashcards=DB.flashcards||{};
+  list.forEach(function(x){
+    if(!fc[x.id]){ fc[x.id]={correctCount:0,learned:false,lastReviewedAt:null}; }
+  });
+  u.masteredCount=learnedIds().length;
   setUser(u);
   var d=DB.daily[today()]||{flashcards:0,simulador:false,lectura:false};
   d.simulador=true; DB.daily[today()]=d; saveDB();
@@ -399,31 +419,102 @@ function entHTML(){
 }
 
 /* ---------- Flashcards ---------- */
-function flHTML(){
-  var arch=archivedIds();
-  var studied=(DB.daily[today()]||{}).flashcards||0;
-  if(!STATE.view){ var pool=HIST.filter(function(q){return arch.indexOf(q.id)<0;}); if(!pool.length)pool=HIST; STATE.view={q:shuffle(pool)[0],revealed:false}; }
-  var v=STATE.view,q=v.q;
-  return '<div class="card"><div class="row" style="margin-bottom:8px"><span class="pill gold">Hoy: '+studied+'/30</span><span class="pill green">Archivadas: '+arch.length+'</span></div>'+
-    qpills(q)+'<div class="qtext">'+esc(q.pregunta)+'</div>'+tr(q.pregunta_en,q.pregunta_fa)+
-    '<div id="flashcard">'+(v.revealed?('<div class="card" style="background:rgba(110,231,183,.1);border-color:rgba(110,231,183,.3)"><b>Respuesta:</b> '+esc(q.opciones[q.correct])+trOption(q.opciones_en,q.opciones_fa,q.correct)+(q.explicacion?'<p class="small mut">'+esc(q.explicacion)+'</p>':'')+tr(q.explicacion_en,q.explicacion_fa)+'</div>'):'')+'</div>'+
-    '<div class="row">'+(v.revealed?
-      '<button class="btn" id="flfacil">👍 Fácil</button><button class="btn ghost" id="fldificil">👎 Difícil</button>'
-      :'<button class="btn ghost" id="flshow">Mostrar respuesta</button>')+
-    '</div><p class="small mut" style="margin-top:8px">Se archiva al marcarla <b>fácil</b> 3 veces consecutivas.</p></div>';
-}
-function archivedIds(){
+var FLASHCARD_LEARN_COUNT=5;
+var FLASHCARD_MIN_DAYS=5;
+var FL_MODE="reveal"; // "reveal" or "choice"
+function learnedIds(){
   var fc=DB.flashcards||{}, out=[];
-  for(var qid in fc){ var m=fc[qid]; if(m.length>=3 && m.slice(-3).every(function(x){return x==="facil";})) out.push(+qid); }
+  for(var qid in fc){ var card=fc[qid]; if(card&&card.learned) out.push(+qid); }
   return out;
 }
-function markFlash(mark){
+function pendingCards(){
+  var fc=DB.flashcards||{}, out=[];
+  for(var qid in fc){ var card=fc[qid]; if(card&&!card.learned) out.push({id:+qid,correctCount:card.correctCount||0,lastReviewedAt:card.lastReviewedAt||null}); }
+  return out;
+}
+function availablePool(){
+  var fc=DB.flashcards||{};
+  var now=Date.now();
+  var minMs=FLASHCARD_MIN_DAYS*24*60*60*1000;
+  var pool=HIST.filter(function(q){
+    var card=fc[q.id];
+    if(!card) return true; // never seen = available
+    if(card.learned) return false;
+    if(card.correctCount<1) return true; // needs at least 1 correct before cooldown applies
+    if(!card.lastReviewedAt) return true;
+    return (now - new Date(card.lastReviewedAt).getTime()) >= minMs;
+  });
+  return pool;
+}
+function flHTML(){
+  var learned=learnedIds();
+  var pending=pendingCards();
+  var studied=(DB.daily[today()]||{}).flashcards||0;
+  if(!STATE.view){
+    var pool=availablePool();
+    if(!pool.length){
+      return '<div class="card" style="padding:40px;text-align:center">'+
+        '<div class="row" style="margin-bottom:12px;justify-content:center"><span class="pill gold">Pendientes: '+pending.length+'</span><span class="pill green">Aprendidas: '+learned.length+'</span></div>'+
+        '<h2>¡Sin pendientes! 🎉</h2>'+
+        '<p class="small mut" style="margin-top:8px">No hay tarjetas disponibles para repasar ahora. Vuelve a practicar en el simulador para agregar más preguntas.</p></div>';
+    }
+    STATE.view={q:shuffle(pool)[0],revealed:false,answered:false,selectedOption:null};
+  }
   var v=STATE.view,q=v.q;
-  (DB.flashcards=DB.flashcards||{})[q.id]=(DB.flashcards[q.id]||[]).concat([mark]);
+  var modeBtn='<button class="btn ghost" id="flmode" style="margin-left:auto;font-size:12px">'+
+    (FL_MODE==="reveal"?"Cambiar a opciones":"Cambiar a autoevaluación")+'</button>';
+  var header='<div class="row" style="margin-bottom:8px;flex-wrap:wrap"><span class="pill gold">Pendientes: '+pending.length+'</span><span class="pill green">Aprendidas: '+learned.length+'</span>'+modeBtn+'</div>';
+  var cardInfo=getFlashcardInfo(q.id);
+  var progressText=cardInfo?(' <span class="small mut">('+cardInfo.correctCount+'/'+FLASHCARD_LEARN_COUNT+' correctas)</span>'):'';
+  var body='';
+  if(FL_MODE==="reveal"){
+    body=qpills(q)+'<div class="qtext">'+esc(q.pregunta)+progressText+'</div>'+tr(q.pregunta_en,q.pregunta_fa)+
+      '<div id="flashcard">'+(v.revealed?('<div class="card" style="background:rgba(110,231,183,.1);border-color:rgba(110,231,183,.3)"><b>Respuesta:</b> '+esc(q.opciones[q.correct])+trOption(q.opciones_en,q.opciones_fa,q.correct)+(q.explicacion?'<p class="small mut">'+esc(q.explicacion)+'</p>':'')+tr(q.explicacion_en,q.explicacion_fa)+'</div>'):'')+'</div>'+
+      '<div class="row">'+(v.answered?'<p class="small mut">¡Respuesta registrada! Cargando siguiente...</p>':(v.revealed?
+        '<button class="btn" id="flcorrect">✅ Correcta</button><button class="btn ghost" id="flwrong">❌ Incorrecta</button>'
+        :'<button class="btn ghost" id="flshow">Mostrar respuesta</button>'))+
+      '</div>';
+  } else {
+    body=qpills(q)+'<div class="qtext">'+esc(q.pregunta)+progressText+'</div>'+tr(q.pregunta_en,q.pregunta_fa)+
+      (v.answered?'<div style="text-align:center;margin-bottom:8px;font-weight:700" class="'+(v.selectedOption===q.correct?'marker':'badmark')+'">'+(v.selectedOption===q.correct?'¡Correcta! ✅':'Incorrecta ❌')+'</div>':'')+
+      '<div id="flashcard">'+q.opciones.map(function(o,i){
+        var cls="opt";
+        if(v.selectedOption!=null){
+          if(i===q.correct) cls="opt ok";
+          else if(i===v.selectedOption) cls="opt bad";
+          else cls="opt locked";
+        }
+        return '<button class="'+cls+'" data-fli="'+i+'"'+(v.selectedOption!=null?' disabled':'')+'>'+
+          '<b style="color:#fcd34d">'+String.fromCharCode(65+i)+'.</b> '+esc(o)+
+          (v.selectedOption!=null&&i===q.correct?' <span class="marker">✓</span>':'')+
+          (v.selectedOption!=null&&i===v.selectedOption&&i!==q.correct?' <span class="badmark">✗</span>':'')+
+          trOption(q.opciones_en,q.opciones_fa,i)+'</button>';
+      }).join("")+'</div>'+
+      (v.selectedOption==null?'<p class="small mut">Selecciona la opción correcta</p>':'');
+  }
+  return '<div class="card">'+header+body+
+    '<p class="small mut" style="margin-top:8px">Modo '+(FL_MODE==="reveal"?"autoevaluación":"opciones múltiples")+' · Responde <b>correctamente '+FLASHCARD_LEARN_COUNT+' veces</b> para aprender la pregunta. Puedes repasar cada '+FLASHCARD_MIN_DAYS+' días como mínimo.</p></div>';
+}
+function getFlashcardInfo(qid){
+  var fc=DB.flashcards||{};
+  return fc[qid]||null;
+}
+function markFlashCorrect(isCorrect){
+  var v=STATE.view,q=v.q;
+  var fc=DB.flashcards=DB.flashcards||{};
+  var card=fc[q.id]||{correctCount:0,learned:false,lastReviewedAt:null};
+  if(isCorrect) card.correctCount=(card.correctCount||0)+1;
+  card.lastReviewedAt=new Date().toISOString();
+  if(card.correctCount>=FLASHCARD_LEARN_COUNT) card.learned=true;
+  fc[q.id]=card;
+  // Update daily stats
   var d=DB.daily[today()]||{flashcards:0,simulador:false,lectura:false};
-  var ids={}; for(var qid in DB.flashcards){ ids[qid]=1; }
-  d.flashcards=Object.keys(ids).length; DB.daily[today()]=d;
-  saveDB(); STATE.view=null; render();
+  d.flashcards=(d.flashcards||0)+1; DB.daily[today()]=d;
+  // Update masteredCount
+  var u=user(); u.masteredCount=learnedIds().length; setUser(u);
+  saveDB();
+  v.answered=true; render();
+  setTimeout(function(){ STATE.view=null; render(); },1500);
 }
 
 /* ---------- Banco ---------- */
@@ -449,9 +540,9 @@ function banHTML(){
 
 /* ---------- Progreso ---------- */
 function proHTML(){
-  var u=user(); var cd=DB.correctDays||{};
-  var mastered=Object.keys(cd).filter(function(k){return cd[k].length>=5;}).length;
-  var arch=archivedIds();
+  var u=user();
+  var learned=learnedIds();
+  var pending=pendingCards();
   var d=DB.daily[today()]||{flashcards:0,simulador:false,lectura:false};
   var dailyDone=d.flashcards>=30&&d.simulador&&d.lectura;
   var attempts=(DB.attempts||[]);
@@ -459,12 +550,15 @@ function proHTML(){
     '<div class="grid"><div class="stat"><b>'+d.flashcards+'<span style="font-size:14px;color:#a7f3d0">/30</span></b><div class="small mut">Flashcards hoy</div></div>'+
     '<div class="stat"><b>'+(d.simulador?'✅':'⬜')+'</b><div class="small mut">Simulador hoy</div></div>'+
     '<div class="stat"><b>'+(d.lectura?'✅':'⬜')+'</b><div class="small mut">Lectura hoy</div></div></div></div>'+
-    '<div class="grid"><div class="stat"><b>'+HIST.length+'</b><div class="small mut">Banco historia</div></div>'+
-    '<div class="stat"><b>'+PASSAGES.length+'</b><div class="small mut">Lecturas</div></div>'+
-    '<div class="stat"><b>'+mastered+'</b><div class="small mut">Dominadas (5 días)</div></div>'+
-    '<div class="stat"><b>'+u.totalCorrect+'</b><div class="small mut">Correctas totales</div></div></div>'+
+    '<div class="grid"><div class="stat"><b>'+HIST.length+'</b><div class="small mut">Total banco</div></div>'+
+    '<div class="stat"><b>'+learned.length+'</b><div class="small mut">Aprendidas</div></div>'+
+    '<div class="stat"><b>'+u.totalCorrect+'</b><div class="small mut">Correctas totales</div></div>'+
+    '<div class="stat"><b>'+u.totalAnswered+'</b><div class="small mut">Respondidas</div></div></div>'+
     '<div class="card"><h2 style="margin-bottom:8px">Últimos intentos</h2>'+(attempts.length?'<table><tr><th>Tipo</th><th>Resultado</th><th>Fecha</th></tr>'+attempts.slice(0,10).map(function(a){return '<tr><td>'+(a.type==="simulador"?"Simulador":"Lectura")+'</td><td>'+a.score+'/'+a.total+' <span class="badge '+(a.passed?'ok':'no')+'">'+(a.passed?'Aprobado':'No aprobado')+'</span></td><td class="small mut">'+new Date(a.at).toLocaleString()+'</td></tr>';}).join("")+'</table>':'<p class="small mut">Aún no hay intentos registrados.</p>')+'</div>'+
-    '<div class="card"><h2 style="margin-bottom:8px">Preguntas archivadas <span class="pill green">'+arch.length+'</span></h2>'+(arch.length?arch.slice(0,40).map(function(id){var q=byHistId(id);return '<div class="small" style="margin:4px 0">• '+esc(q.pregunta)+'</div>';}).join(""):'<p class="small mut">Marca tarjetas como <b>fácil</b> 3 veces consecutivas.</p>')+'</div>';
+    '<div class="card"><h2 style="margin-bottom:8px">Preguntas aprendidas <span class="pill green">'+learned.length+'</span></h2>'+(learned.length?learned.slice(0,40).map(function(id){var q=byHistId(id);var card=getFlashcardInfo(id);return '<div class="small" style="margin:4px 0;display:flex;justify-content:space-between">'+
+      '<span>• '+esc(q.pregunta)+'</span><span class="mut">✅ '+(card?card.correctCount:FLASHCARD_LEARN_COUNT)+'/'+FLASHCARD_LEARN_COUNT+'</span></div>';}).join(""):'<p class="small mut">Responde correctamente '+FLASHCARD_LEARN_COUNT+' veces en flashcards para aprender una pregunta.</p>')+'</div>'+
+    '<div class="card"><h2 style="margin-bottom:8px">En repaso <span class="pill gold">'+pending.length+' pendientes</span></h2>'+(pending.length?pending.slice(0,40).map(function(p){var q=byHistId(p.id);return '<div class="small" style="margin:4px 0;display:flex;justify-content:space-between">'+
+      '<span>• '+esc(q.pregunta)+'</span><span class="mut">'+p.correctCount+'/'+FLASHCARD_LEARN_COUNT+'</span></div>';}).join(""):'<p class="small mut">Sin preguntas pendientes. Practica en el simulador para agregar más.</p>')+'</div>';
 }
 
 /* ---------- bind per view ---------- */
@@ -492,9 +586,16 @@ function bindView(){
   }
   if(tab==="fl"){
     var fv=STATE.view;
+    var modeBtn=document.getElementById("flmode"); if(modeBtn)modeBtn.onclick=function(){ FL_MODE=FL_MODE==="reveal"?"choice":"reveal"; STATE.view=null; render(); };
     var sh=document.getElementById("flshow"); if(sh)sh.onclick=function(){fv.revealed=true;render();};
-    var fa=document.getElementById("flfacil"); if(fa)fa.onclick=function(){markFlash("facil");};
-    var di=document.getElementById("fldificil"); if(di)di.onclick=function(){markFlash("dificil");};
+    var fc=document.getElementById("flcorrect"); if(fc)fc.onclick=function(){markFlashCorrect(true);};
+    var fw=document.getElementById("flwrong"); if(fw)fw.onclick=function(){markFlashCorrect(false);};
+    document.querySelectorAll("[data-fli]").forEach(function(b){ b.onclick=function(){
+      if(fv.selectedOption!=null) return;
+      var idx=+b.getAttribute("data-fli");
+      fv.selectedOption=idx;
+      markFlashCorrect(idx===fv.q.correct);
+    }; });
   }
   if(tab==="ban"){
     document.querySelectorAll(".tab[data-banmode]").forEach(function(b){ b.onclick=function(){ STATE.sel.banmode=b.getAttribute("data-banmode"); render(); }; });
