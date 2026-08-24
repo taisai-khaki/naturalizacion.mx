@@ -1,6 +1,6 @@
 import { db } from "@/db";
-import { questions, flashcards, userProgress } from "@/db/schema";
-import { sql, eq, and, lte, exists } from "drizzle-orm";
+import { questions, flashcards } from "@/db/schema";
+import { sql, eq, and, or, lt, lte } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import { FLASHCARD_LEARN_COUNT, FLASHCARD_MIN_DAYS } from "@/lib/constants";
 
@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
     // Buscar una pregunta en flashcards que cumpla:
     // 1. No está aprendida (learned = false)
     // 2. Han pasado al menos FLASHCARD_MIN_DAYS desde lastReviewedAt
-    // 3. El usuario ha respondido correctamente al menos una vez en userProgress
+    // (flashcards solo se crea para preguntas del simulador que el usuario ya vio)
     const rows = await db
       .select({
         flashcard: flashcards,
@@ -31,18 +31,9 @@ export async function GET(req: NextRequest) {
         and(
           eq(flashcards.userId, userId),
           eq(flashcards.learned, false),
-          lte(flashcards.lastReviewedAt, minDate),
-          exists(
-            db
-              .select()
-              .from(userProgress)
-              .where(
-                and(
-                  eq(userProgress.userId, userId),
-                  eq(userProgress.questionId, questions.id),
-                  eq(userProgress.isCorrect, true),
-                ),
-              ),
+          or(
+            lt(flashcards.correctCount, 1),
+            lte(flashcards.lastReviewedAt, minDate),
           ),
         ),
       )

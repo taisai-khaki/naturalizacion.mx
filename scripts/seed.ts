@@ -41,6 +41,23 @@ async function countQuestions(): Promise<number> {
   return parseInt(rows.rows[0].n, 10);
 }
 
+// Shuffle the options (and keep the correct answer index aligned) so the
+// correct answer is not always placed in the same position.
+function shuffleWithCorrect(options: string[], correctText: string) {
+  const original = options.indexOf(correctText);
+  const perm = options.map((_, i) => i);
+  for (let i = perm.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const t = perm[i];
+    perm[i] = perm[j];
+    perm[j] = t;
+  }
+  return {
+    options: perm.map((i) => options[i]),
+    correct: perm.indexOf(original),
+  };
+}
+
 async function seed() {
   const existing = await countQuestions();
   if (existing > 0 && !FORCE) {
@@ -77,34 +94,40 @@ async function seed() {
   }
 
   // 2) Historia/Cultura
-  const histRows = hist.map((q) => ({
-    category: "historia_cultura",
-    questionText: q.pregunta,
-    options: q.opciones,
-    correctAnswer: q.opciones.indexOf(q.respuesta),
-    explanation: q.explicacion || null,
-    difficulty: q.dificultad || "media",
-    categoria: q.categoria || null,
-    subtema: q.subtema || null,
-    source: q.fuente || null,
-    isActive: true,
-  }));
+  const histRows = hist.map((q) => {
+    const shuffled = shuffleWithCorrect(q.opciones, q.respuesta);
+    return {
+      category: "historia_cultura",
+      questionText: q.pregunta,
+      options: shuffled.options,
+      correctAnswer: shuffled.correct,
+      explanation: q.explicacion || null,
+      difficulty: q.dificultad || "media",
+      categoria: q.categoria || null,
+      subtema: q.subtema || null,
+      source: q.fuente || null,
+      isActive: true,
+    };
+  });
 
   // 3) Lectura
   const lecturaRows = passagesData.flatMap((p) =>
-    p.questions.map((q) => ({
-      category: "lectura",
-      questionText: q.question,
-      options: q.options,
-      correctAnswer: q.options.indexOf(q.correct),
-      explanation: null,
-      difficulty: "media",
-      categoria: null,
-      subtema: p.topic || null,
-      source: p.source_hint || null,
-      passageId: passageIdByOriginal[p.id],
-      isActive: true,
-    })),
+    p.questions.map((q) => {
+      const shuffled = shuffleWithCorrect(q.options, q.correct);
+      return {
+        category: "lectura",
+        questionText: q.question,
+        options: shuffled.options,
+        correctAnswer: shuffled.correct,
+        explanation: null,
+        difficulty: "media",
+        categoria: null,
+        subtema: p.topic || null,
+        source: p.source_hint || null,
+        passageId: passageIdByOriginal[p.id],
+        isActive: true,
+      };
+    }),
   );
 
   const allRows = [...histRows, ...lecturaRows];

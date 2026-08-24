@@ -1,4 +1,6 @@
-import json, os
+import json
+import os
+import random
 
 root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 data = lambda n: json.load(open(os.path.join(root, "data", n), encoding="utf-8"))
@@ -7,22 +9,42 @@ hist = data("questions.json")
 passages = data("reading_passages.json")
 iw = data("interview_writing.json")
 
+
+def shuffle_options(options, correct_text, *translation_lists):
+    """Shuffle options (and any aligned translations) and return the new
+    index of the correct answer. Keeps all language arrays in sync."""
+    original_idx = options.index(correct_text)
+    permutation = list(range(len(options)))
+    random.shuffle(permutation)
+    new_options = [options[i] for i in permutation]
+    new_lists = []
+    for lst in translation_lists:
+        new_lists.append([lst[i] for i in permutation] if lst is not None else None)
+    return new_options, permutation.index(original_idx), new_lists
+
+
 HIST = []
 for q in hist:
+    new_options, new_correct, new_tran = shuffle_options(
+        q["opciones"],
+        q["respuesta"],
+        q.get("opciones_en"),
+        q.get("opciones_fa"),
+    )
     HIST.append({
         "id": q["id"],
         "pregunta": q["pregunta"],
-        "opciones": q["opciones"],
-        "correct": q["opciones"].index(q["respuesta"]),
+        "opciones": new_options,
+        "correct": new_correct,
         "explicacion": q.get("explicacion"),
         "categoria": q.get("categoria"),
         "subtema": q.get("subtema"),
         "dificultad": q.get("dificultad"),
         "pregunta_en": q.get("pregunta_en"),
-        "opciones_en": q.get("opciones_en"),
+        "opciones_en": new_tran[0],
         "explicacion_en": q.get("explicacion_en"),
         "pregunta_fa": q.get("pregunta_fa"),
-        "opciones_fa": q.get("opciones_fa"),
+        "opciones_fa": new_tran[1],
         "explicacion_fa": q.get("explicacion_fa"),
     })
 
@@ -30,15 +52,21 @@ PASSAGES = []
 for p in passages:
     qs = []
     for i, q in enumerate(p["questions"]):
+        new_options, new_correct, new_tran = shuffle_options(
+            q["options"],
+            q["correct"],
+            q.get("options_en"),
+            q.get("options_fa"),
+        )
         qs.append({
             "id": 10000 + p["id"] * 100 + i,
             "question": q["question"],
-            "options": q["options"],
-            "correct": q["options"].index(q["correct"]),
+            "options": new_options,
+            "correct": new_correct,
             "question_en": q.get("question_en"),
-            "options_en": q.get("options_en"),
+            "options_en": new_tran[0],
             "question_fa": q.get("question_fa"),
-            "options_fa": q.get("options_fa"),
+            "options_fa": new_tran[1],
         })
     PASSAGES.append({
         "id": p["id"],
