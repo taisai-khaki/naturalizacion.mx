@@ -114,14 +114,20 @@ export const flashcards = pgTable(
     questionId: integer("question_id")
       .notNull()
       .references(() => questions.id, { onDelete: "cascade" }),
-    mark: text("mark").notNull(), // 'facil' | 'dificil'
+    mark: text("mark").notNull(), // 'facil' | 'dificil' (legacy, no longer used)
     createdAt: timestamp("created_at", { withTimezone: true })
       .defaultNow()
       .notNull(),
+    lastReviewedAt: timestamp("last_reviewed_at", { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+    correctCount: integer("correct_count").default(0).notNull(),
+    learned: boolean("learned").default(false).notNull(),
   },
   (table) => [
     index("flashcards_user_idx").on(table.userId),
     index("flashcards_question_idx").on(table.questionId),
+    uniqueIndex("flashcards_user_question_idx").on(table.userId, table.questionId),
   ],
 );
 

@@ -27,7 +27,7 @@ export default function Simulador({
   const start = useCallback(async () => {
     setLoading(true);
     try {
-      const data = await api<{ questions: Question[] }>("/api/exam/simulador");
+      const data = await api<{ questions: Question[] }>(`/api/exam/simulador?userId=${user.id}`);
       setQuestions(data.questions);
       setAnswers({});
       setIndex(0);

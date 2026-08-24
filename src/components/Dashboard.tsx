@@ -52,7 +52,7 @@ export default function Dashboard({
   }, [user.id, setUser]);
 
   const stats = [
-    { label: "Dominadas", value: user.masteredCount, sub: "5 días correctos", icon: ShieldCheck, color: "bg-emerald-500/10 text-emerald-300" },
+    { label: "Aprendidas", value: user.masteredCount, sub: "5 respuestas correctas en flashcards", icon: ShieldCheck, color: "bg-emerald-500/10 text-emerald-300" },
     { label: "Correctas", value: user.totalCorrect, sub: "Respuestas correctas", icon: CheckCircle2, color: "bg-amber-500/10 text-amber-300" },
     { label: "Sesión", value: `#${(user.practiceSession || 0) + 1}`, sub: "Cada práctica = un día", icon: Zap, color: "bg-rose-500/10 text-rose-300" },
     {

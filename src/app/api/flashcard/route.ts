@@ -1,98 +1,130 @@
 import { db } from "@/db";
-import { questions, flashcards, dailyStats } from "@/db/schema";
-import { sql, eq, and } from "drizzle-orm";
+import { questions, flashcards, userProgress } from "@/db/schema";
+import { sql, eq, and, lte, exists } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
-import { FLASH_ARCHIVE_STREAK } from "@/lib/constants";
+import { FLASHCARD_LEARN_COUNT, FLASHCARD_MIN_DAYS } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
 
-async function getArchivedIds(userId: number): Promise<number[]> {
-  const rows = await db
-    .select({ questionId: flashcards.questionId, mark: flashcards.mark })
-    .from(flashcards)
-    .where(eq(flashcards.userId, userId))
-    .orderBy(flashcards.createdAt);
-
-  // Agrupar marcas por pregunta preservando el orden cronológico
-  const byQ = new Map<number, string[]>();
-  for (const r of rows) {
-    const arr = byQ.get(r.questionId) || [];
-    arr.push(r.mark);
-    byQ.set(r.questionId, arr);
-  }
-
-  const archived: number[] = [];
-  for (const [qId, marks] of byQ) {
-    if (marks.length >= FLASH_ARCHIVE_STREAK) {
-      const last = marks.slice(-FLASH_ARCHIVE_STREAK);
-      if (last.every((m) => m === "facil")) archived.push(qId);
-    }
-  }
-  return archived;
-}
-
-async function getStudiedToday(userId: number): Promise<number> {
-  const today = new Date().toISOString().slice(0, 10);
-  const rows = await db.execute(sql`
-    SELECT COUNT(DISTINCT question_id)::int AS n
-    FROM flashcards
-    WHERE user_id = ${userId} AND created_at >= ${today + "T00:00:00Z"}
-  `);
-  return parseInt((rows.rows[0] as any).n, 10);
-}
-
+// Devuelve la siguiente pregunta para practicar en flashcards
 export async function GET(req: NextRequest) {
   try {
     const userId = parseInt(req.nextUrl.searchParams.get("userId") || "0", 10);
     if (!userId) return NextResponse.json({ error: "userId requerido" }, { status: 400 });
 
-    const archived = await getArchivedIds(userId);
-    const studiedToday = await getStudiedToday(userId);
+    // Corte de fecha: hace FLASHCARD_MIN_DAYS días
+    const minDate = new Date();
+    minDate.setDate(minDate.getDate() - FLASHCARD_MIN_DAYS);
 
+    // Buscar una pregunta en flashcards que cumpla:
+    // 1. No está aprendida (learned = false)
+    // 2. Han pasado al menos FLASHCARD_MIN_DAYS desde lastReviewedAt
+    // 3. El usuario ha respondido correctamente al menos una vez en userProgress
     const rows = await db
-      .select()
-      .from(questions)
+      .select({
+        flashcard: flashcards,
+        question: questions,
+      })
+      .from(flashcards)
+      .innerJoin(questions, eq(flashcards.questionId, questions.id))
       .where(
-        and(eq(questions.category, "historia_cultura"), eq(questions.isActive, true)),
+        and(
+          eq(flashcards.userId, userId),
+          eq(flashcards.learned, false),
+          lte(flashcards.lastReviewedAt, minDate),
+          exists(
+            db
+              .select()
+              .from(userProgress)
+              .where(
+                and(
+                  eq(userProgress.userId, userId),
+                  eq(userProgress.questionId, questions.id),
+                  eq(userProgress.isCorrect, true),
+                ),
+              ),
+          ),
+        ),
       )
       .orderBy(sql`random()`)
-      .limit(50);
+      .limit(1);
 
-    const question =
-      rows.find((q: { id: number }) => !archived.includes(q.id)) || rows[0] || null;
+    const learnedRow = await db.execute(sql`
+      SELECT COUNT(*)::int AS l
+      FROM flashcards
+      WHERE user_id = ${userId} AND learned = true
+    `);
+    const learnedCount = parseInt((learnedRow.rows[0] as any).l, 10);
+
+    const pendingRow = await db.execute(sql`
+      SELECT COUNT(*)::int AS p
+      FROM flashcards
+      WHERE user_id = ${userId} AND learned = false
+    `);
+    const pendingCount = parseInt((pendingRow.rows[0] as any).p, 10);
 
     return NextResponse.json({
-      question,
-      archivedCount: archived.length,
-      studiedToday,
+      question: rows.length > 0 ? rows[0].question : null,
+      learnedCount,
+      pendingCount,
     });
   } catch (e: any) {
     return NextResponse.json({ error: e.message || "Server error" }, { status: 500 });
   }
 }
 
+// Registrar una respuesta de práctica en flashcards
 export async function POST(req: NextRequest) {
   try {
-    const { userId, questionId, mark } = await req.json();
-    if (!userId || !questionId || (mark !== "facil" && mark !== "dificil")) {
+    const { userId, questionId, isCorrect } = await req.json();
+    if (!userId || !questionId || typeof isCorrect !== "boolean") {
       return NextResponse.json({ error: "Payload inválido" }, { status: 400 });
     }
     const uid = parseInt(userId, 10);
     const qid = parseInt(questionId, 10);
 
-    await db.insert(flashcards).values({ userId: uid, questionId: qid, mark });
+    // Obtener la fila actual de flashcards
+    const existing = await db
+      .select()
+      .from(flashcards)
+      .where(
+        and(
+          eq(flashcards.userId, uid),
+          eq(flashcards.questionId, qid),
+        ),
+      )
+      .limit(1);
 
-    // Incrementar contador de meta diaria
-    const today = new Date().toISOString().slice(0, 10);
-    await db.execute(sql`
-      INSERT INTO daily_stats (user_id, day, flashcards, simulador_done, lectura_done)
-      VALUES (${uid}, ${today}, 1, false, false)
-      ON CONFLICT (user_id, day) DO UPDATE SET
-        flashcards = (SELECT COUNT(DISTINCT f.question_id) FROM flashcards f WHERE f.user_id = ${uid} AND f.created_at >= ${today + "T00:00:00Z"})
+    if (!existing.length) {
+      return NextResponse.json({ error: "Flashcard no encontrada" }, { status: 404 });
+    }
+
+    const fc = existing[0];
+    const newCorrectCount = fc.correctCount + (isCorrect ? 1 : 0);
+    const newLearned = newCorrectCount >= FLASHCARD_LEARN_COUNT;
+
+    await db
+      .update(flashcards)
+      .set({
+        correctCount: newCorrectCount,
+        learned: newLearned,
+        lastReviewedAt: new Date(),
+      })
+      .where(eq(flashcards.id, fc.id));
+
+    const learnedRow = await db.execute(sql`
+      SELECT COUNT(*)::int AS l
+      FROM flashcards
+      WHERE user_id = ${uid} AND learned = true
     `);
+    const learnedCount = parseInt((learnedRow.rows[0] as any).l, 10);
 
-    const archived = await getArchivedIds(uid);
-    return NextResponse.json({ ok: true, archivedCount: archived.length });
+    return NextResponse.json({
+      ok: true,
+      learned: newLearned,
+      correctCount: newCorrectCount,
+      learnedCount,
+    });
   } catch (e: any) {
     return NextResponse.json({ error: e.message || "Server error" }, { status: 500 });
   }
