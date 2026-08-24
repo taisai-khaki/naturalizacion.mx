@@ -153,9 +153,9 @@ export default function Dashboard({
         {/* Keep the flashcard component mounted so navigating tabs doesn't
             advance to the next card before the user responds. */}
         <div className={tab === "flashcards" ? "" : "hidden"} aria-hidden={tab !== "flashcards"}>
-          <Flashcards user={user} onResult={refreshUser} />
+          <Flashcards user={user} onResult={refreshUser} active={tab === "flashcards"} />
         </div>
-        {tab === "banco" && <Banco />}
+        {tab === "banco" && <Banco user={user} />}
         {tab === "progreso" && <Progreso user={user} />}
       </main>
     </div>

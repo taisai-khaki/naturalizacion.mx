@@ -111,8 +111,8 @@ function migrateFlashcards(){
       changed=true;
       val=fc[qid];
     }
-    // Only questions the user has seen/answered in the simulator belong in
-    // flashcards. Remove anything from other sections (e.g. reading).
+    // Solo preguntas de Historia/Cultura (del simulador o agregadas desde el
+    // banco) pertenecen a flashcards. Se elimina lo de otras secciones (lectura).
     if(!isHistoryId(qid)){
       delete fc[qid];
       changed=true;
@@ -377,8 +377,8 @@ function recordAnswers(list,type){
   list.forEach(function(x){ if(x.ans===x.correct){ var arr=cd[x.id]||[]; if(arr.indexOf(day)<0){arr.push(day); arr.sort(function(a,b){return a-b;});} cd[x.id]=arr; } });
   DB.correctDays=cd;
   var u=user(); u.totalAnswered+=(list.filter(function(x){return x.ans!=null;}).length); u.totalCorrect+=(list.filter(function(x){return x.ans===x.correct;}).length); u.practiceSession=day;
-  // Only the simulator adds questions to the flashcard history. Reading and
-  // other sections must never appear in flashcards.
+  // El simulador agrega a flashcards de forma automática; el banco lo hace de
+  // forma manual con addFromBank(). Lectura y otras secciones nunca aparecen.
   if(type==="simulador"){
     var seen=DB.simSeen=DB.simSeen||{};
     var fc=DB.flashcards=DB.flashcards||{};
@@ -458,24 +458,24 @@ function entHTML(){
 var FLASHCARD_LEARN_COUNT=5;
 var FLASHCARD_MIN_DAYS=5;
 var FL_MODE="reveal"; // "reveal" or "choice"
+// Las flashcards provienen del simulador (automático) o del banco (manual).
 function learnedIds(){
-  var fc=DB.flashcards||{}, seen=DB.simSeen||{}, out=[];
-  for(var qid in fc){ var card=fc[qid]; if(card&&card.learned&&seen[qid]&&isHistoryId(qid)) out.push(+qid); }
+  var fc=DB.flashcards||{}, out=[];
+  for(var qid in fc){ var card=fc[qid]; if(card&&card.learned&&isHistoryId(qid)) out.push(+qid); }
   return out;
 }
 function pendingCards(){
-  var fc=DB.flashcards||{}, seen=DB.simSeen||{}, out=[];
-  for(var qid in fc){ var card=fc[qid]; if(card&&!card.learned&&seen[qid]&&isHistoryId(qid)) out.push({id:+qid,correctCount:card.correctCount||0,lastReviewedAt:card.lastReviewedAt||null}); }
+  var fc=DB.flashcards||{}, out=[];
+  for(var qid in fc){ var card=fc[qid]; if(card&&!card.learned&&isHistoryId(qid)) out.push({id:+qid,correctCount:card.correctCount||0,lastReviewedAt:card.lastReviewedAt||null}); }
   return out;
 }
 function availablePool(){
-  var fc=DB.flashcards||{}, seen=DB.simSeen||{};
+  var fc=DB.flashcards||{};
   var now=Date.now();
   var minMs=FLASHCARD_MIN_DAYS*24*60*60*1000;
   var pool=HIST.filter(function(q){
     var card=fc[q.id];
-    if(!seen[q.id]) return false;        // never seen in simulator -> excluded
-    if(!card) return false;              // must have simulator history
+    if(!card) return false;              // must have been added (simulator or bank)
     if(card.learned) return false;
     if(card.correctCount<1) return true; // needs at least 1 correct before cooldown applies
     if(!card.lastReviewedAt) return true;
@@ -493,7 +493,7 @@ function flHTML(){
       return '<div class="card" style="padding:40px;text-align:center">'+
         '<div class="row" style="margin-bottom:12px;justify-content:center"><span class="pill gold">Pendientes: '+pending.length+'</span><span class="pill green">Aprendidas: '+learned.length+'</span></div>'+
         '<h2>¡Sin pendientes! 🎉</h2>'+
-        '<p class="small mut" style="margin-top:8px">No hay tarjetas disponibles para repasar ahora. Vuelve a practicar en el simulador para agregar más preguntas.</p></div>';
+        '<p class="small mut" style="margin-top:8px">No hay tarjetas disponibles para repasar ahora. Vuelve a practicar en el simulador o agrega preguntas desde el banco.</p></div>';
     }
     STATE.flash={q:shuffle(pool)[0],revealed:false,answered:false,selectedOption:null};
   }
@@ -553,6 +553,17 @@ function markFlashCorrect(isCorrect){
   v.answered=true; render();
   setTimeout(function(){ STATE.flash=null; render(); },1500);
 }
+// Agregar manualmente una pregunta del banco a las flashcards del usuario.
+function addFromBank(qid){
+  qid=+qid;
+  if(!isHistoryId(qid)) return;
+  var fc=DB.flashcards=DB.flashcards||{};
+  if(fc[qid]) return; // ya estaba en las tarjetas
+  fc[qid]={correctCount:0,learned:false,lastReviewedAt:new Date().toISOString()};
+  var u=user(); u.masteredCount=learnedIds().length; setUser(u);
+  saveDB();
+  render();
+}
 
 /* ---------- Banco ---------- */
 function banHTML(){
@@ -565,9 +576,15 @@ function banHTML(){
   var modes=[["hist","Historia y cultura"],["lec","Lecturas"],["conv","Conversación"]];
   var m=modes.map(function(x){return '<button class="tab'+(mode===x[0]?' on':'')+'" data-banmode="'+x[0]+'">'+x[1]+'</button>';}).join("");
   var body="";
-  if(mode==="hist"){ body='<p class="small mut">'+hits.length+' pregunta(s) encontradas.</p>'+hits.map(function(x){return '<div class="card"><div class="row">'+qpills(x)+'</div><div class="qtext" style="font-size:16px">'+esc(x.pregunta)+'</div>'+tr(x.pregunta_en,x.pregunta_fa)+
+  if(mode==="hist"){
+    body='<p class="small mut">'+hits.length+' pregunta(s) encontradas.</p>'+
+    '<p class="small mut" style="background:rgba(2,132,199,.12);border:1px solid rgba(56,189,248,.25);border-radius:10px;padding:8px 10px;margin-bottom:10px">Las preguntas del simulador se agregan solas a tus flashcards. Si quieres, también puedes añadir cualquier pregunta del banco con “Agregar a flashcards”.</p>'+
+    hits.map(function(x){var inCards=!!((DB.flashcards||{})[x.id]); return '<div class="card"><div class="row">'+qpills(x)+'</div><div class="qtext" style="font-size:16px">'+esc(x.pregunta)+'</div>'+tr(x.pregunta_en,x.pregunta_fa)+
     x.opciones.map(function(o,i){return '<div class="opt locked">'+esc(o)+(i===x.correct?' <span class="marker">[CORRECTA]</span>':'')+trOption(x.opciones_en,x.opciones_fa,i)+'</div>';}).join("")+
-    (x.explicacion?'<p class="small mut">'+esc(x.explicacion)+'</p>':'')+tr(x.explicacion_en,x.explicacion_fa)+'</div>';}).join(""); }
+    (x.explicacion?'<p class="small mut">'+esc(x.explicacion)+'</p>':'')+tr(x.explicacion_en,x.explicacion_fa)+
+    (inCards?'<div style="margin-top:10px"><span class="pill green">✓ En tus tarjetas</span></div>':'<div style="margin-top:10px"><button class="btn ghost" style="font-size:12px;padding:6px 12px" data-addfl="'+x.id+'">+ Agregar a flashcards</button></div>')+
+    '</div>';}).join("");
+  }
   else if(mode==="lec"){ body='<p class="small mut">'+lechits.length+' texto(s) encontrado(s).</p>'+lechits.map(function(p){return '<div class="card"><h2>LECTURA: '+esc(p.title)+'</h2>'+(p.topic?'<span class="pill gold">'+esc(p.topic)+'</span>':'')+
     '<div class="passage" style="margin:10px 0">'+esc(p.text)+'</div>'+tr(p.text_en,p.text_fa)+
     p.questions.map(function(q,i){return '<div style="margin:8px 0"><b>'+(i+1)+'. '+esc(q.question)+'</b>'+tr(q.question_en,q.question_fa)+q.options.map(function(o,oi){return '<div class="opt locked">'+esc(o)+(oi===q.correct?' <span class="marker">[CORRECTA]</span>':'')+trOption(q.options_en,q.options_fa,oi)+'</div>';}).join("")+'</div>';}).join("")+'</div>';}).join(""); }
@@ -595,7 +612,7 @@ function proHTML(){
     '<div class="card"><h2 style="margin-bottom:8px">Preguntas aprendidas <span class="pill green">'+learned.length+'</span></h2>'+(learned.length?learned.slice(0,40).map(function(id){var q=byHistId(id);var card=getFlashcardInfo(id);return '<div class="small" style="margin:4px 0;display:flex;justify-content:space-between">'+
       '<span>• '+esc(q.pregunta)+'</span><span class="mut">✅ '+(card?card.correctCount:FLASHCARD_LEARN_COUNT)+'/'+FLASHCARD_LEARN_COUNT+'</span></div>';}).join(""):'<p class="small mut">Responde correctamente '+FLASHCARD_LEARN_COUNT+' veces en flashcards para aprender una pregunta.</p>')+'</div>'+
     '<div class="card"><h2 style="margin-bottom:8px">En repaso <span class="pill gold">'+pending.length+' pendientes</span></h2>'+(pending.length?pending.slice(0,40).map(function(p){var q=byHistId(p.id);return '<div class="small" style="margin:4px 0;display:flex;justify-content:space-between">'+
-      '<span>• '+esc(q.pregunta)+'</span><span class="mut">'+p.correctCount+'/'+FLASHCARD_LEARN_COUNT+'</span></div>';}).join(""):'<p class="small mut">Sin preguntas pendientes. Practica en el simulador para agregar más.</p>')+'</div>';
+      '<span>• '+esc(q.pregunta)+'</span><span class="mut">'+p.correctCount+'/'+FLASHCARD_LEARN_COUNT+'</span></div>';}).join(""):'<p class="small mut">Sin preguntas pendientes. Practica en el simulador o agrega preguntas desde el banco.</p>')+'</div>';
 }
 
 /* ---------- bind per view ---------- */
@@ -637,6 +654,7 @@ function bindView(){
   if(tab==="ban"){
     document.querySelectorAll(".tab[data-banmode]").forEach(function(b){ b.onclick=function(){ STATE.sel.banmode=b.getAttribute("data-banmode"); render(); }; });
     var bq=document.getElementById("banq"); if(bq){ bq.oninput=function(){ STATE.sel.banq=bq.value; }; }
+    document.querySelectorAll("[data-addfl]").forEach(function(b){ b.onclick=function(){ addFromBank(+b.getAttribute("data-addfl")); }; });
   }
   if(tab==="pro"){ /* static */ }
 }
