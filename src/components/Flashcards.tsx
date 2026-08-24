@@ -12,9 +12,11 @@ type Mode = "reveal" | "choice";
 export default function Flashcards({
   user,
   onResult,
+  active = false,
 }: {
   user: User;
   onResult: () => void;
+  active?: boolean;
 }) {
   const [question, setQuestion] = useState<Question | null>(null);
   const [revealed, setRevealed] = useState(false);
@@ -49,6 +51,21 @@ export default function Flashcards({
   useEffect(() => {
     next();
   }, [next]);
+
+  // Al volver a la pestaña de flashcards, actualiza los contadores (pendientes /
+  // aprendidas) sin avanzar a la siguiente tarjeta. Así se reflejan de inmediato
+  // las preguntas recién agregadas desde el banco.
+  useEffect(() => {
+    if (!active) return;
+    api<{ question: Question | null; learnedCount: number; pendingCount: number }>(
+      `/api/flashcard?userId=${user.id}`,
+    )
+      .then((data) => {
+        setLearnedCount(data.learnedCount);
+        setPendingCount(data.pendingCount);
+      })
+      .catch(() => {});
+  }, [active, user.id]);
 
   async function submitAnswer(isCorrect: boolean) {
     if (!question) return;
@@ -106,7 +123,7 @@ export default function Flashcards({
           <h2 className="text-xl font-extrabold mb-2">¡Sin pendientes! 🎉</h2>
           <p className="text-emerald-200/80">
             No hay tarjetas disponibles para repasar ahora.
-            Vuelve a practicar en el simulador para agregar más preguntas.
+            Vuelve a practicar en el simulador o agrega preguntas desde el banco.
           </p>
         </Card>
       ) : question ? (

@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Database, Search, X } from "lucide-react";
-import type { Question, Passage } from "@/lib/client";
+import { Database, Search, X, Plus, Check } from "lucide-react";
+import type { User, Question, Passage } from "@/lib/client";
 import { api } from "@/lib/client";
-import { Card, Pill } from "./ui";
+import { Card, Pill, GhostButton } from "./ui";
 import iw from "../../data/interview_writing.json";
 
 type IW = {
@@ -21,13 +21,15 @@ const MODES: { id: Mode; label: string }[] = [
   { id: "conversacion", label: "Conversación" },
 ];
 
-export default function Banco() {
+export default function Banco({ user }: { user: User }) {
   const [mode, setMode] = useState<Mode>("historia_cultura");
   const [q, setQ] = useState("");
   const [query, setQuery] = useState("");
   const [histResults, setHistResults] = useState<Question[]>([]);
   const [lectResults, setLectResults] = useState<{ passage: Passage; questions: Question[] }[]>([]);
   const [loading, setLoading] = useState(false);
+  const [flashcardIds, setFlashcardIds] = useState<Set<number>>(new Set());
+  const [addingId, setAddingId] = useState<number | null>(null);
 
   useEffect(() => {
     const t = setTimeout(() => setQuery(q), 300);
@@ -37,15 +39,41 @@ export default function Banco() {
   useEffect(() => {
     if (mode === "conversacion") return;
     setLoading(true);
-    const url = `/api/bank?mode=${mode}&q=${encodeURIComponent(query)}&limit=200`;
+    const url = `/api/bank?mode=${mode}&q=${encodeURIComponent(query)}&limit=200&userId=${user.id}`;
     api<any>(url)
       .then((data) => {
-        if (mode === "historia_cultura") setHistResults(data.results || []);
-        else setLectResults(data.results || []);
+        if (mode === "historia_cultura") {
+          setHistResults(data.results || []);
+          setFlashcardIds(new Set(data.flashcardIds || []));
+        } else {
+          setLectResults(data.results || []);
+        }
       })
       .catch((e) => alert(e.message))
       .finally(() => setLoading(false));
-  }, [mode, query]);
+  }, [mode, query, user.id]);
+
+  async function addToFlashcards(item: Question) {
+    setAddingId(item.id);
+    try {
+      const data = await api<{ ok: boolean; already: boolean; pendingCount: number }>(
+        "/api/flashcard",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: user.id, questionId: item.id, action: "add" }),
+        },
+      );
+      setFlashcardIds((prev) => new Set(prev).add(item.id));
+      if (data.already) {
+        alert("Esta pregunta ya está en tus tarjetas.");
+      }
+    } catch (e: any) {
+      alert(e.message);
+    } finally {
+      setAddingId(null);
+    }
+  }
 
   function highlightCorrect(opts: string[], correctIdx: number, show = true) {
     return opts.map((opt, oi) => (
@@ -103,6 +131,11 @@ export default function Banco() {
 
       {mode === "historia_cultura" && !loading && (
         <div className="space-y-3">
+          <div className="bg-sky-500/10 border border-sky-500/20 rounded-xl p-3 text-sm text-sky-100/90">
+            Las preguntas del simulador se agregan solas a tus flashcards. Si quieres,
+            también puedes añadir cualquier otra pregunta del banco con{" "}
+            <span className="font-semibold">“Agregar a flashcards”</span>.
+          </div>
           <p className="text-sm text-emerald-300/60">
             {histResults.length} pregunta{histResults.length !== 1 ? "s" : ""} encontrada{histResults.length !== 1 ? "s" : ""}.
           </p>
@@ -118,6 +151,27 @@ export default function Banco() {
               {item.explanation && (
                 <p className="text-xs text-emerald-300/70 mt-2">Explicación: {item.explanation}</p>
               )}
+              <div className="mt-4">
+                {flashcardIds.has(item.id) ? (
+                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 px-3 py-2 rounded-xl">
+                    <Check className="w-4 h-4" /> En tus tarjetas
+                  </span>
+                ) : (
+                  <GhostButton
+                    onClick={() => addToFlashcards(item)}
+                    disabled={addingId === item.id}
+                    className="text-xs px-3 py-2"
+                  >
+                    {addingId === item.id ? (
+                      "Agregando..."
+                    ) : (
+                      <>
+                        <Plus className="w-4 h-4 inline mr-1" /> Agregar a flashcards
+                      </>
+                    )}
+                  </GhostButton>
+                )}
+              </div>
             </Card>
           ))}
         </div>

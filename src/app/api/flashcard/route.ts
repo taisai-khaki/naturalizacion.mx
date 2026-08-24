@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
     // Buscar una pregunta en flashcards que cumpla:
     // 1. No está aprendida (learned = false)
     // 2. Han pasado al menos FLASHCARD_MIN_DAYS desde lastReviewedAt
-    // (flashcards solo se crea para preguntas del simulador que el usuario ya vio)
+    // (las flashcards vienen del simulador o se agregan desde el banco)
     const rows = await db
       .select({
         flashcard: flashcards,
@@ -64,15 +64,66 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// Registrar una respuesta de práctica en flashcards
+// Registrar una respuesta de práctica en flashcards, o agregar manualmente
+// una pregunta del banco (action === "add") para repasarla en flashcards.
 export async function POST(req: NextRequest) {
   try {
-    const { userId, questionId, isCorrect } = await req.json();
-    if (!userId || !questionId || typeof isCorrect !== "boolean") {
+    const { userId, questionId, isCorrect, action } = await req.json();
+    if (!userId || !questionId) {
       return NextResponse.json({ error: "Payload inválido" }, { status: 400 });
     }
     const uid = parseInt(userId, 10);
     const qid = parseInt(questionId, 10);
+
+    // Agregar manualmente una pregunta del banco a las flashcards del usuario.
+    if (action === "add") {
+      const qRow = await db
+        .select({ id: questions.id })
+        .from(questions)
+        .where(
+          and(
+            eq(questions.id, qid),
+            eq(questions.category, "historia_cultura"),
+            eq(questions.isActive, true),
+          ),
+        )
+        .limit(1);
+      if (!qRow.length) {
+        return NextResponse.json({ error: "Pregunta no encontrada" }, { status: 404 });
+      }
+
+      const existing = await db
+        .select()
+        .from(flashcards)
+        .where(and(eq(flashcards.userId, uid), eq(flashcards.questionId, qid)))
+        .limit(1);
+
+      let already = existing.length > 0;
+      if (!already) {
+        await db.insert(flashcards).values({
+          userId: uid,
+          questionId: qid,
+          mark: "facil",
+          createdAt: new Date(),
+          lastReviewedAt: new Date(),
+          correctCount: 0,
+          learned: false,
+        });
+      }
+
+      const pendingRow = await db.execute(sql`
+        SELECT COUNT(*)::int AS p
+        FROM flashcards
+        WHERE user_id = ${uid} AND learned = false
+      `);
+      const pendingCount = parseInt((pendingRow.rows[0] as any).p, 10);
+
+      return NextResponse.json({ ok: true, already, pendingCount });
+    }
+
+    if (typeof isCorrect !== "boolean") {
+      return NextResponse.json({ error: "Payload inválido" }, { status: 400 });
+    }
 
     // Obtener la fila actual de flashcards
     const existing = await db

@@ -1,6 +1,6 @@
 import { db } from "@/db";
-import { questions, passages } from "@/db/schema";
-import { sql, eq, and, ilike, or } from "drizzle-orm";
+import { questions, passages, flashcards } from "@/db/schema";
+import { sql, eq, and, ilike, or, inArray } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -12,6 +12,8 @@ export async function GET(req: NextRequest) {
     const mode = url.searchParams.get("mode") || "historia_cultura";
     const q = (url.searchParams.get("q") || "").trim();
     const limit = Math.min(parseInt(url.searchParams.get("limit") || "200", 10), 500);
+    // Opcional: para marcar en el banco qué preguntas ya están en flashcards
+    const userId = parseInt(url.searchParams.get("userId") || "0", 10);
 
     if (mode === "historia_cultura") {
       const cond = q
@@ -33,7 +35,22 @@ export async function GET(req: NextRequest) {
         .orderBy(sql`random()`)
         .limit(limit);
 
-      return NextResponse.json({ mode, results: rows, total: rows.length });
+      // IDs de preguntas que el usuario ya agregó a sus flashcards
+      let flashcardIds: number[] = [];
+      if (userId && rows.length > 0) {
+        const fcRows = await db
+          .select({ questionId: flashcards.questionId })
+          .from(flashcards)
+          .where(
+            and(
+              eq(flashcards.userId, userId),
+              inArray(flashcards.questionId, rows.map((r: any) => r.id)),
+            ),
+          );
+        flashcardIds = fcRows.map((r: any) => r.questionId);
+      }
+
+      return NextResponse.json({ mode, results: rows, total: rows.length, flashcardIds });
     }
 
     if (mode === "lectura") {
