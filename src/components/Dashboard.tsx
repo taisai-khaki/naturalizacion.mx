@@ -150,7 +150,11 @@ export default function Dashboard({
         {tab === "simulador" && <Simulador user={user} onResult={refreshUser} />}
         {tab === "lectura" && <Lectura user={user} onResult={refreshUser} />}
         {tab === "entrevista" && <Entrevista />}
-        {tab === "flashcards" && <Flashcards user={user} onResult={refreshUser} />}
+        {/* Keep the flashcard component mounted so navigating tabs doesn't
+            advance to the next card before the user responds. */}
+        <div className={tab === "flashcards" ? "" : "hidden"} aria-hidden={tab !== "flashcards"}>
+          <Flashcards user={user} onResult={refreshUser} />
+        </div>
         {tab === "banco" && <Banco />}
         {tab === "progreso" && <Progreso user={user} />}
       </main>

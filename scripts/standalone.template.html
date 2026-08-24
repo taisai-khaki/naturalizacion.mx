@@ -97,8 +97,10 @@ function saveFarsiCache(){
   catch(e){ /* Translation still works for this session if storage is full. */ }
 }
 function user(){ return DB.user || {id:1,name:"",practiceSession:0,totalCorrect:0,totalAnswered:0,masteredCount:0,simuladorApproved:false,lecturaApproved:false}; }
+function isHistoryId(qid){ qid=+qid; for(var i=0;i<HIST.length;i++){ if(HIST[i].id===qid) return true; } return false; }
 function migrateFlashcards(){
   var fc=DB.flashcards||{};
+  var seen=DB.simSeen||{};
   var changed=false;
   for(var qid in fc){
     var val=fc[qid];
@@ -107,9 +109,27 @@ function migrateFlashcards(){
       var correctCount=val.filter(function(x){return x==="facil";}).length;
       fc[qid]={correctCount:correctCount,learned:correctCount>=5,lastReviewedAt:new Date().toISOString()};
       changed=true;
+      val=fc[qid];
     }
+    // Only questions the user has seen/answered in the simulator belong in
+    // flashcards. Remove anything from other sections (e.g. reading).
+    if(!isHistoryId(qid)){
+      delete fc[qid];
+      changed=true;
+      continue;
+    }
+    // Existing simulator history cards are kept as "seen in simulator".
+    if(!seen[qid]){ seen[qid]=true; changed=true; }
   }
-  if(changed){ DB.flashcards=fc; saveDB(); }
+  for(var sid in seen){
+    if(!isHistoryId(sid)){ delete seen[sid]; changed=true; }
+  }
+  DB.simSeen=seen;
+  // Keep the displayed mastered count in sync after the cleanup.
+  var u=user();
+  var newCount=learnedIds().length;
+  if(u.masteredCount!==newCount){ u.masteredCount=newCount; DB.user=u; changed=true; }
+  if(changed){ DB.flashcards=fc; DB.simSeen=seen; saveDB(); }
 }
 function today(){ return new Date().toISOString().slice(0,10); }
 function setUser(patch){ DB.user = Object.assign({}, user(), patch); saveDB(); }
@@ -190,14 +210,21 @@ function viewHTML(tab){
   return "";
 }
 function bindApp(){
-  document.querySelectorAll(".tab").forEach(function(b){ b.onclick=function(){ STATE.tab=b.getAttribute("data-tab"); STATE.view=null; render(); }; });
-  document.getElementById("out").onclick=function(){ phone=""; STATE.view=null; render(); };
+  document.querySelectorAll(".tab").forEach(function(b){ b.onclick=function(){
+    var tab=b.getAttribute("data-tab");
+    STATE.tab=tab;
+    // Keep the flashcard card while navigating between sections; only the
+    // exam views (simulador/lectura) reset so a new attempt starts fresh.
+    if(tab!=="fl") STATE.view=null;
+    render();
+  }; });
+  document.getElementById("out").onclick=function(){ phone=""; STATE.view=null; STATE.flash=null; render(); };
   document.getElementById("en").onclick=function(){ TRANSLATION=TRANSLATION==="en"?"":"en"; render(); };
   document.getElementById("fa").onclick=function(){ FA_ERROR=""; FA_LAST_VIEW=""; TRANSLATION=TRANSLATION==="fa"?"":"fa"; render(); };
   bindView();
   if(TRANSLATION==="fa") ensureFarsiForView();
 }
-var STATE={tab:"sim",view:null,sel:{},timer:null};
+var STATE={tab:"sim",view:null,flash:null,sel:{},timer:null};
 function tr(enTxt,faTxt){
   var txt=TRANSLATION==="fa"?(faTxt||FA_CACHE[enTxt]):(TRANSLATION==="en"?enTxt:null);
   if(!txt&&TRANSLATION==="fa"&&enTxt) txt=FA_ERROR?"ترجمه در حال حاضر در دسترس نیست.":"در حال بارگذاری ترجمه…";
@@ -235,9 +262,9 @@ function currentFarsiWork(){
     addFarsiSource(out,lv.p.text_en,lv.p.text_fa);
     lv.qs.forEach(function(q){addReadingFarsiSources(out,q);});
     signature+="-"+lv.p.id;
-  } else if(STATE.tab==="fl"&&STATE.view){
-    addHistoryFarsiSources(out,STATE.view.q);
-    signature+="-"+STATE.view.q.id+"-"+STATE.view.revealed;
+  } else if(STATE.tab==="fl"&&STATE.flash){
+    addHistoryFarsiSources(out,STATE.flash.q);
+    signature+="-"+STATE.flash.q.id+"-"+STATE.flash.revealed;
   } else if(STATE.tab==="ban"){
     var mode=STATE.sel.banmode||"hist";
     var query=(STATE.sel.banq||"").toLowerCase();
@@ -338,27 +365,36 @@ function submitSim(force){
   var correct=list.filter(function(x){return x.ans===x.correct;}).length;
   var total=v.qs.length;
   var passed=correct>=8;
-  recordAnswers(list);
+  recordAnswers(list,"simulador");
   recordAttempt("simulador",correct,total,passed);
   if(passed) setUser({simuladorApproved:true});
   v.phase="review"; v.correct=correct; v.total=total; v.passed=passed; v.list=list;
   render();
 }
-function recordAnswers(list){
+function recordAnswers(list,type){
   var day=sessionDay();
   var cd=DB.correctDays||{};
   list.forEach(function(x){ if(x.ans===x.correct){ var arr=cd[x.id]||[]; if(arr.indexOf(day)<0){arr.push(day); arr.sort(function(a,b){return a-b;});} cd[x.id]=arr; } });
   DB.correctDays=cd;
   var u=user(); u.totalAnswered+=(list.filter(function(x){return x.ans!=null;}).length); u.totalCorrect+=(list.filter(function(x){return x.ans===x.correct;}).length); u.practiceSession=day;
-  // Auto-add questions to flashcards after simulator/lectura
-  var fc=DB.flashcards=DB.flashcards||{};
-  list.forEach(function(x){
-    if(!fc[x.id]){ fc[x.id]={correctCount:0,learned:false,lastReviewedAt:null}; }
-  });
+  // Only the simulator adds questions to the flashcard history. Reading and
+  // other sections must never appear in flashcards.
+  if(type==="simulador"){
+    var seen=DB.simSeen=DB.simSeen||{};
+    var fc=DB.flashcards=DB.flashcards||{};
+    list.forEach(function(x){
+      if(!isHistoryId(x.id)) return;
+      if(x.ans==null) return; // only questions actually answered in the simulator
+      seen[x.id]=true;
+      if(!fc[x.id]){ fc[x.id]={correctCount:0,learned:false,lastReviewedAt:null}; }
+    });
+  }
   u.masteredCount=learnedIds().length;
   setUser(u);
   var d=DB.daily[today()]||{flashcards:0,simulador:false,lectura:false};
-  d.simulador=true; DB.daily[today()]=d; saveDB();
+  d.simulador=type==="simulador";
+  d.lectura=type==="lectura";
+  DB.daily[today()]=d; saveDB();
 }
 function simReviewHTML(v){
   return '<div class="card"><div class="top"><h2>'+(v.passed?'✅ APROBADO':'❌ NO APROBADO')+'</h2></div>'+
@@ -388,7 +424,7 @@ function submitLec(){
   var list=v.qs.map(function(q){return {id:q.id, ans:v.ans[q.id], correct:q.correct};});
   var correct=list.filter(function(x){return x.ans===x.correct;}).length;
   var total=v.qs.length, passed=correct>=5;
-  recordAnswers(list);
+  recordAnswers(list,"lectura");
   recordAttempt("lectura",correct,total,passed);
   if(passed) setUser({lecturaApproved:true});
   v.phase="review"; v.correct=correct; v.total=total; v.passed=passed; v.list=list;
@@ -423,22 +459,23 @@ var FLASHCARD_LEARN_COUNT=5;
 var FLASHCARD_MIN_DAYS=5;
 var FL_MODE="reveal"; // "reveal" or "choice"
 function learnedIds(){
-  var fc=DB.flashcards||{}, out=[];
-  for(var qid in fc){ var card=fc[qid]; if(card&&card.learned) out.push(+qid); }
+  var fc=DB.flashcards||{}, seen=DB.simSeen||{}, out=[];
+  for(var qid in fc){ var card=fc[qid]; if(card&&card.learned&&seen[qid]&&isHistoryId(qid)) out.push(+qid); }
   return out;
 }
 function pendingCards(){
-  var fc=DB.flashcards||{}, out=[];
-  for(var qid in fc){ var card=fc[qid]; if(card&&!card.learned) out.push({id:+qid,correctCount:card.correctCount||0,lastReviewedAt:card.lastReviewedAt||null}); }
+  var fc=DB.flashcards||{}, seen=DB.simSeen||{}, out=[];
+  for(var qid in fc){ var card=fc[qid]; if(card&&!card.learned&&seen[qid]&&isHistoryId(qid)) out.push({id:+qid,correctCount:card.correctCount||0,lastReviewedAt:card.lastReviewedAt||null}); }
   return out;
 }
 function availablePool(){
-  var fc=DB.flashcards||{};
+  var fc=DB.flashcards||{}, seen=DB.simSeen||{};
   var now=Date.now();
   var minMs=FLASHCARD_MIN_DAYS*24*60*60*1000;
   var pool=HIST.filter(function(q){
     var card=fc[q.id];
-    if(!card) return true; // never seen = available
+    if(!seen[q.id]) return false;        // never seen in simulator -> excluded
+    if(!card) return false;              // must have simulator history
     if(card.learned) return false;
     if(card.correctCount<1) return true; // needs at least 1 correct before cooldown applies
     if(!card.lastReviewedAt) return true;
@@ -450,7 +487,7 @@ function flHTML(){
   var learned=learnedIds();
   var pending=pendingCards();
   var studied=(DB.daily[today()]||{}).flashcards||0;
-  if(!STATE.view){
+  if(!STATE.flash){
     var pool=availablePool();
     if(!pool.length){
       return '<div class="card" style="padding:40px;text-align:center">'+
@@ -458,9 +495,9 @@ function flHTML(){
         '<h2>¡Sin pendientes! 🎉</h2>'+
         '<p class="small mut" style="margin-top:8px">No hay tarjetas disponibles para repasar ahora. Vuelve a practicar en el simulador para agregar más preguntas.</p></div>';
     }
-    STATE.view={q:shuffle(pool)[0],revealed:false,answered:false,selectedOption:null};
+    STATE.flash={q:shuffle(pool)[0],revealed:false,answered:false,selectedOption:null};
   }
-  var v=STATE.view,q=v.q;
+  var v=STATE.flash,q=v.q;
   var modeBtn='<button class="btn ghost" id="flmode" style="margin-left:auto;font-size:12px">'+
     (FL_MODE==="reveal"?"Cambiar a opciones":"Cambiar a autoevaluación")+'</button>';
   var header='<div class="row" style="margin-bottom:8px;flex-wrap:wrap"><span class="pill gold">Pendientes: '+pending.length+'</span><span class="pill green">Aprendidas: '+learned.length+'</span>'+modeBtn+'</div>';
@@ -500,7 +537,7 @@ function getFlashcardInfo(qid){
   return fc[qid]||null;
 }
 function markFlashCorrect(isCorrect){
-  var v=STATE.view,q=v.q;
+  var v=STATE.flash,q=v.q;
   var fc=DB.flashcards=DB.flashcards||{};
   var card=fc[q.id]||{correctCount:0,learned:false,lastReviewedAt:null};
   if(isCorrect) card.correctCount=(card.correctCount||0)+1;
@@ -514,7 +551,7 @@ function markFlashCorrect(isCorrect){
   var u=user(); u.masteredCount=learnedIds().length; setUser(u);
   saveDB();
   v.answered=true; render();
-  setTimeout(function(){ STATE.view=null; render(); },1500);
+  setTimeout(function(){ STATE.flash=null; render(); },1500);
 }
 
 /* ---------- Banco ---------- */
@@ -585,8 +622,8 @@ function bindView(){
     if(nx)nx.onclick=function(){ STATE.sel.wr=((STATE.sel.wr||0)+1)%IW.writing.length; render(); };
   }
   if(tab==="fl"){
-    var fv=STATE.view;
-    var modeBtn=document.getElementById("flmode"); if(modeBtn)modeBtn.onclick=function(){ FL_MODE=FL_MODE==="reveal"?"choice":"reveal"; STATE.view=null; render(); };
+    var fv=STATE.flash;
+    var modeBtn=document.getElementById("flmode"); if(modeBtn)modeBtn.onclick=function(){ FL_MODE=FL_MODE==="reveal"?"choice":"reveal"; if(fv){fv.revealed=false;fv.answered=false;fv.selectedOption=null;} render(); };
     var sh=document.getElementById("flshow"); if(sh)sh.onclick=function(){fv.revealed=true;render();};
     var fc=document.getElementById("flcorrect"); if(fc)fc.onclick=function(){markFlashCorrect(true);};
     var fw=document.getElementById("flwrong"); if(fw)fw.onclick=function(){markFlashCorrect(false);};
