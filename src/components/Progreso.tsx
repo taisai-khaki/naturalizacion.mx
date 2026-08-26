@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { BookCheck, Repeat, History, Target } from "lucide-react";
+import { BookCheck, Repeat, History } from "lucide-react";
 import type { User, Question } from "@/lib/client";
 import { api } from "@/lib/client";
 import { Card, Pill } from "./ui";
@@ -15,7 +15,6 @@ type ProgressData = {
   learned: (Question & { correctCount: number })[];
   pending: (Question & { correctCount: number; lastReviewedAt: string | null; availableForReview: boolean })[];
   attempts: Attempt[];
-  daily: { flashcards: number; goal: number; simuladorDone: boolean; lecturaDone: boolean };
 };
 
 export default function Progreso({ user }: { user: User }) {
@@ -29,38 +28,10 @@ export default function Progreso({ user }: { user: User }) {
 
   if (!data) return <p className="text-sm text-emerald-300/60">Cargando progreso...</p>;
 
-  const dailyDone =
-    data.daily.flashcards >= data.daily.goal && data.daily.simuladorDone && data.daily.lecturaDone;
-
   const availableCount = data.pending.filter((p) => p.availableForReview).length;
 
   return (
     <div className="space-y-4">
-      {/* Meta diaria */}
-      <Card className="p-6">
-        <div className="flex items-center gap-2 mb-4">
-          <Target className="w-5 h-5 text-amber-300" />
-          <h2 className="text-xl font-extrabold">Meta diaria</h2>
-          {dailyDone && <Pill tone="green">¡COMPLETADA!</Pill>}
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-            <div className="text-2xl font-extrabold">
-              {data.daily.flashcards}<span className="text-emerald-300">/{data.daily.goal}</span>
-            </div>
-            <div className="text-xs text-emerald-300/60 mt-1">Flashcards estudiadas hoy</div>
-          </div>
-          <div className={`bg-white/5 border rounded-xl p-4 ${data.daily.simuladorDone ? "border-emerald-400/40" : "border-white/10"}`}>
-            <div className="text-xl font-extrabold">{data.daily.simuladorDone ? "✅" : "⬜"}</div>
-            <div className="text-xs text-emerald-300/60 mt-1">Simulador completado hoy</div>
-          </div>
-          <div className={`bg-white/5 border rounded-xl p-4 ${data.daily.lecturaDone ? "border-emerald-400/40" : "border-white/10"}`}>
-            <div className="text-xl font-extrabold">{data.daily.lecturaDone ? "✅" : "⬜"}</div>
-            <div className="text-xs text-emerald-300/60 mt-1">Lectura completada hoy</div>
-          </div>
-        </div>
-      </Card>
-
       {/* Resumen */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {[

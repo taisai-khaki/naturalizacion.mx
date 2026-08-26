@@ -98,9 +98,26 @@ function saveFarsiCache(){
 }
 function user(){ return DB.user || {id:1,name:"",practiceSession:0,totalCorrect:0,totalAnswered:0,masteredCount:0,simuladorApproved:false,lecturaApproved:false}; }
 function isHistoryId(qid){ qid=+qid; for(var i=0;i<HIST.length;i++){ if(HIST[i].id===qid) return true; } return false; }
+// Una tarjeta es válida SOLO si la pregunta fue respondida en el simulador
+// (DB.simSeen) o se añadió a mano desde el banco (DB.bankAdded). Cualquier otra
+// tarjeta —incluidas las que dejaron versiones anteriores de la app— se descarta,
+// así Flashcards nunca muestra una pregunta que no esté en tu progreso.
+function cardAllowed(qid){
+  qid=+qid;
+  var seen=DB.simSeen||{}, added=DB.bankAdded||{};
+  return !!seen[qid] || !!added[qid];
+}
+// Historial antiguo: antes de DB.simSeen solo quedaba registro de las preguntas
+// contestadas correctamente (DB.correctDays). Eso también prueba que la pregunta
+// se respondió en el simulador, así que cuenta como "respondida".
+function wasAnswered(qid){
+  var arr=(DB.correctDays||{})[qid];
+  return Array.isArray(arr) && arr.length>0;
+}
 function migrateFlashcards(){
   var fc=DB.flashcards||{};
   var seen=DB.simSeen||{};
+  var added=DB.bankAdded||{};
   var changed=false;
   for(var qid in fc){
     var val=fc[qid];
@@ -118,18 +135,30 @@ function migrateFlashcards(){
       changed=true;
       continue;
     }
-    // Existing simulator history cards are kept as "seen in simulator".
-    if(!seen[qid]){ seen[qid]=true; changed=true; }
+    // ...y solo si viene del simulador o se añadió desde el banco.
+    if(wasAnswered(qid) && !seen[qid]) seen[qid]=true;
+    if(!cardAllowed(qid)){
+      delete fc[qid];
+      delete seen[qid];
+      changed=true;
+      continue;
+    }
   }
   for(var sid in seen){
     if(!isHistoryId(sid)){ delete seen[sid]; changed=true; }
   }
+  for(var aid in added){
+    if(!isHistoryId(aid)){ delete added[aid]; changed=true; continue; }
+    // Una pregunta añadida desde el banco siempre tiene su tarjeta.
+    if(!fc[aid]){ fc[aid]={correctCount:0,learned:false,lastReviewedAt:new Date().toISOString()}; changed=true; }
+  }
   DB.simSeen=seen;
+  DB.bankAdded=added;
   // Keep the displayed mastered count in sync after the cleanup.
   var u=user();
   var newCount=learnedIds().length;
   if(u.masteredCount!==newCount){ u.masteredCount=newCount; DB.user=u; changed=true; }
-  if(changed){ DB.flashcards=fc; DB.simSeen=seen; saveDB(); }
+  if(changed){ DB.flashcards=fc; DB.simSeen=seen; DB.bankAdded=added; saveDB(); }
 }
 function today(){ return new Date().toISOString().slice(0,10); }
 function setUser(patch){ DB.user = Object.assign({}, user(), patch); saveDB(); }
@@ -461,12 +490,12 @@ var FL_MODE="reveal"; // "reveal" or "choice"
 // Las flashcards provienen del simulador (automático) o del banco (manual).
 function learnedIds(){
   var fc=DB.flashcards||{}, out=[];
-  for(var qid in fc){ var card=fc[qid]; if(card&&card.learned&&isHistoryId(qid)) out.push(+qid); }
+  for(var qid in fc){ var card=fc[qid]; if(card&&card.learned&&isHistoryId(qid)&&cardAllowed(qid)) out.push(+qid); }
   return out;
 }
 function pendingCards(){
   var fc=DB.flashcards||{}, out=[];
-  for(var qid in fc){ var card=fc[qid]; if(card&&!card.learned&&isHistoryId(qid)) out.push({id:+qid,correctCount:card.correctCount||0,lastReviewedAt:card.lastReviewedAt||null}); }
+  for(var qid in fc){ var card=fc[qid]; if(card&&!card.learned&&isHistoryId(qid)&&cardAllowed(qid)) out.push({id:+qid,correctCount:card.correctCount||0,lastReviewedAt:card.lastReviewedAt||null}); }
   return out;
 }
 function availablePool(){
@@ -476,6 +505,7 @@ function availablePool(){
   var pool=HIST.filter(function(q){
     var card=fc[q.id];
     if(!card) return false;              // must have been added (simulator or bank)
+    if(!cardAllowed(q.id)) return false; // only simulator-answered or bank-added
     if(card.learned) return false;
     if(card.correctCount<1) return true; // needs at least 1 correct before cooldown applies
     if(!card.lastReviewedAt) return true;
@@ -558,8 +588,9 @@ function addFromBank(qid){
   qid=+qid;
   if(!isHistoryId(qid)) return;
   var fc=DB.flashcards=DB.flashcards||{};
-  if(fc[qid]) return; // ya estaba en las tarjetas
-  fc[qid]={correctCount:0,learned:false,lastReviewedAt:new Date().toISOString()};
+  var added=DB.bankAdded=DB.bankAdded||{};
+  added[qid]=true; // elegida a mano desde el banco: siempre puede repasarla
+  if(!fc[qid]) fc[qid]={correctCount:0,learned:false,lastReviewedAt:new Date().toISOString()};
   var u=user(); u.masteredCount=learnedIds().length; setUser(u);
   saveDB();
   render();
@@ -579,7 +610,7 @@ function banHTML(){
   if(mode==="hist"){
     body='<p class="small mut">'+hits.length+' pregunta(s) encontradas.</p>'+
     '<p class="small mut" style="background:rgba(2,132,199,.12);border:1px solid rgba(56,189,248,.25);border-radius:10px;padding:8px 10px;margin-bottom:10px">Las preguntas del simulador se agregan solas a tus flashcards. Si quieres, también puedes añadir cualquier pregunta del banco con “Agregar a flashcards”.</p>'+
-    hits.map(function(x){var inCards=!!((DB.flashcards||{})[x.id]); return '<div class="card"><div class="row">'+qpills(x)+'</div><div class="qtext" style="font-size:16px">'+esc(x.pregunta)+'</div>'+tr(x.pregunta_en,x.pregunta_fa)+
+    hits.map(function(x){var inCards=cardAllowed(x.id)&&!!((DB.flashcards||{})[x.id]); return '<div class="card"><div class="row">'+qpills(x)+'</div><div class="qtext" style="font-size:16px">'+esc(x.pregunta)+'</div>'+tr(x.pregunta_en,x.pregunta_fa)+
     x.opciones.map(function(o,i){return '<div class="opt locked">'+esc(o)+(i===x.correct?' <span class="marker">[CORRECTA]</span>':'')+trOption(x.opciones_en,x.opciones_fa,i)+'</div>';}).join("")+
     (x.explicacion?'<p class="small mut">'+esc(x.explicacion)+'</p>':'')+tr(x.explicacion_en,x.explicacion_fa)+
     (inCards?'<div style="margin-top:10px"><span class="pill green">✓ En tus tarjetas</span></div>':'<div style="margin-top:10px"><button class="btn ghost" style="font-size:12px;padding:6px 12px" data-addfl="'+x.id+'">+ Agregar a flashcards</button></div>')+
@@ -597,14 +628,8 @@ function proHTML(){
   var u=user();
   var learned=learnedIds();
   var pending=pendingCards();
-  var d=DB.daily[today()]||{flashcards:0,simulador:false,lectura:false};
-  var dailyDone=d.flashcards>=30&&d.simulador&&d.lectura;
   var attempts=(DB.attempts||[]);
-  return '<div class="card"><div class="top"><h2>Meta diaria</h2>'+(dailyDone?'<span class="pill green">¡COMPLETADA!</span>':'')+'</div>'+
-    '<div class="grid"><div class="stat"><b>'+d.flashcards+'<span style="font-size:14px;color:#a7f3d0">/30</span></b><div class="small mut">Flashcards hoy</div></div>'+
-    '<div class="stat"><b>'+(d.simulador?'✅':'⬜')+'</b><div class="small mut">Simulador hoy</div></div>'+
-    '<div class="stat"><b>'+(d.lectura?'✅':'⬜')+'</b><div class="small mut">Lectura hoy</div></div></div></div>'+
-    '<div class="grid"><div class="stat"><b>'+HIST.length+'</b><div class="small mut">Total banco</div></div>'+
+  return '<div class="grid"><div class="stat"><b>'+HIST.length+'</b><div class="small mut">Total banco</div></div>'+
     '<div class="stat"><b>'+learned.length+'</b><div class="small mut">Aprendidas</div></div>'+
     '<div class="stat"><b>'+u.totalCorrect+'</b><div class="small mut">Correctas totales</div></div>'+
     '<div class="stat"><b>'+u.totalAnswered+'</b><div class="small mut">Respondidas</div></div></div>'+

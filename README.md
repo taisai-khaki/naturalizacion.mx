@@ -11,13 +11,15 @@ preguntas real extraído de las aplicaciones de escritorio originales
 | **Simulador Historia/Cultura** | 10 preguntas al azar de un banco limpio de **604**. Apruebas con **8/10**. |
 | **Examen de Lectura** | Un pasaje completo + **6** preguntas de comprensión (banco de **16** lecturas). Apruebas con **5/6**. |
 | **Entrevista y Redacción** | 10 preguntas de entrevista con tips + 5 temas de redacción (80–120 palabras) con checklist. |
-| **Flashcards** | Tarjetas de Historia/Cultura; se aprenden con **5 respuestas correctas**. Meta diaria de 30. |
+| **Flashcards** | Tarjetas de Historia/Cultura; se aprenden con **5 respuestas correctas**. Solo entran preguntas que ya respondiste en el simulador o que agregaste desde el banco. |
 | **Banco completo** | Busca y navega todas las preguntas, lecturas y temas de conversación, y **añade cualquier pregunta del banco a tus flashcards** con un botón. |
-| **Progreso** | Dominadas, intentos de examen, meta diaria, archivadas y en repetición. |
+| **Progreso** | Dominadas, intentos de examen, archivadas y en repetición. |
 
 - Progreso guardado por **número de teléfono** (sin contraseñas).
 - Las preguntas del **simulador entran solas a Flashcards**; desde el **Banco** puedes
   añadir opcionalmente cualquier otra pregunta con el botón **"Agregar a flashcards"**.
+  **Ninguna otra pregunta aparece en Flashcards**: las tarjetas de origen desconocido
+  (por ejemplo, de versiones anteriores) se descartan automáticamente al cargar la app.
 - Una pregunta se considera **dominada** al acertarla en **5 sesiones distintas**.
 - Estado **"¡Listo!"** cuando apruebas simulador y lectura.
 - Botones **EN** y **FA** para ver las traducciones al **inglés** o **farsi/persa** de cada texto, pregunta y opción. El farsi se muestra de derecha a izquierda y se guarda en el navegador después de cargarlo por primera vez.
