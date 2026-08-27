@@ -14,11 +14,18 @@ type IW = {
 const data = iw as unknown as IW;
 
 type Mode = "historia_cultura" | "lectura" | "conversacion";
+type FcFilter = "all" | "in" | "out";
 
 const MODES: { id: Mode; label: string }[] = [
   { id: "historia_cultura", label: "Historia y cultura" },
   { id: "lectura", label: "Lecturas" },
   { id: "conversacion", label: "Conversación" },
+];
+
+const FC_FILTERS: { id: FcFilter; label: string }[] = [
+  { id: "all", label: "Todas" },
+  { id: "in", label: "En flashcards" },
+  { id: "out", label: "Sin agregar" },
 ];
 
 export default function Banco({ user }: { user: User }) {
@@ -29,6 +36,7 @@ export default function Banco({ user }: { user: User }) {
   const [lectResults, setLectResults] = useState<{ passage: Passage; questions: Question[] }[]>([]);
   const [loading, setLoading] = useState(false);
   const [flashcardIds, setFlashcardIds] = useState<Set<number>>(new Set());
+  const [fcFilter, setFcFilter] = useState<FcFilter>("all");
   const [addingId, setAddingId] = useState<number | null>(null);
 
   useEffect(() => {
@@ -39,7 +47,7 @@ export default function Banco({ user }: { user: User }) {
   useEffect(() => {
     if (mode === "conversacion") return;
     setLoading(true);
-    const url = `/api/bank?mode=${mode}&q=${encodeURIComponent(query)}&limit=200&userId=${user.id}`;
+    const url = `/api/bank?mode=${mode}&q=${encodeURIComponent(query)}&limit=200&userId=${user.id}&flashcards=${fcFilter}`;
     api<any>(url)
       .then((data) => {
         if (mode === "historia_cultura") {
@@ -51,7 +59,7 @@ export default function Banco({ user }: { user: User }) {
       })
       .catch((e) => alert(e.message))
       .finally(() => setLoading(false));
-  }, [mode, query, user.id]);
+  }, [mode, query, user.id, fcFilter]);
 
   async function addToFlashcards(item: Question) {
     setAddingId(item.id);
@@ -126,6 +134,27 @@ export default function Banco({ user }: { user: User }) {
           </div>
         )}
       </div>
+
+      {mode === "historia_cultura" && (
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="text-xs font-semibold text-emerald-300/60 uppercase tracking-wide">Flashcards:</span>
+          <div className="flex gap-1.5">
+            {FC_FILTERS.map((f) => (
+              <button
+                key={f.id}
+                onClick={() => setFcFilter(f.id)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition border ${
+                  fcFilter === f.id
+                    ? "bg-amber-300/20 border-amber-300/50 text-amber-200"
+                    : "bg-white/5 border-white/10 text-emerald-100/70 hover:bg-white/10"
+                }`}
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {loading && <p className="text-sm text-emerald-300/60">Buscando...</p>}
 
