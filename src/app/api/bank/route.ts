@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { questions, passages, flashcards } from "@/db/schema";
-import { sql, eq, and, ilike, or, inArray } from "drizzle-orm";
+import { sql, eq, and, ilike, or, inArray, notInArray } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -14,6 +14,8 @@ export async function GET(req: NextRequest) {
     const limit = Math.min(parseInt(url.searchParams.get("limit") || "200", 10), 500);
     // Opcional: para marcar en el banco qué preguntas ya están en flashcards
     const userId = parseInt(url.searchParams.get("userId") || "0", 10);
+    // Filtro por flashcards: "all" (default) | "in" (ya agregadas) | "out" (sin agregar)
+    const fcFilter = url.searchParams.get("flashcards") || "all";
 
     if (mode === "historia_cultura") {
       const cond = q
@@ -26,11 +28,24 @@ export async function GET(req: NextRequest) {
           )
         : undefined;
 
+      // Subconsulta: preguntas que el usuario ya tiene en sus flashcards
+      const userFcSubquery = db
+        .select({ questionId: flashcards.questionId })
+        .from(flashcards)
+        .where(eq(flashcards.userId, userId));
+
+      const fcCond =
+        userId && fcFilter === "in"
+          ? inArray(questions.id, userFcSubquery)
+          : userId && fcFilter === "out"
+            ? notInArray(questions.id, userFcSubquery)
+            : undefined;
+
       const rows = await db
         .select()
         .from(questions)
         .where(
-          and(eq(questions.category, "historia_cultura"), eq(questions.isActive, true), cond),
+          and(eq(questions.category, "historia_cultura"), eq(questions.isActive, true), cond, fcCond),
         )
         .orderBy(sql`random()`)
         .limit(limit);
