@@ -123,6 +123,7 @@ export default function Flashcards({
           <h2 className="text-xl font-extrabold mb-2">¡Sin pendientes! 🎉</h2>
           <p className="text-emerald-200/80">
             No hay tarjetas disponibles para repasar ahora.
+            Cada pregunta se presenta como máximo 1 vez al día con un intervalo de {FLASHCARD_MIN_DAYS} días.
             Vuelve a practicar en el simulador o agrega preguntas desde el banco.
           </p>
         </Card>
@@ -219,8 +220,8 @@ export default function Flashcards({
 
       <p className="text-xs text-emerald-300/60">
         Modo {mode === "reveal" ? "autoevaluación" : "opciones múltiples"} · 
-        Responde <strong>correctamente {FLASHCARD_LEARN_COUNT} veces</strong> para aprender la pregunta. 
-        Puedes repasar cada {FLASHCARD_MIN_DAYS} días como mínimo.
+        Cada pregunta se presenta como máximo <strong>1 vez al día</strong> con un <strong>intervalo de {FLASHCARD_MIN_DAYS} días</strong>. 
+        Responde correctamente {FLASHCARD_LEARN_COUNT} veces para aprenderla.
       </p>
     </div>
   );
