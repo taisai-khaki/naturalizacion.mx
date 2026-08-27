@@ -621,15 +621,20 @@ function addFromBank(qid){
 function banHTML(){
   var q=(STATE.sel.banq||"").toLowerCase();
   var mode=STATE.sel.banmode||"hist";
+  var fcf = STATE.sel.banfc || "all";
   var hits=[];
   if(mode==="hist"){ hits=HIST.filter(function(x){ if(!q) return true; var hay=x.pregunta+" "+(x.pregunta_en||"")+" "+(x.pregunta_fa||"")+" "+(x.subtema||"")+" "+(x.categoria||"")+" "+x.opciones.join(" ")+" "+(x.opciones_en||[]).join(" ")+" "+(x.opciones_fa||[]).join(" "); return hay.toLowerCase().indexOf(q)>=0; }).slice(0,604); }
+  if(fcf!=="all"){ hits=hits.filter(function(x){ var inC=cardAllowed(x.id)&&!!((DB.flashcards||{})[x.id]); return fcf==="in"?inC:!inC; }); }
   var lechits=[];
   if(mode==="lec"){ lechits=PASSAGES.filter(function(p){ if(!q) return true; return (p.title+" "+p.text+" "+(p.text_en||"")+" "+(p.text_fa||"")).toLowerCase().indexOf(q)>=0; }); }
   var modes=[["hist","Historia y cultura"],["lec","Lecturas"],["conv","Conversación"]];
   var m=modes.map(function(x){return '<button class="tab'+(mode===x[0]?' on':'')+'" data-banmode="'+x[0]+'">'+x[1]+'</button>';}).join("");
   var body="";
   if(mode==="hist"){
-    body='<p class="small mut">'+hits.length+' pregunta(s) encontradas.</p>'+
+    body='<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 12px"><span class="small mut" style="font-size:11px;font-weight:700;letter-spacing:.06em">FLASHCARDS:</span>'+
+    [["all","Todas"],["in","En flashcards"],["out","Sin agregar"]].map(function(f){return '<button class="tab'+(fcf===f[0]?' on':'')+'" data-banfc="'+f[0]+'" style="font-size:12px;padding:6px 12px">'+f[1]+'</button>';}).join("")+
+    '</div>'+
+    '<p class="small mut">'+hits.length+' pregunta(s) encontradas.</p>'+
     '<p class="small mut" style="background:rgba(2,132,199,.12);border:1px solid rgba(56,189,248,.25);border-radius:10px;padding:8px 10px;margin-bottom:10px">Las preguntas del simulador se agregan solas a tus flashcards. Si quieres, también puedes añadir cualquier pregunta del banco con “Agregar a flashcards”.</p>'+
     hits.map(function(x){var inCards=cardAllowed(x.id)&&!!((DB.flashcards||{})[x.id]); return '<div class="card"><div class="row">'+qpills(x)+'</div><div class="qtext" style="font-size:16px">'+esc(x.pregunta)+'</div>'+tr(x.pregunta_en,x.pregunta_fa)+
     x.opciones.map(function(o,i){return '<div class="opt locked">'+esc(o)+(i===x.correct?' <span class="marker">[CORRECTA]</span>':'')+trOption(x.opciones_en,x.opciones_fa,i)+'</div>';}).join("")+
@@ -699,6 +704,7 @@ function bindView(){
   }
   if(tab==="ban"){
     document.querySelectorAll(".tab[data-banmode]").forEach(function(b){ b.onclick=function(){ STATE.sel.banmode=b.getAttribute("data-banmode"); render(); }; });
+    document.querySelectorAll("[data-banfc]").forEach(function(b){ b.onclick=function(){ STATE.sel.banfc=b.getAttribute("data-banfc"); render(); }; });
     var bq=document.getElementById("banq"); if(bq){ bq.oninput=function(){ STATE.sel.banq=bq.value; }; }
     document.querySelectorAll("[data-addfl]").forEach(function(b){ b.onclick=function(){ addFromBank(+b.getAttribute("data-addfl")); }; });
   }
