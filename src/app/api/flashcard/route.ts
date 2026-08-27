@@ -31,10 +31,7 @@ export async function GET(req: NextRequest) {
         and(
           eq(flashcards.userId, userId),
           eq(flashcards.learned, false),
-          or(
-            lt(flashcards.correctCount, 1),
-            lte(flashcards.lastReviewedAt, minDate),
-          ),
+          lte(flashcards.lastReviewedAt, minDate),
         ),
       )
       .orderBy(sql`random()`)
@@ -105,7 +102,7 @@ export async function POST(req: NextRequest) {
           questionId: qid,
           mark: "facil",
           createdAt: new Date(),
-          lastReviewedAt: new Date(),
+          lastReviewedAt: new Date(0),
           correctCount: 0,
           learned: false,
         });

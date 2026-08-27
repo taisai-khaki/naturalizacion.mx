@@ -9,7 +9,7 @@ import {
 } from "@/db/schema";
 import { sql, eq, and } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
-import { SIMULADOR_PASS, LECTURA_PASS } from "@/lib/constants";
+import { SIMULADOR_PASS, LECTURA_PASS, FLASHCARD_LEARN_COUNT } from "@/lib/constants";
 
 type Answer = { questionId?: number; answerIndex?: number };
 
@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
         .insert(userProgress)
         .values({ userId: uid, questionId: qId, sessionDay, isCorrect });
 
-      // Si es simulador: mover la pregunta a flashcards (si no está ya)
+      // Si es simulador: mover la pregunta a flashcards (si no está ya) y registrar resultado
       if (type === "simulador") {
         const existing = await db
           .select()
@@ -75,9 +75,21 @@ export async function POST(req: NextRequest) {
             mark: "facil",
             createdAt: new Date(),
             lastReviewedAt: new Date(),
-            correctCount: 0,
+            correctCount: isCorrect ? 1 : 0,
             learned: false,
           });
+        } else {
+          const fc = existing[0];
+          const newCorrect = fc.correctCount + (isCorrect ? 1 : 0);
+          const newLearned = newCorrect >= FLASHCARD_LEARN_COUNT;
+          await db
+            .update(flashcards)
+            .set({
+              correctCount: newCorrect,
+              learned: newLearned,
+              lastReviewedAt: new Date(),
+            })
+            .where(eq(flashcards.id, fc.id));
         }
       }
     }
