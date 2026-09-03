@@ -3,6 +3,12 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Evita que navegadores móviles/proxies sirvan una copia vieja de la app:
+     cada build regenera index.html y estos metadatos fuerzan revalidación. -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<meta name="version" content="/*__VERSION__*/" />
 <title>Naturalización MX — Examen de Ciudadanía</title>
 <style>
 :root{--bg:#022c22;--bg2:#064e3b;--card:rgba(255,255,255,.05);--line:rgba(255,255,255,.12);--ink:#ecfdf5;--mut:#a7f3d0;--gold:#fcd34d;--rose:#fb7185;--green:#6ee7b7;}
@@ -70,6 +76,7 @@ window.__APP_DATA__ = /*__DATA__*/;
 (function(){
 "use strict";
 var D = window.__APP_DATA__;
+var APP_VERSION = "/*__VERSION__*/"; // inyectado por build_standalone.py
 var HIST = D.hist;       // Spanish questions with _en and _fa translation fields
 var PASSAGES = D.passages; // Spanish readings with _en and _fa translation fields
 var IW = D.iw;           // {interview:[{question,tip}], writing:[], writingChecklist:[], writingWordRange:[]}
@@ -238,7 +245,7 @@ function appHTML(){
     '<div class="grid" style="margin-bottom:14px">'+stats.map(function(s){return '<div class="stat"><b>'+s[1]+'</b><div class="small mut">'+s[0]+'</div><div class="small" style="opacity:.6">'+s[2]+'</div></div>';}).join("")+'</div>'+
     '<div class="tabs">'+t+'</div>'+
     '<div id="content">'+viewHTML(STATE.tab)+'</div>'+
-    '<div class="footer">Naturalización MX · datos del banco oficial de práctica · progreso guardado localmente (localStorage)</div>'+
+    '<div class="footer">Naturalización MX · datos del banco oficial de práctica · progreso guardado localmente (localStorage) · v<span id="appver"></span></div>'+
   '</div>';
 }
 function viewHTML(tab){
@@ -622,14 +629,14 @@ function banHTML(){
   var q=(STATE.sel.banq||"").toLowerCase();
   var mode=STATE.sel.banmode||"hist";
   var hits=[];
-  if(mode==="hist"){ hits=HIST.filter(function(x){ if(!q) return true; var hay=x.pregunta+" "+(x.pregunta_en||"")+" "+(x.pregunta_fa||"")+" "+(x.subtema||"")+" "+(x.categoria||"")+" "+x.opciones.join(" ")+" "+(x.opciones_en||[]).join(" ")+" "+(x.opciones_fa||[]).join(" "); return hay.toLowerCase().indexOf(q)>=0; }).slice(0,604); }
+  if(mode==="hist"){ hits=HIST.filter(function(x){ if(!q) return true; var hay=x.pregunta+" "+(x.pregunta_en||"")+" "+(x.pregunta_fa||"")+" "+(x.subtema||"")+" "+(x.categoria||"")+" "+x.opciones.join(" ")+" "+(x.opciones_en||[]).join(" ")+" "+(x.opciones_fa||[]).join(" "); return hay.toLowerCase().indexOf(q)>=0; }); }
   var lechits=[];
   if(mode==="lec"){ lechits=PASSAGES.filter(function(p){ if(!q) return true; return (p.title+" "+p.text+" "+(p.text_en||"")+" "+(p.text_fa||"")).toLowerCase().indexOf(q)>=0; }); }
   var modes=[["hist","Historia y cultura"],["lec","Lecturas"],["conv","Conversación"]];
   var m=modes.map(function(x){return '<button class="tab'+(mode===x[0]?' on':'')+'" data-banmode="'+x[0]+'">'+x[1]+'</button>';}).join("");
   var body="";
   if(mode==="hist"){
-    body='<p class="small mut">'+hits.length+' pregunta(s) encontradas.</p>'+
+    body='<p class="small mut">'+hits.length+' pregunta(s) encontradas · total del banco: <b>'+HIST.length+'</b>.</p>'+
     '<p class="small mut" style="background:rgba(2,132,199,.12);border:1px solid rgba(56,189,248,.25);border-radius:10px;padding:8px 10px;margin-bottom:10px">Las preguntas del simulador se agregan solas a tus flashcards. Si quieres, también puedes añadir cualquier pregunta del banco con “Agregar a flashcards”.</p>'+
     hits.map(function(x){var inCards=cardAllowed(x.id)&&!!((DB.flashcards||{})[x.id]); return '<div class="card"><div class="row">'+qpills(x)+'</div><div class="qtext" style="font-size:16px">'+esc(x.pregunta)+'</div>'+tr(x.pregunta_en,x.pregunta_fa)+
     x.opciones.map(function(o,i){return '<div class="opt locked">'+esc(o)+(i===x.correct?' <span class="marker">[CORRECTA]</span>':'')+trOption(x.opciones_en,x.opciones_fa,i)+'</div>';}).join("")+
@@ -705,6 +712,10 @@ function bindView(){
   if(tab==="pro"){ /* static */ }
 }
 function fmt(s){ s=Math.max(0,s|0); return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0"); }
+// Muestra la versión del build en el pie para verificar que el dispositivo
+// (p. ej. un teléfono con caché) tenga la copia más reciente de la app.
+var _av = document.getElementById("appver");
+if (_av) _av.textContent = APP_VERSION;
 render();
 })();
 </script>
