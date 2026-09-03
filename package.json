@@ -13,7 +13,8 @@
     "db:migrate": "tsx scripts/migrate.ts",
     "db:seed": "tsx scripts/seed.ts",
     "db:setup": "npm run db:migrate && npm run db:seed",
-    "predev": "npm run db:setup"
+    "predev": "npm run db:setup",
+    "bank:dedupe": "python3 scripts/dedupe_duplicates.py"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.5",

@@ -1825,31 +1825,6 @@
     "explicacion_en": null
   },
   {
-    "id": 74,
-    "seccion": "historia_cultura",
-    "categoria": "Cívica",
-    "subtema": "Constitucion",
-    "dificultad": "media",
-    "pregunta": "¿Cuál artículo de la Constitución dice que la educación es gratuita y obligatoria?",
-    "respuesta": "Artículo 3",
-    "opciones": [
-      "Artículo 3",
-      "Artículo 1",
-      "Artículo 4",
-      "Artículo 6"
-    ],
-    "explicacion": "El Artículo 3 constitucional garantiza la educación gratuita y obligatoria.",
-    "fuente": "Imágenes del usuario (flashcards del examen de naturalización)",
-    "pregunta_en": "Which article of the Constitution says education is free and mandatory?",
-    "opciones_en": [
-      "Article 3",
-      "Article 1",
-      "Article 4",
-      "Article 6"
-    ],
-    "explicacion_en": null
-  },
-  {
     "id": 75,
     "seccion": "historia_cultura",
     "categoria": "Cívica",
@@ -2450,31 +2425,6 @@
     "explicacion_en": null
   },
   {
-    "id": 99,
-    "seccion": "historia_cultura",
-    "categoria": "Cívica",
-    "subtema": "Instituciones",
-    "dificultad": "media",
-    "pregunta": "¿Cuántos diputados integran el Congreso de la Unión?",
-    "respuesta": "500",
-    "opciones": [
-      "500",
-      "300",
-      "128",
-      "200"
-    ],
-    "explicacion": "La Cámara de Diputados está integrada por 500 diputados.",
-    "fuente": "Imágenes del usuario (flashcards del examen de naturalización)",
-    "pregunta_en": "How many deputies make up the Congress of the Union?",
-    "opciones_en": [
-      "500",
-      "300",
-      "128",
-      "200"
-    ],
-    "explicacion_en": null
-  },
-  {
     "id": 100,
     "seccion": "historia_cultura",
     "categoria": "Cívica",
@@ -2571,31 +2521,6 @@
       "100",
       "64",
       "500"
-    ],
-    "explicacion_en": null
-  },
-  {
-    "id": 104,
-    "seccion": "historia_cultura",
-    "categoria": "Cívica",
-    "subtema": "Instituciones",
-    "dificultad": "media",
-    "pregunta": "¿Cuánto tiempo dura el mandato presidencial en México?",
-    "respuesta": "6 años",
-    "opciones": [
-      "6 años",
-      "4 años",
-      "8 años",
-      "3 años"
-    ],
-    "explicacion": "El periodo presidencial (sexenio) dura 6 años, sin reelección.",
-    "fuente": "Imágenes del usuario (flashcards del examen de naturalización)",
-    "pregunta_en": "How long does the presidential term last in Mexico?",
-    "opciones_en": [
-      "6 years",
-      "4 years",
-      "8 years",
-      "3 years"
     ],
     "explicacion_en": null
   },
@@ -3025,31 +2950,6 @@
     "explicacion_en": null
   },
   {
-    "id": 122,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Conquista",
-    "dificultad": "media",
-    "pregunta": "Nombre del conquistador que derrotó al Imperio Mexica:",
-    "respuesta": "Hernán Cortés",
-    "opciones": [
-      "Hernán Cortés",
-      "Francisco Pizarro",
-      "Cristóbal Colón",
-      "Pedro de Alvarado"
-    ],
-    "explicacion": "Hernán Cortés encabezó la conquista que derrotó al Imperio mexica.",
-    "fuente": "Imágenes del usuario (flashcards del examen de naturalización)",
-    "pregunta_en": "Name of the conquistador who defeated the Mexica Empire:",
-    "opciones_en": [
-      "Hernán Cortés",
-      "Francisco Pizarro",
-      "Christopher Columbus",
-      "Pedro de Alvarado"
-    ],
-    "explicacion_en": null
-  },
-  {
     "id": 123,
     "seccion": "historia_cultura",
     "categoria": "Historia",
@@ -3200,31 +3100,6 @@
     "explicacion_en": null
   },
   {
-    "id": 129,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Conquista",
-    "dificultad": "media",
-    "pregunta": "¿Cómo se llamó la batalla donde los aztecas derrotaron a los españoles?",
-    "respuesta": "La Noche Triste",
-    "opciones": [
-      "La Noche Triste",
-      "La Batalla de Puebla",
-      "La Batalla de Chapultepec",
-      "La Toma de Zacatecas"
-    ],
-    "explicacion": "En la Noche Triste (30 de junio de 1520) los mexicas derrotaron a los españoles.",
-    "fuente": "Imágenes del usuario (flashcards del examen de naturalización)",
-    "pregunta_en": "What was the battle in which the Aztecs defeated the Spaniards called?",
-    "opciones_en": [
-      "The Sad Night (La Noche Triste)",
-      "The Battle of Puebla",
-      "The Battle of Chapultepec",
-      "The Taking of Zacatecas"
-    ],
-    "explicacion_en": null
-  },
-  {
     "id": 130,
     "seccion": "historia_cultura",
     "categoria": "Historia",
@@ -3350,31 +3225,6 @@
     "explicacion_en": null
   },
   {
-    "id": 135,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Conquista",
-    "dificultad": "media",
-    "pregunta": "Año en que cayó México-Tenochtitlan:",
-    "respuesta": "1521",
-    "opciones": [
-      "1521",
-      "1492",
-      "1519",
-      "1810"
-    ],
-    "explicacion": "Tenochtitlan cayó el 13 de agosto de 1521.",
-    "fuente": "Imágenes del usuario (flashcards del examen de naturalización)",
-    "pregunta_en": "Year in which Mexico-Tenochtitlan fell:",
-    "opciones_en": [
-      "1521",
-      "1492",
-      "1519",
-      "1810"
-    ],
-    "explicacion_en": null
-  },
-  {
     "id": 136,
     "seccion": "historia_cultura",
     "categoria": "Historia",
@@ -3446,31 +3296,6 @@
       "Before Columbus' arrival",
       "During the Revolution",
       "In the 20th century"
-    ],
-    "explicacion_en": null
-  },
-  {
-    "id": 139,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Colonia",
-    "dificultad": "media",
-    "pregunta": "Nombre de México durante el periodo colonial:",
-    "respuesta": "Nueva España",
-    "opciones": [
-      "Nueva España",
-      "Nueva Galicia",
-      "Virreinato del Perú",
-      "La Gran Colombia"
-    ],
-    "explicacion": "Durante el virreinato, el territorio se llamó Nueva España.",
-    "fuente": "Imágenes del usuario (flashcards del examen de naturalización)",
-    "pregunta_en": "Name of Mexico during the colonial period:",
-    "opciones_en": [
-      "New Spain",
-      "New Galicia",
-      "Viceroyalty of Peru",
-      "Gran Colombia"
     ],
     "explicacion_en": null
   },
@@ -4075,31 +3900,6 @@
     "explicacion_en": null
   },
   {
-    "id": 164,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Prehispanica",
-    "dificultad": "media",
-    "pregunta": "La base alimenticia de los pueblos mesoamericanos fue:",
-    "respuesta": "El maíz",
-    "opciones": [
-      "El maíz",
-      "El trigo",
-      "El arroz",
-      "La papa"
-    ],
-    "explicacion": "El maíz fue la base de la alimentación mesoamericana.",
-    "fuente": "Imágenes del usuario (flashcards del examen de naturalización)",
-    "pregunta_en": "The staple food of Mesoamerican peoples was:",
-    "opciones_en": [
-      "Maize",
-      "Wheat",
-      "Rice",
-      "Potato"
-    ],
-    "explicacion_en": null
-  },
-  {
     "id": 165,
     "seccion": "historia_cultura",
     "categoria": "Historia",
@@ -4596,31 +4396,6 @@
       "Aztec",
       "Olmec",
       "Zapotec"
-    ],
-    "explicacion_en": null
-  },
-  {
-    "id": 185,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Prehispanica",
-    "dificultad": "media",
-    "pregunta": "Otro nombre del Templo de Kukulkán en Chichén Itzá:",
-    "respuesta": "El Castillo",
-    "opciones": [
-      "El Castillo",
-      "El Caracol",
-      "El Palacio",
-      "La Casa de las Monjas"
-    ],
-    "explicacion": "El templo de Kukulkán es conocido popularmente como El Castillo.",
-    "fuente": "Imágenes del usuario (flashcards del examen de naturalización)",
-    "pregunta_en": "Another name for the Temple of Kukulkán in Chichén Itzá:",
-    "opciones_en": [
-      "El Castillo",
-      "El Caracol",
-      "The Palace",
-      "The House of the Nuns"
     ],
     "explicacion_en": null
   },
@@ -5550,31 +5325,6 @@
     "explicacion_en": null
   },
   {
-    "id": 223,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Independencia",
-    "dificultad": "media",
-    "pregunta": "La Independencia de México inició en:",
-    "respuesta": "1810",
-    "opciones": [
-      "1810",
-      "1821",
-      "1857",
-      "1910"
-    ],
-    "explicacion": "La Independencia inició en 1810 con el Grito de Dolores.",
-    "fuente": "Imágenes del usuario (flashcards del examen de naturalización)",
-    "pregunta_en": "Mexico's Independence began in:",
-    "opciones_en": [
-      "1810",
-      "1821",
-      "1857",
-      "1910"
-    ],
-    "explicacion_en": null
-  },
-  {
     "id": 224,
     "seccion": "historia_cultura",
     "categoria": "Historia",
@@ -6446,31 +6196,6 @@
       "Porfirio Díaz",
       "Madero",
       "Carranza"
-    ],
-    "explicacion_en": null
-  },
-  {
-    "id": 259,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Reforma",
-    "dificultad": "media",
-    "pregunta": "¿A quién le llaman el Benemérito de las Américas?",
-    "respuesta": "Benito Juárez",
-    "opciones": [
-      "Benito Juárez",
-      "Miguel Hidalgo",
-      "Vicente Guerrero",
-      "Ignacio Zaragoza"
-    ],
-    "explicacion": "El Benemérito de las Américas es Benito Juárez.",
-    "fuente": "Imágenes del usuario (flashcards del examen de naturalización)",
-    "pregunta_en": "Who is called the Benemérito de las Américas?",
-    "opciones_en": [
-      "Benito Juárez",
-      "Miguel Hidalgo",
-      "Vicente Guerrero",
-      "Ignacio Zaragoza"
     ],
     "explicacion_en": null
   },
@@ -8650,31 +8375,6 @@
     "explicacion_en": null
   },
   {
-    "id": 347,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Moderno",
-    "dificultad": "media",
-    "pregunta": "Símbolo de la modernización inaugurado en 1956:",
-    "respuesta": "La Torre Latinoamericana",
-    "opciones": [
-      "La Torre Latinoamericana",
-      "El Ángel de la Independencia",
-      "El Palacio de Bellas Artes",
-      "La Torre Reforma"
-    ],
-    "explicacion": "La Torre Latinoamericana se inauguró en 1956.",
-    "fuente": "Imágenes del usuario (flashcards del examen de naturalización)",
-    "pregunta_en": "Symbol of modernization inaugurated in 1956:",
-    "opciones_en": [
-      "The Torre Latinoamericana",
-      "The Angel of Independence",
-      "The Palace of Fine Arts",
-      "The Torre Reforma"
-    ],
-    "explicacion_en": null
-  },
-  {
     "id": 348,
     "seccion": "historia_cultura",
     "categoria": "Historia",
@@ -9097,7 +8797,7 @@
       "Nuevo León",
       "Chihuahua"
     ],
-    "explicacion_en": null
+    "explicacion_en": "León, Guanajuato, is the footwear capital."
   },
   {
     "id": 365,
@@ -12725,31 +12425,6 @@
     "explicacion_en": null
   },
   {
-    "id": 510,
-    "seccion": "historia_cultura",
-    "categoria": "Geografía",
-    "subtema": "Nacional",
-    "dificultad": "media",
-    "pregunta": "¿Cuántos estados o entidades federativas tiene México?",
-    "respuesta": "32",
-    "opciones": [
-      "32",
-      "31",
-      "50",
-      "24"
-    ],
-    "explicacion": "México tiene 31 estados y la Ciudad de México (32 entidades).",
-    "fuente": "Imágenes del usuario (flashcards del examen de naturalización)",
-    "pregunta_en": "How many states or federative entities does Mexico have?",
-    "opciones_en": [
-      "32",
-      "31",
-      "50",
-      "24"
-    ],
-    "explicacion_en": null
-  },
-  {
     "id": 511,
     "seccion": "historia_cultura",
     "categoria": "Geografía",
@@ -14575,31 +14250,6 @@
     "explicacion_en": null
   },
   {
-    "id": 584,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Prehispanica",
-    "dificultad": "media",
-    "pregunta": "¿Qué civilización construyó la ciudad de Palenque?",
-    "respuesta": "La maya",
-    "opciones": [
-      "La maya",
-      "La azteca",
-      "La olmeca",
-      "La zapoteca"
-    ],
-    "explicacion": "Palenque fue una gran ciudad de la civilización maya.",
-    "fuente": "Imágenes del usuario (flashcards del examen de naturalización)",
-    "pregunta_en": "Which civilization built the city of Palenque?",
-    "opciones_en": [
-      "The Maya",
-      "The Aztec",
-      "The Olmec",
-      "The Zapotec"
-    ],
-    "explicacion_en": null
-  },
-  {
     "id": 585,
     "seccion": "historia_cultura",
     "categoria": "Historia",
@@ -14946,31 +14596,6 @@
       "1976",
       "1988",
       "1994"
-    ],
-    "explicacion_en": null
-  },
-  {
-    "id": 599,
-    "seccion": "historia_cultura",
-    "categoria": "Cultura",
-    "subtema": "Tradiciones",
-    "dificultad": "media",
-    "pregunta": "¿Cuál es el deporte nacional de México?",
-    "respuesta": "La charrería",
-    "opciones": [
-      "La charrería",
-      "El futbol",
-      "El boxeo",
-      "La lucha libre"
-    ],
-    "explicacion": "La charrería es el deporte nacional de México por decreto.",
-    "fuente": "Imágenes del usuario (flashcards del examen de naturalización)",
-    "pregunta_en": "What is Mexico's national sport?",
-    "opciones_en": [
-      "Charrería",
-      "Soccer",
-      "Boxing",
-      "Lucha libre"
     ],
     "explicacion_en": null
   },
@@ -15850,31 +15475,6 @@
     "explicacion_en": "The Spanish tortured him seeking the Mexica treasure."
   },
   {
-    "id": 635,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Conquista y Colonia",
-    "dificultad": "media",
-    "pregunta": "¿Cuáles fueron los tres últimos gobernantes mexicas?",
-    "respuesta": "Moctezuma II, Cuitláhuac y Cuauhtémoc.",
-    "opciones": [
-      "Moctezuma II, Cuitláhuac y Cuauhtémoc.",
-      "Acamapichtli, Huitzílhuitl y Chimalpopoca",
-      "Itzcóatl, Moctezuma I y Axayácatl",
-      "Ahuízotl, Tízoc y Axayácatl"
-    ],
-    "explicacion": "Fueron los últimos tlatoanis antes de la Conquista.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Who were the last three Mexica rulers?",
-    "opciones_en": [
-      "Moctezuma II, Cuitláhuac and Cuauhtémoc.",
-      "Acamapichtli, Huitzílhuitl and Chimalpopoca",
-      "Itzcóatl, Moctezuma I and Axayácatl",
-      "Ahuízotl, Tízoc and Axayácatl"
-    ],
-    "explicacion_en": "They were the last tlatoanis before the Conquest."
-  },
-  {
     "id": 636,
     "seccion": "historia_cultura",
     "categoria": "Historia",
@@ -15950,56 +15550,6 @@
     "explicacion_en": "The viceroyalty was called New Spain."
   },
   {
-    "id": 639,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Conquista y Colonia",
-    "dificultad": "media",
-    "pregunta": "¿Quién fue el primer virrey de la Nueva España?",
-    "respuesta": "Antonio de Mendoza.",
-    "opciones": [
-      "Antonio de Mendoza.",
-      "Luis de Velasco",
-      "Martín Enríquez de Almanza",
-      "Juan de Oñate"
-    ],
-    "explicacion": "Antonio de Mendoza inició el cargo en 1535.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Who was the first viceroy of New Spain?",
-    "opciones_en": [
-      "Antonio de Mendoza.",
-      "Luis de Velasco",
-      "Martín Enríquez de Almanza",
-      "Juan de Oñate"
-    ],
-    "explicacion_en": "Antonio de Mendoza took office in 1535."
-  },
-  {
-    "id": 640,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Conquista y Colonia",
-    "dificultad": "media",
-    "pregunta": "¿Quién fue el segundo virrey de la Nueva España?",
-    "respuesta": "Luis de Velasco.",
-    "opciones": [
-      "Luis de Velasco.",
-      "Antonio de Mendoza",
-      "Martín Enríquez de Almanza",
-      "Diego López Pacheco"
-    ],
-    "explicacion": "Luis de Velasco sucedió a Antonio de Mendoza.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Who was the second viceroy of New Spain?",
-    "opciones_en": [
-      "Luis de Velasco.",
-      "Antonio de Mendoza",
-      "Martín Enríquez de Almanza",
-      "Diego López Pacheco"
-    ],
-    "explicacion_en": "Luis de Velasco succeeded Antonio de Mendoza."
-  },
-  {
     "id": 641,
     "seccion": "historia_cultura",
     "categoria": "Historia",
@@ -16048,31 +15598,6 @@
       "The Californias"
     ],
     "explicacion_en": "New Vizcaya opened the colonization of the north."
-  },
-  {
-    "id": 643,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Conquista y Colonia",
-    "dificultad": "media",
-    "pregunta": "¿Qué estados actuales conformaban la Nueva Vizcaya en la época colonial?",
-    "respuesta": "Durango y Chihuahua.",
-    "opciones": [
-      "Durango y Chihuahua.",
-      "Sonora y Sinaloa",
-      "Coahuila y Nuevo León",
-      "Zacatecas y San Luis Potosí"
-    ],
-    "explicacion": "La Nueva Vizcaya corresponde a Durango y Chihuahua.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Which current states made up New Vizcaya in colonial times?",
-    "opciones_en": [
-      "Durango and Chihuahua.",
-      "Sonora and Sinaloa",
-      "Coahuila and Nuevo León",
-      "Zacatecas and San Luis Potosí"
-    ],
-    "explicacion_en": "New Vizcaya corresponds to Durango and Chihuahua."
   },
   {
     "id": 644,
@@ -16125,31 +15650,6 @@
     "explicacion_en": "Both figures belong to the viceroyalty's order."
   },
   {
-    "id": 646,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Conquista y Colonia",
-    "dificultad": "media",
-    "pregunta": "¿Cuál fue el mineral que más se extraía en la Nueva España?",
-    "respuesta": "La plata.",
-    "opciones": [
-      "La plata.",
-      "El oro",
-      "El cobre",
-      "El hierro"
-    ],
-    "explicacion": "La plata de Zacatecas y Guanajuato dio fama mundial a la Nueva España.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Which mineral was most extracted in New Spain?",
-    "opciones_en": [
-      "Silver.",
-      "Gold",
-      "Copper",
-      "Iron"
-    ],
-    "explicacion_en": "Silver from Zacatecas and Guanajuato gave New Spain world fame."
-  },
-  {
     "id": 647,
     "seccion": "historia_cultura",
     "categoria": "Historia",
@@ -16198,56 +15698,6 @@
       "A treaty with France"
     ],
     "explicacion_en": "It forced the territories to sustain the imperial military effort."
-  },
-  {
-    "id": 649,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Conquista y Colonia",
-    "dificultad": "media",
-    "pregunta": "¿Cuál fue el primer periódico impreso en la Nueva España?",
-    "respuesta": "La Gaceta de México.",
-    "opciones": [
-      "La Gaceta de México.",
-      "El Despertador Americano",
-      "El Pensador Mexicano",
-      "El Diario de México"
-    ],
-    "explicacion": "La Gaceta de México fue el primer periódico impreso del virreinato.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "What was the first newspaper printed in New Spain?",
-    "opciones_en": [
-      "The Gaceta de México.",
-      "El Despertador Americano",
-      "El Pensador Mexicano",
-      "El Diario de México"
-    ],
-    "explicacion_en": "The Gaceta de México was the viceroyalty's first printed newspaper."
-  },
-  {
-    "id": 650,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Conquista y Colonia",
-    "dificultad": "media",
-    "pregunta": "¿Qué tribunal se creó en 1719 para combatir el bandidaje en los caminos de la Nueva España?",
-    "respuesta": "El Tribunal de la Acordada.",
-    "opciones": [
-      "El Tribunal de la Acordada.",
-      "La Real Audiencia",
-      "El Santo Oficio",
-      "El Juzgado General de Indios"
-    ],
-    "explicacion": "La Acordada perseguía el crimen en caminos y zonas rurales.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Which tribunal was created in 1719 to combat banditry on the roads of New Spain?",
-    "opciones_en": [
-      "The Tribunal de la Acordada.",
-      "The Real Audiencia",
-      "The Holy Office",
-      "The General Indian Court"
-    ],
-    "explicacion_en": "The Acordada pursued crime on roads and rural areas."
   },
   {
     "id": 651,
@@ -16350,31 +15800,6 @@
     "explicacion_en": "The name honors the Spanish Constitution of Cádiz."
   },
   {
-    "id": 655,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Conquista y Colonia",
-    "dificultad": "media",
-    "pregunta": "¿Cómo se denominaba a los hijos de españoles nacidos en la Nueva España?",
-    "respuesta": "Criollos.",
-    "opciones": [
-      "Criollos.",
-      "Mestizos",
-      "Peninsulares",
-      "Mulatos"
-    ],
-    "explicacion": "Los criollos eran españoles nacidos en América.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "What were children of Spaniards born in New Spain called?",
-    "opciones_en": [
-      "Criollos (creoles).",
-      "Mestizos",
-      "Peninsulares",
-      "Mulattos"
-    ],
-    "explicacion_en": "Criollos were Spaniards born in America."
-  },
-  {
     "id": 656,
     "seccion": "historia_cultura",
     "categoria": "Historia",
@@ -16398,81 +15823,6 @@
       "San Luis Potosí"
     ],
     "explicacion_en": "The Cry of Dolores occurred in Guanajuato in 1810."
-  },
-  {
-    "id": 657,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Independencia",
-    "dificultad": "media",
-    "pregunta": "¿Qué imagen llevaba el estandarte de Hidalgo?",
-    "respuesta": "La Virgen de Guadalupe.",
-    "opciones": [
-      "La Virgen de Guadalupe.",
-      "El águila real",
-      "San Miguel Arcángel",
-      "La Virgen de San Juan"
-    ],
-    "explicacion": "Hidalgo tomó la imagen de la Virgen de Guadalupe como estandarte.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "What image did Hidalgo's banner bear?",
-    "opciones_en": [
-      "The Virgin of Guadalupe.",
-      "The royal eagle",
-      "Saint Michael the Archangel",
-      "The Virgin of San Juan"
-    ],
-    "explicacion_en": "Hidalgo took the Virgin of Guadalupe's image as his banner."
-  },
-  {
-    "id": 658,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Independencia",
-    "dificultad": "media",
-    "pregunta": "¿Qué mujeres destacaron en la Independencia de México?",
-    "respuesta": "Josefa Ortiz de Domínguez y Leona Vicario.",
-    "opciones": [
-      "Josefa Ortiz de Domínguez y Leona Vicario.",
-      "Frida Kahlo y María Félix",
-      "Sor Juana y Rosario Castellanos",
-      "La Malinche y doña Marina"
-    ],
-    "explicacion": "Ambas apoyaron activamente el movimiento independentista.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Which women stood out in Mexico's Independence?",
-    "opciones_en": [
-      "Josefa Ortiz de Domínguez and Leona Vicario.",
-      "Frida Kahlo and María Félix",
-      "Sor Juana and Rosario Castellanos",
-      "La Malinche and doña Marina"
-    ],
-    "explicacion_en": "Both actively supported the independence movement."
-  },
-  {
-    "id": 659,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Independencia",
-    "dificultad": "media",
-    "pregunta": "¿Quién fundó El Pensador Mexicano, el periódico más importante de la época de la Independencia?",
-    "respuesta": "José Joaquín Fernández de Lizardi.",
-    "opciones": [
-      "José Joaquín Fernández de Lizardi.",
-      "Carlos María de Bustamante",
-      "Andrés Quintana Roo",
-      "Manuel Payno"
-    ],
-    "explicacion": "Fernández de Lizardi fue el primer novelista y periodista mexicano.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Who founded El Pensador Mexicano, the most important newspaper of the Independence era?",
-    "opciones_en": [
-      "José Joaquín Fernández de Lizardi.",
-      "Carlos María de Bustamante",
-      "Andrés Quintana Roo",
-      "Manuel Payno"
-    ],
-    "explicacion_en": "Fernández de Lizardi was the first Mexican novelist and journalist."
   },
   {
     "id": 660,
@@ -16625,31 +15975,6 @@
     "explicacion_en": "Iturbide headed the First Mexican Empire."
   },
   {
-    "id": 666,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Independencia",
-    "dificultad": "media",
-    "pregunta": "¿Quién fue el primer emperador de México?",
-    "respuesta": "Agustín de Iturbide.",
-    "opciones": [
-      "Agustín de Iturbide.",
-      "Maximiliano de Habsburgo",
-      "Vicente Guerrero",
-      "Guadalupe Victoria"
-    ],
-    "explicacion": "Agustín I fue el primer emperador (1822).",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Who was the first emperor of Mexico?",
-    "opciones_en": [
-      "Agustín de Iturbide.",
-      "Maximilian of Habsburg",
-      "Vicente Guerrero",
-      "Guadalupe Victoria"
-    ],
-    "explicacion_en": "Agustín I was the first emperor (1822)."
-  },
-  {
     "id": 667,
     "seccion": "historia_cultura",
     "categoria": "Historia",
@@ -16675,31 +16000,6 @@
     "explicacion_en": "There the Niños Héroes fell."
   },
   {
-    "id": 668,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "México Independiente",
-    "dificultad": "media",
-    "pregunta": "¿Qué tratado puso fin a la guerra con Estados Unidos?",
-    "respuesta": "El Tratado de Guadalupe Hidalgo.",
-    "opciones": [
-      "El Tratado de Guadalupe Hidalgo.",
-      "El Tratado McLane-Ocampo",
-      "El Tratado de la Mesilla",
-      "El Tratado de Córdoba"
-    ],
-    "explicacion": "En 1848 México cedió la mitad norte de su territorio.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Which treaty ended the war with the United States?",
-    "opciones_en": [
-      "The Treaty of Guadalupe Hidalgo.",
-      "The McLane-Ocampo Treaty",
-      "The Mesilla Treaty",
-      "The Treaty of Córdoba"
-    ],
-    "explicacion_en": "In 1848 Mexico ceded the northern half of its territory."
-  },
-  {
     "id": 669,
     "seccion": "historia_cultura",
     "categoria": "Historia",
@@ -16723,81 +16023,6 @@
       "The New Laws"
     ],
     "explicacion_en": "The Reform Laws secularized public life."
-  },
-  {
-    "id": 670,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Reforma",
-    "dificultad": "media",
-    "pregunta": "¿Qué grupo promovió la integración nacional y abrió camino al capitalismo durante la Reforma?",
-    "respuesta": "Los liberales.",
-    "opciones": [
-      "Los liberales.",
-      "Los conservadores",
-      "Los centralistas",
-      "Los monárquicos"
-    ],
-    "explicacion": "Los liberales impulsaron las reformas económicas y civiles.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Which group promoted national integration and opened the way to capitalism during the Reforma?",
-    "opciones_en": [
-      "The liberals.",
-      "The conservatives",
-      "The centralists",
-      "The monarchists"
-    ],
-    "explicacion_en": "The liberals drove the economic and civil reforms."
-  },
-  {
-    "id": 671,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Reforma",
-    "dificultad": "media",
-    "pregunta": "¿Quién ordenó el trazo del Paseo de la Reforma y qué nombre tuvo originalmente?",
-    "respuesta": "Maximiliano; se llamó Paseo de la Emperatriz.",
-    "opciones": [
-      "Maximiliano; se llamó Paseo de la Emperatriz.",
-      "Porfirio Díaz; Paseo de la Reforma",
-      "Santa Anna; Calzada del Calvario",
-      "Juárez; Avenida Juárez"
-    ],
-    "explicacion": "El paseo unía el Castillo de Chapultepec con el centro.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Who ordered the layout of Paseo de la Reforma and what was it originally called?",
-    "opciones_en": [
-      "Maximilian; it was called Paseo de la Emperatriz.",
-      "Porfirio Díaz; Paseo de la Reforma",
-      "Santa Anna; Calzada del Calvario",
-      "Juárez; Avenida Juárez"
-    ],
-    "explicacion_en": "The avenue linked Chapultepec Castle with the center."
-  },
-  {
-    "id": 672,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Reforma",
-    "dificultad": "media",
-    "pregunta": "¿Quién asumió la presidencia tras la muerte de Benito Juárez?",
-    "respuesta": "Sebastián Lerdo de Tejada.",
-    "opciones": [
-      "Sebastián Lerdo de Tejada.",
-      "Porfirio Díaz",
-      "José María Iglesias",
-      "Mariano Escobedo"
-    ],
-    "explicacion": "Lerdo de Tejada era presidente de la Suprema Corte.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Who assumed the presidency after Benito Juárez's death?",
-    "opciones_en": [
-      "Sebastián Lerdo de Tejada.",
-      "Porfirio Díaz",
-      "José María Iglesias",
-      "Mariano Escobedo"
-    ],
-    "explicacion_en": "Lerdo de Tejada was president of the Supreme Court."
   },
   {
     "id": 673,
@@ -16900,31 +16125,6 @@
     "explicacion_en": "The call to arms was for November 20, 1910."
   },
   {
-    "id": 677,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "Revolución",
-    "dificultad": "media",
-    "pregunta": "¿Quién traicionó a Francisco I. Madero?",
-    "respuesta": "Victoriano Huerta.",
-    "opciones": [
-      "Victoriano Huerta.",
-      "Venustiano Carranza",
-      "Félix Díaz",
-      "Bernardo Reyes"
-    ],
-    "explicacion": "Huerta lo depuso en la Decena Trágica (1913).",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Who betrayed Francisco I. Madero?",
-    "opciones_en": [
-      "Victoriano Huerta.",
-      "Venustiano Carranza",
-      "Félix Díaz",
-      "Bernardo Reyes"
-    ],
-    "explicacion_en": "Huerta deposed him in the Ten Tragic Days (1913)."
-  },
-  {
     "id": 678,
     "seccion": "historia_cultura",
     "categoria": "Historia",
@@ -16948,31 +16148,6 @@
       "UAM"
     ],
     "explicacion_en": "Cárdenas also nationalized oil in 1938."
-  },
-  {
-    "id": 679,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "México Moderno",
-    "dificultad": "media",
-    "pregunta": "¿Qué presidente declaró la guerra a las potencias del Eje en la Segunda Guerra Mundial?",
-    "respuesta": "Manuel Ávila Camacho.",
-    "opciones": [
-      "Manuel Ávila Camacho.",
-      "Lázaro Cárdenas",
-      "Miguel Alemán Valdés",
-      "Adolfo Ruiz Cortines"
-    ],
-    "explicacion": "México entró a la guerra en 1942 tras ataques a buques petroleros.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Which president declared war on the Axis powers in World War II?",
-    "opciones_en": [
-      "Manuel Ávila Camacho.",
-      "Lázaro Cárdenas",
-      "Miguel Alemán Valdés",
-      "Adolfo Ruiz Cortines"
-    ],
-    "explicacion_en": "Mexico entered the war in 1942 after attacks on oil tankers."
   },
   {
     "id": 680,
@@ -17050,31 +16225,6 @@
     "explicacion_en": "It was in federal elections for deputies."
   },
   {
-    "id": 683,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "México Moderno",
-    "dificultad": "media",
-    "pregunta": "¿En qué año cayó el Ángel de la Independencia a causa de un sismo?",
-    "respuesta": "1957.",
-    "opciones": [
-      "1957.",
-      "1955",
-      "1967",
-      "1985"
-    ],
-    "explicacion": "El sismo de 1957 derribó la estatua del Ángel.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "In what year did the Angel of Independence fall because of an earthquake?",
-    "opciones_en": [
-      "1957.",
-      "1955",
-      "1967",
-      "1985"
-    ],
-    "explicacion_en": "The 1957 earthquake toppled the Angel statue."
-  },
-  {
     "id": 684,
     "seccion": "historia_cultura",
     "categoria": "Historia",
@@ -17123,31 +16273,6 @@
       "Luis Echeverría"
     ],
     "explicacion_en": "The nationalization came at the end of his term."
-  },
-  {
-    "id": 686,
-    "seccion": "historia_cultura",
-    "categoria": "Historia",
-    "subtema": "México Moderno",
-    "dificultad": "media",
-    "pregunta": "¿Qué presidente recibió al papa Juan Pablo II en su primera visita?",
-    "respuesta": "José López Portillo.",
-    "opciones": [
-      "José López Portillo.",
-      "Luis Echeverría",
-      "Miguel de la Madrid",
-      "Carlos Salinas"
-    ],
-    "explicacion": "La visita fue en 1979.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Which president received Pope John Paul II on his first visit?",
-    "opciones_en": [
-      "José López Portillo.",
-      "Luis Echeverría",
-      "Miguel de la Madrid",
-      "Carlos Salinas"
-    ],
-    "explicacion_en": "The visit was in 1979."
   },
   {
     "id": 687,
@@ -17225,31 +16350,6 @@
     "explicacion_en": "It covered informal workers and the unemployed."
   },
   {
-    "id": 690,
-    "seccion": "historia_cultura",
-    "categoria": "Cultura",
-    "subtema": "Símbolos y Fechas",
-    "dificultad": "media",
-    "pregunta": "¿Quién aparece en el billete de 100 pesos?",
-    "respuesta": "Sor Juana Inés de la Cruz.",
-    "opciones": [
-      "Sor Juana Inés de la Cruz.",
-      "Nezahualcóyotl",
-      "José María Morelos",
-      "Benito Juárez"
-    ],
-    "explicacion": "La «Décima Musa» figura en el billete de $100.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Who appears on the 100-peso bill?",
-    "opciones_en": [
-      "Sor Juana Inés de la Cruz.",
-      "Nezahualcoyotl",
-      "José María Morelos",
-      "Benito Juárez"
-    ],
-    "explicacion_en": "The 'Tenth Muse' appears on the $100 bill."
-  },
-  {
     "id": 691,
     "seccion": "historia_cultura",
     "categoria": "Historia",
@@ -17323,56 +16423,6 @@
       "On November 2"
     ],
     "explicacion_en": "Thousands of pilgrims reach the Basilica that day."
-  },
-  {
-    "id": 694,
-    "seccion": "historia_cultura",
-    "categoria": "Geografía",
-    "subtema": "Economía",
-    "dificultad": "media",
-    "pregunta": "¿Qué estado es el mayor productor de calzado en México?",
-    "respuesta": "Guanajuato.",
-    "opciones": [
-      "Guanajuato.",
-      "Jalisco",
-      "Puebla",
-      "Estado de México"
-    ],
-    "explicacion": "León, Guanajuato, es capital del calzado.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Which state is the largest footwear producer in Mexico?",
-    "opciones_en": [
-      "Guanajuato.",
-      "Jalisco",
-      "Puebla",
-      "State of Mexico"
-    ],
-    "explicacion_en": "León, Guanajuato, is the footwear capital."
-  },
-  {
-    "id": 695,
-    "seccion": "historia_cultura",
-    "categoria": "Cultura",
-    "subtema": "Ciudad de México",
-    "dificultad": "media",
-    "pregunta": "¿Cómo se conoce popularmente a los habitantes de la Ciudad de México?",
-    "respuesta": "Chilangos.",
-    "opciones": [
-      "Chilangos.",
-      "Jarochos",
-      "Tapatíos",
-      "Regios"
-    ],
-    "explicacion": "«Chilango» es el gentilicio coloquial capitalino.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "What are Mexico City inhabitants popularly known as?",
-    "opciones_en": [
-      "Chilangos.",
-      "Jarochos",
-      "Tapatíos",
-      "Regios"
-    ],
-    "explicacion_en": "'Chilango' is the colloquial capital demonym."
   },
   {
     "id": 696,
@@ -17450,31 +16500,6 @@
     "explicacion_en": "It is Oaxaca's greatest cultural celebration."
   },
   {
-    "id": 699,
-    "seccion": "historia_cultura",
-    "categoria": "Cultura",
-    "subtema": "Ciudad de México",
-    "dificultad": "media",
-    "pregunta": "¿Dónde se celebra la representación de la Pasión de Cristo en la CDMX?",
-    "respuesta": "En Iztapalapa.",
-    "opciones": [
-      "En Iztapalapa.",
-      "En Coyoacán",
-      "En Xochimilco",
-      "En Tláhuac"
-    ],
-    "explicacion": "La Semana Santa de Iztapalapa es famosa mundialmente.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Where is the Passion of Christ reenactment held in Mexico City?",
-    "opciones_en": [
-      "In Iztapalapa.",
-      "In Coyoacán",
-      "In Xochimilco",
-      "In Tláhuac"
-    ],
-    "explicacion_en": "Iztapalapa's Holy Week is world famous."
-  },
-  {
     "id": 700,
     "seccion": "historia_cultura",
     "categoria": "Cultura",
@@ -17523,31 +16548,6 @@
       "40"
     ],
     "explicacion_en": "Mexico is among the American countries with most heritage sites."
-  },
-  {
-    "id": 702,
-    "seccion": "historia_cultura",
-    "categoria": "Cultura",
-    "subtema": "Gastronomía",
-    "dificultad": "media",
-    "pregunta": "¿De dónde es el platillo de los siete moles?",
-    "respuesta": "De Oaxaca.",
-    "opciones": [
-      "De Oaxaca.",
-      "De Puebla",
-      "De Veracruz",
-      "De Yucatán"
-    ],
-    "explicacion": "Oaxaca es «la tierra de los siete moles».",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Where is the dish of the seven moles from?",
-    "opciones_en": [
-      "From Oaxaca.",
-      "From Puebla",
-      "From Veracruz",
-      "From Yucatán"
-    ],
-    "explicacion_en": "Oaxaca is 'the land of the seven moles'."
   },
   {
     "id": 703,
@@ -17673,56 +16673,6 @@
       "Alfonso Cuarón and Guillermo del Toro"
     ],
     "explicacion_en": "They are the three Mexican Nobel laureates."
-  },
-  {
-    "id": 708,
-    "seccion": "historia_cultura",
-    "categoria": "Cultura",
-    "subtema": "Deportes",
-    "dificultad": "media",
-    "pregunta": "¿Qué deporte fue decretado deporte nacional en 1933?",
-    "respuesta": "La charrería.",
-    "opciones": [
-      "La charrería.",
-      "El fútbol",
-      "El boxeo",
-      "La tauromaquia"
-    ],
-    "explicacion": "Es la tradición ecuestre mexicana.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Which sport was decreed the national sport in 1933?",
-    "opciones_en": [
-      "Charrería.",
-      "Soccer",
-      "Boxing",
-      "Bullfighting"
-    ],
-    "explicacion_en": "It is the Mexican equestrian tradition."
-  },
-  {
-    "id": 709,
-    "seccion": "historia_cultura",
-    "categoria": "Cultura",
-    "subtema": "Deportes",
-    "dificultad": "media",
-    "pregunta": "¿Qué futbolista mexicano destacó en Europa en los años 90?",
-    "respuesta": "Hugo Sánchez.",
-    "opciones": [
-      "Hugo Sánchez.",
-      "Rafael Márquez",
-      "Cuauhtémoc Blanco",
-      "Luis Hernández"
-    ],
-    "explicacion": "Brilló con el Real Madrid.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Which Mexican footballer stood out in Europe in the 1990s?",
-    "opciones_en": [
-      "Hugo Sánchez.",
-      "Rafael Márquez",
-      "Cuauhtémoc Blanco",
-      "Luis Hernández"
-    ],
-    "explicacion_en": "He shone with Real Madrid."
   },
   {
     "id": 710,
@@ -17900,56 +16850,6 @@
     "explicacion_en": "Nunó set González Bocanegra's poem to music."
   },
   {
-    "id": 717,
-    "seccion": "historia_cultura",
-    "categoria": "Cívica",
-    "subtema": "Gobierno",
-    "dificultad": "media",
-    "pregunta": "¿Quién es el comandante supremo de las Fuerzas Armadas?",
-    "respuesta": "El presidente de la República.",
-    "opciones": [
-      "El presidente de la República.",
-      "El secretario de la Defensa",
-      "El general de división",
-      "El Senado"
-    ],
-    "explicacion": "La Constitución lo establece así.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "Who is the supreme commander of the Armed Forces?",
-    "opciones_en": [
-      "The president of the Republic.",
-      "The Defense secretary",
-      "The division general",
-      "The Senate"
-    ],
-    "explicacion_en": "The Constitution establishes it so."
-  },
-  {
-    "id": 718,
-    "seccion": "historia_cultura",
-    "categoria": "Cívica",
-    "subtema": "Gobierno",
-    "dificultad": "media",
-    "pregunta": "Según la Constitución, ¿cuáles son los poderes de la Unión?",
-    "respuesta": "Ejecutivo, Legislativo y Judicial.",
-    "opciones": [
-      "Ejecutivo, Legislativo y Judicial.",
-      "Federal, estatal y municipal",
-      "Presidente, Congreso y Ejército",
-      "Ejecutivo, Electoral y Judicial"
-    ],
-    "explicacion": "Es la división de poderes del artículo 49.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "According to the Constitution, what are the branches of the Union?",
-    "opciones_en": [
-      "Executive, Legislative and Judicial.",
-      "Federal, state and municipal",
-      "President, Congress and Army",
-      "Executive, Electoral and Judicial"
-    ],
-    "explicacion_en": "It is the separation of powers of article 49."
-  },
-  {
     "id": 719,
     "seccion": "historia_cultura",
     "categoria": "Cívica",
@@ -18073,31 +16973,6 @@
       "In 1996"
     ],
     "explicacion_en": "The IFE organized elections until 2014."
-  },
-  {
-    "id": 724,
-    "seccion": "historia_cultura",
-    "categoria": "Cívica",
-    "subtema": "Educación",
-    "dificultad": "media",
-    "pregunta": "Según la Constitución, ¿en qué niveles es obligatoria la educación?",
-    "respuesta": "Preescolar, primaria, secundaria y media superior.",
-    "opciones": [
-      "Preescolar, primaria, secundaria y media superior.",
-      "Solo primaria y secundaria",
-      "Solo primaria",
-      "Desde estancia infantil hasta universidad"
-    ],
-    "explicacion": "El artículo 3º la hace obligatoria hasta la media superior.",
-    "fuente": "Extraído de capturas Cuestionarios (data/IMG_0453-0540.png) — OCR RapidOCR, revisado y corregido a mano",
-    "pregunta_en": "According to the Constitution, at which levels is education compulsory?",
-    "opciones_en": [
-      "Preschool, primary, secondary and upper secondary.",
-      "Only primary and secondary",
-      "Only primary",
-      "From daycare to university"
-    ],
-    "explicacion_en": "Article 3 makes it compulsory through upper secondary."
   },
   {
     "id": 725,

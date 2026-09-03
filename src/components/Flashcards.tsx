@@ -9,6 +9,14 @@ import { FLASHCARD_LEARN_COUNT, FLASHCARD_MIN_DAYS } from "@/lib/constants";
 
 type Mode = "reveal" | "choice";
 
+const CATEGORIES = [
+  { id: "all", label: "Todas" },
+  { id: "Historia", label: "Historia" },
+  { id: "Cultura", label: "Cultura" },
+  { id: "Cívica", label: "Cívica" },
+  { id: "Geografía", label: "Geografía" },
+];
+
 export default function Flashcards({
   user,
   onResult,
@@ -23,6 +31,7 @@ export default function Flashcards({
   const [learnedCount, setLearnedCount] = useState(0);
   const [pendingCount, setPendingCount] = useState(0);
   const [dueCount, setDueCount] = useState(0);
+  const [categoria, setCategoria] = useState("all");
   const [loading, setLoading] = useState(false);
   const [empty, setEmpty] = useState(false);
   const [answered, setAnswered] = useState(false);
@@ -36,7 +45,7 @@ export default function Flashcards({
     setSelectedOption(null);
     try {
       const data = await api<{ question: Question | null; learnedCount: number; pendingCount: number; dueCount: number }>(
-        `/api/flashcard?userId=${user.id}`,
+        `/api/flashcard?userId=${user.id}&categoria=${encodeURIComponent(categoria)}`,
       );
       setQuestion(data.question);
       setLearnedCount(data.learnedCount);
@@ -48,7 +57,7 @@ export default function Flashcards({
     } finally {
       setLoading(false);
     }
-  }, [user.id]);
+  }, [user.id, categoria]);
 
   useEffect(() => {
     next();
@@ -60,7 +69,7 @@ export default function Flashcards({
   useEffect(() => {
     if (!active) return;
     api<{ question: Question | null; learnedCount: number; pendingCount: number; dueCount: number }>(
-      `/api/flashcard?userId=${user.id}`,
+      `/api/flashcard?userId=${user.id}&categoria=${encodeURIComponent(categoria)}`,
     )
       .then((data) => {
         setLearnedCount(data.learnedCount);
@@ -68,7 +77,7 @@ export default function Flashcards({
         setDueCount((data as any).dueCount ?? 0);
       })
       .catch(() => {});
-  }, [active, user.id]);
+  }, [active, user.id, categoria]);
 
   async function submitAnswer(isCorrect: boolean) {
     if (!question) return;
@@ -103,6 +112,12 @@ export default function Flashcards({
     setSelectedOption(null);
   }
 
+  function changeCategory(cat: string) {
+    setCategoria(cat);
+    setQuestion(null);
+    setEmpty(false);
+  }
+
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-2">
@@ -124,6 +139,26 @@ export default function Flashcards({
           <SplitSquareVertical className="w-3.5 h-3.5 inline mr-1" />
           {mode === "reveal" ? "Cambiar a opciones" : "Cambiar a autoevaluación"}
         </button>
+      </div>
+
+      {/* Filtro por categoría: separa las tarjetas por tema, como en el Banco */}
+      <div className="flex flex-wrap items-center gap-1.5">
+        <span className="text-[11px] font-bold uppercase tracking-wide text-emerald-300/60">
+          Categoría:
+        </span>
+        {CATEGORIES.map((c) => (
+          <button
+            key={c.id}
+            onClick={() => changeCategory(c.id)}
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition border ${
+              categoria === c.id
+                ? "bg-amber-300/20 border-amber-300/50 text-amber-200"
+                : "bg-white/5 border-white/10 text-emerald-100/70 hover:bg-white/10"
+            }`}
+          >
+            {c.label}
+          </button>
+        ))}
       </div>
 
       {empty ? (
@@ -241,7 +276,7 @@ export default function Flashcards({
 
       <p className="text-xs text-emerald-300/60">
         Modo {mode === "reveal" ? "autoevaluación" : "opciones múltiples"} · 
-        Cada pregunta se presenta como máximo <strong>1 vez al día</strong> con un <strong>intervalo de {FLASHCARD_MIN_DAYS} días</strong>. 
+        Repetición espaciada: una tarjeta acertada vuelve cada {FLASHCARD_MIN_DAYS} días y una fallada, al día siguiente.
         Responde correctamente {FLASHCARD_LEARN_COUNT} veces seguidas para aprenderla — si fallas, el contador vuelve a 0.
       </p>
     </div>

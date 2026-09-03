@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { questions, flashcards } from "@/db/schema";
-import { sql, eq, and, or, lt, lte } from "drizzle-orm";
+import { sql, eq, and, lt, lte } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import { FLASHCARD_LEARN_COUNT, FLASHCARD_MIN_DAYS } from "@/lib/constants";
 
@@ -11,14 +11,23 @@ export async function GET(req: NextRequest) {
   try {
     const userId = parseInt(req.nextUrl.searchParams.get("userId") || "0", 10);
     if (!userId) return NextResponse.json({ error: "userId requerido" }, { status: 400 });
+    const categoria = req.nextUrl.searchParams.get("categoria") || "all";
 
     // Corte de fecha: hace FLASHCARD_MIN_DAYS días
     const minDate = new Date();
     minDate.setDate(minDate.getDate() - FLASHCARD_MIN_DAYS);
 
+    const filters = [
+      eq(flashcards.userId, userId),
+      eq(flashcards.learned, false),
+      lte(flashcards.lastReviewedAt, minDate),
+    ];
+    if (categoria !== "all") filters.push(eq(questions.categoria, categoria));
+
     // Buscar una pregunta en flashcards que cumpla:
     // 1. No está aprendida (learned = false)
     // 2. Han pasado al menos FLASHCARD_MIN_DAYS desde lastReviewedAt
+    // 3. (opcional) filtro de categoría Historia/Cultura/Cívica/Geografía
     // (las flashcards vienen del simulador o se agregan desde el banco)
     // Ordenamos por lastReviewedAt ASC (más antigua primero) para rotación
     // estable y evitar que random devuelva la misma tarjeta todos los días.
@@ -29,13 +38,7 @@ export async function GET(req: NextRequest) {
       })
       .from(flashcards)
       .innerJoin(questions, eq(flashcards.questionId, questions.id))
-      .where(
-        and(
-          eq(flashcards.userId, userId),
-          eq(flashcards.learned, false),
-          lte(flashcards.lastReviewedAt, minDate),
-        ),
-      )
+      .where(and(...filters))
       .orderBy(flashcards.lastReviewedAt, sql`random()`)
       .limit(1);
 

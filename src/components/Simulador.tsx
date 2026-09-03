@@ -83,8 +83,10 @@ export default function Simulador({
         <Trophy className="w-10 h-10 text-amber-300 mx-auto mb-3" />
         <h2 className="text-2xl font-extrabold mb-2">Simulador de Historia/Cultura</h2>
         <p className="text-emerald-200/80 max-w-xl mx-auto mb-6">
-          {SIMULADOR_TOTAL} preguntas al azar de un banco de 3,000. Apruebas con{" "}
-          {SIMULADOR_PASS} de {SIMULADOR_TOTAL}. Sin repetición dentro de cada intento.
+          {SIMULADOR_TOTAL} preguntas al azar del banco de Historia/Cultura. Apruebas con{" "}
+          {SIMULADOR_PASS} de {SIMULADOR_TOTAL}. Sin repetición dentro de cada intento,
+          y las preguntas que ya están en tus flashcards no vuelven a salir aquí: se
+          estudian desde Flashcards.
         </p>
         <PrimaryButton onClick={start} disabled={loading}>
           {loading ? "Cargando..." : "Iniciar simulador"}
