@@ -20,6 +20,8 @@ export async function GET(req: NextRequest) {
     // 1. No está aprendida (learned = false)
     // 2. Han pasado al menos FLASHCARD_MIN_DAYS desde lastReviewedAt
     // (las flashcards vienen del simulador o se agregan desde el banco)
+    // Ordenamos por lastReviewedAt ASC (más antigua primero) para rotación
+    // estable y evitar que random devuelva la misma tarjeta todos los días.
     const rows = await db
       .select({
         flashcard: flashcards,
@@ -34,7 +36,7 @@ export async function GET(req: NextRequest) {
           lte(flashcards.lastReviewedAt, minDate),
         ),
       )
-      .orderBy(sql`random()`)
+      .orderBy(flashcards.lastReviewedAt, sql`random()`)
       .limit(1);
 
     const learnedRow = await db.execute(sql`
@@ -51,10 +53,18 @@ export async function GET(req: NextRequest) {
     `);
     const pendingCount = parseInt((pendingRow.rows[0] as any).p, 10);
 
+    const dueRow = await db.execute(sql`
+      SELECT COUNT(*)::int AS d
+      FROM flashcards
+      WHERE user_id = ${userId} AND learned = false AND last_reviewed_at <= ${minDate}
+    `);
+    const dueCount = parseInt((dueRow.rows[0] as any).d, 10);
+
     return NextResponse.json({
       question: rows.length > 0 ? rows[0].question : null,
       learnedCount,
       pendingCount,
+      dueCount,
     });
   } catch (e: any) {
     return NextResponse.json({ error: e.message || "Server error" }, { status: 500 });
@@ -139,7 +149,8 @@ export async function POST(req: NextRequest) {
     }
 
     const fc = existing[0];
-    const newCorrectCount = fc.correctCount + (isCorrect ? 1 : 0);
+    // Si la respuesta es incorrecta, el contador vuelve a 0 (requiere 5 aciertos seguidos)
+    const newCorrectCount = isCorrect ? fc.correctCount + 1 : 0;
     const newLearned = newCorrectCount >= FLASHCARD_LEARN_COUNT;
 
     await db
