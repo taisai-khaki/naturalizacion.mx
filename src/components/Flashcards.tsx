@@ -22,6 +22,7 @@ export default function Flashcards({
   const [revealed, setRevealed] = useState(false);
   const [learnedCount, setLearnedCount] = useState(0);
   const [pendingCount, setPendingCount] = useState(0);
+  const [dueCount, setDueCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [empty, setEmpty] = useState(false);
   const [answered, setAnswered] = useState(false);
@@ -34,12 +35,13 @@ export default function Flashcards({
     setAnswered(false);
     setSelectedOption(null);
     try {
-      const data = await api<{ question: Question | null; learnedCount: number; pendingCount: number }>(
+      const data = await api<{ question: Question | null; learnedCount: number; pendingCount: number; dueCount: number }>(
         `/api/flashcard?userId=${user.id}`,
       );
       setQuestion(data.question);
       setLearnedCount(data.learnedCount);
       setPendingCount(data.pendingCount);
+      setDueCount((data as any).dueCount ?? 0);
       setEmpty(!data.question);
     } catch (e: any) {
       alert(e.message);
@@ -57,12 +59,13 @@ export default function Flashcards({
   // las preguntas recién agregadas desde el banco.
   useEffect(() => {
     if (!active) return;
-    api<{ question: Question | null; learnedCount: number; pendingCount: number }>(
+    api<{ question: Question | null; learnedCount: number; pendingCount: number; dueCount: number }>(
       `/api/flashcard?userId=${user.id}`,
     )
       .then((data) => {
         setLearnedCount(data.learnedCount);
         setPendingCount(data.pendingCount);
+        setDueCount((data as any).dueCount ?? 0);
       })
       .catch(() => {});
   }, [active, user.id]);
@@ -109,6 +112,11 @@ export default function Flashcards({
         <Pill tone="green">
           <BookCheck className="w-3.5 h-3.5 mr-1" /> Aprendidas: {learnedCount}
         </Pill>
+        {pendingCount > 0 && (
+          <Pill tone={dueCount > 0 ? "amber" : "rose"}>
+            Disponibles hoy: {dueCount}
+          </Pill>
+        )}
         <button
           onClick={toggleMode}
           className="ml-auto text-xs bg-white/5 hover:bg-white/10 border border-white/10 px-2.5 py-1.5 rounded-full transition"
@@ -119,14 +127,27 @@ export default function Flashcards({
       </div>
 
       {empty ? (
-        <Card className="p-8 text-center">
-          <h2 className="text-xl font-extrabold mb-2">¡Sin pendientes! 🎉</h2>
-          <p className="text-emerald-200/80">
-            No hay tarjetas disponibles para repasar ahora.
-            Cada pregunta se presenta como máximo 1 vez al día con un intervalo de {FLASHCARD_MIN_DAYS} días.
-            Vuelve a practicar en el simulador o agrega preguntas desde el banco.
-          </p>
-        </Card>
+        pendingCount > 0 ? (
+          <Card className="p-8 text-center">
+            <h2 className="text-xl font-extrabold mb-2">¡En espera! ⏳</h2>
+            <p className="text-emerald-200/80">
+              Tienes <strong>{pendingCount}</strong> tarjeta{pendingCount !== 1 ? "s" : ""} pendiente{pendingCount !== 1 ? "s" : ""} pero ninguna disponible hoy.
+              <br />
+              Cada tarjeta se repasa como máximo 1 vez cada <strong>{FLASHCARD_MIN_DAYS} días</strong>. Vuelve mañana o agrega preguntas nuevas desde el banco.
+            </p>
+            <p className="text-xs text-emerald-300/60 mt-3">
+              Necesitas {FLASHCARD_LEARN_COUNT} aciertos seguidos para aprender una tarjeta — si fallas, el contador vuelve a 0.
+            </p>
+          </Card>
+        ) : (
+          <Card className="p-8 text-center">
+            <h2 className="text-xl font-extrabold mb-2">¡Sin pendientes! 🎉</h2>
+            <p className="text-emerald-200/80">
+              No hay tarjetas para repasar. Practica en el simulador (las preguntas se agregan solas) o agrega preguntas desde el banco.
+              Cada tarjeta se repasa como máximo 1 vez cada {FLASHCARD_MIN_DAYS} días y requiere {FLASHCARD_LEARN_COUNT} aciertos seguidos; si fallas, vuelve a 0.
+            </p>
+          </Card>
+        )
       ) : question ? (
         <Card className="p-6 md:p-8">
           <div className="flex gap-2 mb-4">
@@ -221,7 +242,7 @@ export default function Flashcards({
       <p className="text-xs text-emerald-300/60">
         Modo {mode === "reveal" ? "autoevaluación" : "opciones múltiples"} · 
         Cada pregunta se presenta como máximo <strong>1 vez al día</strong> con un <strong>intervalo de {FLASHCARD_MIN_DAYS} días</strong>. 
-        Responde correctamente {FLASHCARD_LEARN_COUNT} veces para aprenderla.
+        Responde correctamente {FLASHCARD_LEARN_COUNT} veces seguidas para aprenderla — si fallas, el contador vuelve a 0.
       </p>
     </div>
   );

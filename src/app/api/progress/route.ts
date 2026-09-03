@@ -5,9 +5,9 @@ import {
   flashcards,
   examAttempts,
 } from "@/db/schema";
-import { sql, eq, desc, inArray } from "drizzle-orm";
+import { sql, eq, desc, inArray, and } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
-import { FLASHCARD_MIN_DAYS } from "@/lib/constants";
+import { FLASHCARD_LEARN_COUNT, FLASHCARD_MIN_DAYS } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
 
@@ -91,11 +91,66 @@ export async function GET(req: NextRequest) {
     );
     const totalQ = parseInt((totalQuestions.rows[0] as any).n, 10);
 
+    const totalHistRow = await db.execute(
+      sql`SELECT COUNT(*)::int AS n FROM questions WHERE is_active = true AND category = 'historia_cultura'`,
+    );
+    const totalHist = parseInt((totalHistRow.rows[0] as any).n, 10);
+
+    // Lista completa de historia/cultura con estado de flashcard
+    const allHistQuestions = await db
+      .select()
+      .from(questions)
+      .where(and(eq(questions.category, "historia_cultura"), eq(questions.isActive, true)))
+      .orderBy(questions.id);
+
+    const allFcRows = await db.select().from(flashcards).where(eq(flashcards.userId, userId));
+    const fcMap = new Map(allFcRows.map((f: any) => [f.questionId, f]));
+    const minDateAll = new Date();
+    minDateAll.setDate(minDateAll.getDate() - FLASHCARD_MIN_DAYS);
+
+    const allQuestions = allHistQuestions.map((q: any) => {
+      const fc: any = fcMap.get(q.id);
+      if (!fc) {
+        return {
+          ...q,
+          status: "not_started" as const,
+          correctCount: 0,
+          learned: false,
+          lastReviewedAt: null,
+          availableForReview: false,
+        };
+      }
+      if (fc.learned) {
+        return {
+          ...q,
+          status: "learned" as const,
+          correctCount: fc.correctCount,
+          learned: true,
+          lastReviewedAt: fc.lastReviewedAt,
+          availableForReview: false,
+        };
+      }
+      const last = fc.lastReviewedAt ? new Date(fc.lastReviewedAt) : null;
+      return {
+        ...q,
+        status: "pending" as const,
+        correctCount: fc.correctCount,
+        learned: false,
+        lastReviewedAt: fc.lastReviewedAt,
+        availableForReview: last ? last <= minDateAll : true,
+      };
+    });
+
+    const notStarted = allQuestions.filter((q: any) => q.status === "not_started");
+
     return NextResponse.json({
       user,
       totalQuestions: totalQ,
+      totalHist,
       learned: learnedQuestions,
       pending: pendingQuestions,
+      allQuestions,
+      notStarted,
       attempts,
     });
   } catch (e: any) {
