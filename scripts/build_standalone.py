@@ -1,6 +1,8 @@
+import hashlib
 import json
 import os
 import random
+from datetime import date
 
 root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 data = lambda n: json.load(open(os.path.join(root, "data", n), encoding="utf-8"))
@@ -80,9 +82,18 @@ for p in passages:
 
 APP_DATA = {"hist": HIST, "passages": PASSAGES, "iw": iw}
 
+# Versión visible del build: fecha + hash corto del contenido. Cambia cada vez
+# que cambian los datos, y permite detectar en un teléfono si quedó una copia
+# vieja en caché.
+digest = hashlib.sha256(
+    json.dumps(APP_DATA, ensure_ascii=False, sort_keys=True).encode("utf-8")
+).hexdigest()[:10]
+VERSION = f"{date.today().isoformat()}-{len(HIST)}q-{digest}"
+
 tmpl = open(os.path.join(root, "scripts", "standalone.template.html"), encoding="utf-8").read()
 payload = json.dumps(APP_DATA, ensure_ascii=False).replace("</", "<\\/")
 html = tmpl.replace("/*__DATA__*/", payload)
+html = html.replace("/*__VERSION__*/", VERSION)
 
 # `index.html` en la raíz: GitHub Pages lo sirve directamente como la página
 # principal del sitio (Settings → Pages → "Deploy from a branch" → main → /).

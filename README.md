@@ -8,7 +8,7 @@ preguntas real extraído de las aplicaciones de escritorio originales
 
 | Sección | Detalle |
 | --- | --- |
-| **Simulador Historia/Cultura** | 10 preguntas al azar de un banco limpio de **604**. Apruebas con **8/10**. |
+| **Simulador Historia/Cultura** | 10 preguntas al azar de un banco limpio de **728**. Apruebas con **8/10**. |
 | **Examen de Lectura** | Un pasaje completo + **6** preguntas de comprensión (banco de **16** lecturas). Apruebas con **5/6**. |
 | **Entrevista y Redacción** | 10 preguntas de entrevista con tips + 5 temas de redacción (80–120 palabras) con checklist. |
 | **Flashcards** | Tarjetas de Historia/Cultura; se aprenden con **5 respuestas correctas**. Solo entran preguntas que ya respondiste en el simulador o que agregaste desde el banco. |
@@ -28,10 +28,11 @@ preguntas real extraído de las aplicaciones de escritorio originales
 
 Todo en `data/`:
 
-- `questions.json` — banco de Historia/Cultura **limpio y deduplicado**: 604 preguntas
-  (33 conceptos únicos del banco original + 571 redactadas de tus flashcards), todas
-  **con acentos y traducción al inglés**. La app obtiene y almacena en el navegador la
-  traducción al farsi cuando se activa **FA**.
+- `questions.json` — banco de Historia/Cultura **limpio y deduplicado**: **728 preguntas**
+  (604 del banco original + flashcards, y 124 conceptos nuevos revisados del lote OCR de
+  2026), todas **con acentos, enunciados en forma de pregunta, 4 opciones coherentes y
+  traducción al inglés**. La app obtiene y almacena en el navegador la traducción al farsi
+  cuando se activa **FA**.
 - `reading_passages.json` — **16 pasajes** con 6 preguntas cada uno (**96**), todos con
   acentos y **traducción al inglés** (texto + preguntas + opciones), además de la
   traducción al farsi bajo demanda.
@@ -53,6 +54,22 @@ Las **576 preguntas** de tus imágenes quedaron cubiertas: **571 redactadas** (c
 respuesta + opciones + inglés) e incorporadas al banco; las pocas restantes eran
 tarjetas duplicadas o con texto ilegible que se reformularon. Ver
 `pending-questions/README.md` para el detalle de la redacción.
+
+### ✅ Reparación del lote OCR de 2026 (Cuestionarios)
+
+El lote de 231 preguntas añadido por OCR de capturas (`data/IMG_0453-0540.png`) venía
+dañado: palabras pegadas por el OCR (`Teotihuacán,EstadodeMexico`), acentos perdidos,
+respuestas cortadas a media palabra, enunciados que no eran preguntas y **opciones
+distractoras tomadas al azar de todo el banco** (una persona como opción de una fecha).
+Se corrigió a mano en `data/questions_added_clean.json` y se reincorporó con
+`scripts/repair_added.py`: de los 231 renglones, 74 eran conceptos que el banco bueno ya
+cubría y el resto quedó en **124 preguntas nuevas limpias** (enunciado con «¿?», acentos,
+respuesta completa, 3 distractores del mismo tipo que la respuesta y traducción al
+inglés). El banco total quedó en **728**.
+
+Para que no vuelva a ocurrir, `scripts/validate_bank.py` audita el banco (palabras
+pegadas, opciones sin la respuesta correcta, duplicadas, traducciones faltantes,
+duplicados) y falla si hay defectos.
 
 ## 🌐 App en GitHub Pages (un solo archivo)
 
@@ -101,6 +118,8 @@ npm run db:setup     # migrate + seed
 npm run typecheck    # verificación de tipos
 python3 scripts/merge_added.py      # añade las preguntas de scripts/qa_batch*.py
 python3 scripts/dedupe_original.py  # deduplica el banco original (33 conceptos)
+python3 scripts/repair_added.py     # reconstruye el lote OCR 2026 corregido (idempotente)
+python3 scripts/validate_bank.py    # audita calidad del banco (sale 1 si hay defectos)
 python3 scripts/complete_passages.py # completa/acentúa las 16 lecturas
 python3 scripts/add_farsi_translations.py # traduce al farsi los campos nuevos o faltantes
 python3 scripts/build_standalone.py # regenera index.html
