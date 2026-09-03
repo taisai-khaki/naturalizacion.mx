@@ -10,7 +10,7 @@ vuelvan a colarse:
   - opciones que no contienen la respuesta correcta, o != 4, o duplicadas
   - traducción al inglés de pregunta/opciones faltante o desalineada
   - categorías fuera del conjunto canónico, subtema vacío
-  - preguntas duplicadas
+  - preguntas duplicadas y casi-duplicadas (misma respuesta y mismo concepto)
 
   AVISOS (no bloquean; tolerados en el banco heredado):
   - explicacion_en ausente (las 571 tarjetas originales no la traían)
@@ -93,6 +93,37 @@ def main() -> int:
     dups = {k: v for k, v in seen.items() if v > 1}
     for k, v in dups.items():
         errors.append(f"pregunta duplicada x{v}: {k[:70]!r}")
+
+    # Casi-duplicadas: misma respuesta y enunciado redactado distinto pero con
+    # el mismo concepto (p. ej. el calzado/Guanajuato existía en dos ids).
+    import difflib
+
+    def toks(s):
+        return set(norm(s).split())
+
+    by_norm_answer = {}
+    for q in bank:
+        by_norm_answer.setdefault(norm(q.get("respuesta", "")).rstrip("."), []).append(q)
+
+    seen_pairs = set()
+    for group in by_norm_answer.values():
+        for i in range(len(group)):
+            for j in range(i + 1, len(group)):
+                a, b = group[i], group[j]
+                key = tuple(sorted((a["id"], b["id"])))
+                if key in seen_pairs:
+                    continue
+                seen_pairs.add(key)
+                qr = difflib.SequenceMatcher(None, norm(a["pregunta"]), norm(b["pregunta"])).ratio()
+                ta, tb = toks(a["pregunta"]), toks(b["pregunta"])
+                tj = len(ta & tb) / len(ta | tb) if ta and tb else 0
+                er = difflib.SequenceMatcher(
+                    None, norm(a.get("explicacion") or ""), norm(b.get("explicacion") or "")
+                ).ratio()
+                if qr >= 0.75 or (qr >= 0.55 and er >= 0.35 and tj >= 0.42):
+                    errors.append(
+                        f"casi-duplicada ({qr:.2f}): [{a['id']}] {a['pregunta'][:55]!r} == [{b['id']}] {b['pregunta'][:55]!r}"
+                    )
 
     if warnings:
         print(f"· {len(warnings)} aviso(s) no bloqueantes (banco heredado).")

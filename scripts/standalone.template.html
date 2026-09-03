@@ -87,6 +87,10 @@ var FA_ERROR = "";
 var FA_LAST_VIEW = "";
 var phone = localStorage.getItem("nmx_phone") || "";
 var DB = loadDB();
+// {id_antiguo: id_conservado, ...} — inyectado por build_standalone.py a partir
+// de data/dedupe_remap.json. Se define ANTES de migrateDataVersion() porque
+// con var se usa después de la asignación.
+var FC_REMAP = /*__FC_REMAP__*/;
 migrateDataVersion();
 migrateFlashcards();
 
@@ -122,21 +126,52 @@ function wasAnswered(qid){
   var arr=(DB.correctDays||{})[qid];
   return Array.isArray(arr) && arr.length>0;
 }
-// Primer id del lote reasignado en la reparación de 2026. Los ids >= este valor
-// apuntan HOY a preguntas distintas de las que apuntaban cuando el progreso del
-// usuario se guardó, así que al cambiar la versión de datos se purga el progreso
-// ligado a ids (flashcards/simSeen/bankAdded/correctDays) en ese rango para no
-// mostrar tarjetas "aprendidas" o avances de preguntas que nunca se estudiaron.
-var REMAP_MIN_ID=605;
+// Al eliminar preguntas duplicadas del banco (mismo concepto en dos ids), el
+// progreso guardado bajo el id viejo se reasigna al id que se conservó; los ids
+// que ya no existen en el banco se descartan. Es importante NO purgar por rango
+// de id en cada build: purgar a diario reiniciaba el progreso (contador en 0)
+// de las preguntas del lote 605+ y hacía que siempre se repitieran las mismas
+// 8-10 preguntas sin que el contador avanzara.
 function migrateDataVersion(){
-  if(DB.dataVersion===APP_VERSION) return;
-  function purge(map){
-    if(!map||typeof map!=="object") return;
-    for(var k in map){ if(+k>=REMAP_MIN_ID) delete map[k]; }
-  }
-  purge(DB.flashcards); purge(DB.simSeen); purge(DB.bankAdded); purge(DB.correctDays);
-  DB.dataVersion=APP_VERSION;
+  var changed = false;
+  ["flashcards","simSeen","bankAdded","correctDays"].forEach(function(mapName){
+    var map = DB[mapName];
+    if(!map || typeof map !== "object") return;
+    for(var k in map){
+      var old = +k;
+      var target = (FC_REMAP || {})[old];
+      if(target){
+        if(mapName === "correctDays"){
+          var src = Array.isArray(map[k]) ? map[k] : [];
+          var dst = Array.isArray(map[target]) ? map[target] : [];
+          var seen = {};
+          dst.forEach(function(d){ seen[d] = true; });
+          src.forEach(function(d){ if(!seen[d]){ dst.push(d); seen[d] = true; } });
+          dst.sort(function(a,b){ return a-b; });
+          map[target] = dst;
+        } else if(mapName === "flashcards" && map[k] && typeof map[k] === "object" && map[target] && typeof map[target] === "object"){
+          var a = map[k], b = map[target];
+          var last = [b.lastReviewedAt, a.lastReviewedAt].filter(Boolean).sort().pop() || null;
+          map[target] = {
+            correctCount: Math.max(b.correctCount||0, a.correctCount||0),
+            learned: !!(b.learned || a.learned),
+            lastReviewedAt: last,
+            wrong: false,
+          };
+        } else {
+          map[target] = map[k]; // booleans de simSeen / bankAdded
+        }
+        delete map[k];
+        changed = true;
+      } else if(!isHistoryId(old)){
+        delete map[k];
+        changed = true;
+      }
+    }
+  });
+  DB.dataVersion = APP_VERSION;
   saveDB();
+  if(changed) saveDB();
 }
 function migrateFlashcards(){
   var fc=DB.flashcards||{};
@@ -405,7 +440,19 @@ function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor
 
 /* ---------- Simulador ---------- */
 function simHTML(){
-  if(!STATE.view){ var simPool=HIST.filter(function(q){ var card=(DB.flashcards||{})[q.id]; return !card||!card.learned; }); if(simPool.length<10)simPool=HIST; STATE.view={qs:shuffle(simPool).slice(0,10),idx:0,ans:{},left:600,phase:"active"}; startTimer(); }
+  if(!STATE.view){
+    var fc=DB.flashcards||{};
+    // REGLA: una pregunta que ya está en flashcards NO vuelve a salir en el
+    // simulador — una vez que entró a la lista, se estudia desde Flashcards.
+    // (Antes se excluían solo las "aprendidas", así que las pendientes se
+    // repetían una y otra vez y sus contadores nunca avanzaban.)
+    var simPool=HIST.filter(function(q){ return !fc[q.id]; });
+    if(simPool.length<10){
+      simPool=simPool.concat(HIST.filter(function(q){ return !!fc[q.id] && !cardAllowed(q.id); }));
+    }
+    if(simPool.length<10) simPool=HIST; // último recurso para que el examen siga funcionando
+    STATE.view={qs:shuffle(simPool).slice(0,10),idx:0,ans:{},left:600,phase:"active"}; startTimer();
+  }
   var v=STATE.view;
   if(v.phase==="review") return simReviewHTML(v);
   var q=v.qs[v.idx];
@@ -442,8 +489,9 @@ function recordAnswers(list,type){
   list.forEach(function(x){ if(x.ans===x.correct){ var arr=cd[x.id]||[]; if(arr.indexOf(day)<0){arr.push(day); arr.sort(function(a,b){return a-b;});} cd[x.id]=arr; } });
   DB.correctDays=cd;
   var u=user(); u.totalAnswered+=(list.filter(function(x){return x.ans!=null;}).length); u.totalCorrect+=(list.filter(function(x){return x.ans===x.correct;}).length); u.practiceSession=day;
-  // El simulador agrega a flashcards de forma automática; el banco lo hace de
-  // forma manual con addFromBank(). Lectura y otras secciones nunca aparecen.
+  // El simulador agrega a flashcards de forma automática SOLO las preguntas
+  // que aún no están en la lista; el banco lo hace de forma manual con
+  // addFromBank(). Lectura y otras secciones nunca aparecen.
   if(type==="simulador"){
     var seen=DB.simSeen=DB.simSeen||{};
     var fc=DB.flashcards=DB.flashcards||{};
@@ -451,15 +499,17 @@ function recordAnswers(list,type){
       if(!isHistoryId(x.id)) return;
       if(x.ans==null) return; // only questions actually answered in the simulator
       seen[x.id]=true;
-      var card=fc[x.id]||{correctCount:0,learned:false,lastReviewedAt:null};
+      if(fc[x.id]) return; // ya está en flashcards: su progreso solo se toca desde Flashcards
+      // Nueva tarjeta: disponible de inmediato para repasar (lastReviewedAt null)
+      // a diferencia de antes, donde se registraba la fecha y la tarjeta no
+      // podía repasarse en 5 días.
+      var card={correctCount:0,learned:false,lastReviewedAt:null};
       if(x.ans===x.correct){
-        card.correctCount=(card.correctCount||0)+1;
+        card.correctCount=1;
         card.wrong=false;
-        if(card.correctCount>=FLASHCARD_LEARN_COUNT) card.learned=true;
       } else {
         card.wrong=true; // fallada en el simulador: repasar al día siguiente
       }
-      card.lastReviewedAt=new Date().toISOString();
       fc[x.id]=card;
     });
   }
@@ -549,13 +599,18 @@ function daysSince(dateStr){
   var d2=new Date(today()+"T00:00:00Z");
   return Math.round((d2.getTime()-d1.getTime())/86400000);
 }
-function availablePool(){
+// Filtros por categoría para la sección Flashcards: separar por tema
+// (Historia / Cultura / Cívica / Geografía) igual que en el Banco.
+var FL_CATS=[["all","Todas"],["Historia","Historia"],["Cultura","Cultura"],["Cívica","Cívica"],["Geografía","Geografía"]];
+function availablePool(cat){
+  cat=cat||STATE.sel.flcat||"all";
   var fc=DB.flashcards||{};
   var pool=HIST.filter(function(q){
     var card=fc[q.id];
     if(!card) return false;              // must have been added (simulator or bank)
     if(!cardAllowed(q.id)) return false; // only simulator-answered or bank-added
     if(card.learned) return false;
+    if(cat!=="all" && q.categoria!==cat) return false;
     if(!card.lastReviewedAt) return true; // not reviewed yet
     // Si fallaste, la tarjeta vuelve al día siguiente; si acertaste, espera el
     // intervalo completo de repetición espaciada.
@@ -567,21 +622,25 @@ function availablePool(){
 function flHTML(){
   var learned=learnedIds();
   var pending=pendingCards();
+  var cat=STATE.sel.flcat||"all";
   var studied=(DB.daily[today()]||{}).flashcards||0;
   if(!STATE.flash){
-    var pool=availablePool();
+    var pool=availablePool(cat);
+    var poolAll=availablePool("all");
     if(!pool.length){
       return '<div class="card" style="padding:40px;text-align:center">'+
         '<div class="row" style="margin-bottom:12px;justify-content:center"><span class="pill gold">Pendientes: '+pending.length+'</span><span class="pill green">Aprendidas: '+learned.length+'</span></div>'+
-        '<h2>¡Sin pendientes! 🎉</h2>'+
-        '<p class="small mut" style="margin-top:8px">No hay tarjetas disponibles para repasar ahora. Las tarjetas ya repasadas vuelven con un intervalo de '+FLASHCARD_MIN_DAYS+' días (o al día siguiente si fallaste). Vuelve a practicar en el simulador o agrega preguntas desde el banco.</p></div>';
+        '<div class="row" style="margin-bottom:12px;justify-content:center">'+FL_CATS.map(function(c){return '<button class="tab'+(cat===c[0]?' on':'')+'" data-flcat="'+c[0]+'" style="font-size:12px;padding:6px 12px">'+c[1]+'</button>';}).join("")+'</div>'+
+        '<h2>'+(poolAll.length?'¡Ninguna disponible hoy'+(cat!=="all"?' en esta categoría':'')+'! ⏳':'¡Sin pendientes! 🎉')+'</h2>'+
+        '<p class="small mut" style="margin-top:8px">'+(poolAll.length?('Hay '+poolAll.length+' tarjeta(s) disponible(s) hoy en otras categorías. Cambia el filtro para repasarlas. '):'No hay tarjetas para repasar. ')+'Las tarjetas ya repasadas vuelven con un intervalo de '+FLASHCARD_MIN_DAYS+' días (o al día siguiente si fallaste). Vuelve a practicar en el simulador o agrega preguntas desde el banco.</p></div>';
     }
     STATE.flash={q:shuffle(pool)[0],revealed:false,answered:false,selectedOption:null};
   }
   var v=STATE.flash,q=v.q;
   var modeBtn='<button class="btn ghost" id="flmode" style="margin-left:auto;font-size:12px">'+
     (FL_MODE==="reveal"?"Cambiar a opciones":"Cambiar a autoevaluación")+'</button>';
-  var header='<div class="row" style="margin-bottom:8px;flex-wrap:wrap"><span class="pill gold">Pendientes: '+pending.length+'</span><span class="pill green">Aprendidas: '+learned.length+'</span>'+modeBtn+'</div>';
+  var header='<div class="row" style="margin-bottom:8px;flex-wrap:wrap"><span class="pill gold">Pendientes: '+pending.length+'</span><span class="pill green">Aprendidas: '+learned.length+'</span>'+modeBtn+'</div>'+
+    '<div class="row" style="margin-bottom:10px"><span class="small mut" style="font-size:11px;font-weight:700;letter-spacing:.06em">CATEGORÍA:</span>'+FL_CATS.map(function(c){return '<button class="tab'+(cat===c[0]?' on':'')+'" data-flcat="'+c[0]+'" style="font-size:12px;padding:6px 12px">'+c[1]+'</button>';}).join("")+'</div>';
   var cardInfo=getFlashcardInfo(q.id);
   var progressText=cardInfo?(' <span class="small mut">('+cardInfo.correctCount+'/'+FLASHCARD_LEARN_COUNT+' correctas)</span>'):'';
   var body='';
@@ -611,7 +670,7 @@ function flHTML(){
       (v.selectedOption==null?'<p class="small mut">Selecciona la opción correcta</p>':'');
   }
   return '<div class="card">'+header+body+
-    '<p class="small mut" style="margin-top:8px">Modo '+(FL_MODE==="reveal"?"autoevaluación":"opciones múltiples")+' · Repetición espaciada: una tarjeta acertada vuelve en <b>'+FLASHCARD_MIN_DAYS+' días</b> y una fallada, <b>al día siguiente</b>. Responde correctamente '+FLASHCARD_LEARN_COUNT+' veces para aprenderla.</p></div>';
+    '<p class="small mut" style="margin-top:8px">Modo '+(FL_MODE==="reveal"?"autoevaluación":"opciones múltiples")+' · Repetición espaciada: una tarjeta acertada vuelve en <b>'+FLASHCARD_MIN_DAYS+' días</b> y una fallada, <b>al día siguiente</b>. Responde correctamente '+FLASHCARD_LEARN_COUNT+' veces seguidas para aprenderla; si fallas, el contador vuelve a 0.</p></div>';
 }
 function getFlashcardInfo(qid){
   var fc=DB.flashcards||{};
@@ -622,7 +681,7 @@ function markFlashCorrect(isCorrect){
   var fc=DB.flashcards=DB.flashcards||{};
   var card=fc[q.id]||{correctCount:0,learned:false,lastReviewedAt:null};
   if(isCorrect){ card.correctCount=(card.correctCount||0)+1; card.wrong=false; }
-  else { card.wrong=true; } // fallada: se reprograma para el día siguiente
+  else { card.correctCount=0; card.wrong=true; } // fallada: contador a 0, se reprograma para el día siguiente
   card.lastReviewedAt=new Date().toISOString();
   if(card.correctCount>=FLASHCARD_LEARN_COUNT) card.learned=true;
   fc[q.id]=card;
@@ -652,16 +711,21 @@ function addFromBank(qid){
 function banHTML(){
   var q=(STATE.sel.banq||"").toLowerCase();
   var mode=STATE.sel.banmode||"hist";
+  var fcf=STATE.sel.banfc||"all";
   var hits=[];
   if(mode==="hist"){ hits=HIST.filter(function(x){ if(!q) return true; var hay=x.pregunta+" "+(x.pregunta_en||"")+" "+(x.pregunta_fa||"")+" "+(x.subtema||"")+" "+(x.categoria||"")+" "+x.opciones.join(" ")+" "+(x.opciones_en||[]).join(" ")+" "+(x.opciones_fa||[]).join(" "); return hay.toLowerCase().indexOf(q)>=0; }); }
+  if(fcf!=="all"){ hits=hits.filter(function(x){ var inC=cardAllowed(x.id)&&!!((DB.flashcards||{})[x.id]); return fcf==="in"?inC:!inC; }); }
   var lechits=[];
   if(mode==="lec"){ lechits=PASSAGES.filter(function(p){ if(!q) return true; return (p.title+" "+p.text+" "+(p.text_en||"")+" "+(p.text_fa||"")).toLowerCase().indexOf(q)>=0; }); }
   var modes=[["hist","Historia y cultura"],["lec","Lecturas"],["conv","Conversación"]];
   var m=modes.map(function(x){return '<button class="tab'+(mode===x[0]?' on':'')+'" data-banmode="'+x[0]+'">'+x[1]+'</button>';}).join("");
   var body="";
   if(mode==="hist"){
-    body='<p class="small mut">'+hits.length+' pregunta(s) encontradas · total del banco: <b>'+HIST.length+'</b>.</p>'+
-    '<p class="small mut" style="background:rgba(2,132,199,.12);border:1px solid rgba(56,189,248,.25);border-radius:10px;padding:8px 10px;margin-bottom:10px">Las preguntas del simulador se agregan solas a tus flashcards. Si quieres, también puedes añadir cualquier pregunta del banco con “Agregar a flashcards”.</p>'+
+    body='<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 12px"><span class="small mut" style="font-size:11px;font-weight:700;letter-spacing:.06em">FLASHCARDS:</span>'+
+    [["all","Todas"],["in","En flashcards"],["out","Sin agregar"]].map(function(f){return '<button class="tab'+(fcf===f[0]?' on':'')+'" data-banfc="'+f[0]+'" style="font-size:12px;padding:6px 12px">'+f[1]+'</button>';}).join("")+
+    '</div>'+
+    '<p class="small mut">'+hits.length+' pregunta(s) encontradas · total del banco: <b>'+HIST.length+'</b>.</p>'+
+    '<p class="small mut" style="background:rgba(2,132,199,.12);border:1px solid rgba(56,189,248,.25);border-radius:10px;padding:8px 10px;margin-bottom:10px">Las preguntas del simulador se agregan solas a tus flashcards y, a partir de ese momento, <b>ya no vuelven a salir en el simulador</b>: se estudian desde Flashcards. Si quieres, también puedes añadir cualquier otra pregunta del banco con “Agregar a flashcards”.</p>'+
     hits.map(function(x){var inCards=cardAllowed(x.id)&&!!((DB.flashcards||{})[x.id]); return '<div class="card"><div class="row">'+qpills(x)+'</div><div class="qtext" style="font-size:16px">'+esc(x.pregunta)+'</div>'+tr(x.pregunta_en,x.pregunta_fa)+
     x.opciones.map(function(o,i){return '<div class="opt locked">'+esc(o)+(i===x.correct?' <span class="marker">[CORRECTA]</span>':'')+trOption(x.opciones_en,x.opciones_fa,i)+'</div>';}).join("")+
     (x.explicacion?'<p class="small mut">'+esc(x.explicacion)+'</p>':'')+tr(x.explicacion_en,x.explicacion_fa)+
@@ -688,7 +752,7 @@ function proHTML(){
     '<div class="card"><h2 style="margin-bottom:8px">Últimos intentos</h2>'+(attempts.length?'<table><tr><th>Tipo</th><th>Resultado</th><th>Fecha</th></tr>'+attempts.slice(0,10).map(function(a){return '<tr><td>'+(a.type==="simulador"?"Simulador":"Lectura")+'</td><td>'+a.score+'/'+a.total+' <span class="badge '+(a.passed?'ok':'no')+'">'+(a.passed?'Aprobado':'No aprobado')+'</span></td><td class="small mut">'+new Date(a.at).toLocaleString()+'</td></tr>';}).join("")+'</table>':'<p class="small mut">Aún no hay intentos registrados.</p>')+'</div>'+
     '<div class="card"><h2 style="margin-bottom:8px">Preguntas aprendidas <span class="pill green">'+learned.length+'</span></h2>'+(learned.length?learned.slice(0,40).map(function(id){var q=byHistId(id);var card=getFlashcardInfo(id);return '<div class="small" style="margin:4px 0;display:flex;justify-content:space-between">'+
       '<span>• '+esc(q.pregunta)+'</span><span class="mut">✅ '+(card?card.correctCount:FLASHCARD_LEARN_COUNT)+'/'+FLASHCARD_LEARN_COUNT+'</span></div>';}).join(""):'<p class="small mut">Responde correctamente '+FLASHCARD_LEARN_COUNT+' veces en flashcards para aprender una pregunta.</p>')+'</div>'+
-    '<div class="card"><h2 style="margin-bottom:8px">En repaso <span class="pill gold">'+pending.length+' pendientes</span></h2>'+(pending.length?pending.slice(0,40).map(function(p){var q=byHistId(p.id);var canReview=!p.lastReviewedAt||daysSince(p.lastReviewedAt)>=FLASHCARD_MIN_DAYS;return '<div class="small" style="margin:4px 0;display:flex;justify-content:space-between">'+
+    '<div class="card"><h2 style="margin-bottom:8px">En repaso <span class="pill gold">'+pending.length+' pendientes</span></h2>'+(pending.length?pending.slice(0,40).map(function(p){var q=byHistId(p.id);var card=getFlashcardInfo(p.id);var minDays=card&&card.wrong?1:FLASHCARD_MIN_DAYS;var canReview=!p.lastReviewedAt||daysSince(p.lastReviewedAt)>=minDays;return '<div class="small" style="margin:4px 0;display:flex;justify-content:space-between">'+
       '<span>• '+esc(q.pregunta)+' '+(canReview?'<span class="pill green" style="font-size:10px;padding:1px 6px">Disponible</span>':'<span class="pill rose" style="font-size:10px;padding:1px 6px">En espera</span>')+'</span><span class="mut">'+p.correctCount+'/'+FLASHCARD_LEARN_COUNT+'</span></div>';}).join(""):'<p class="small mut">Sin preguntas pendientes. Practica en el simulador o agrega preguntas desde el banco.</p>')+'</div>';
 }
 
@@ -717,6 +781,7 @@ function bindView(){
   }
   if(tab==="fl"){
     var fv=STATE.flash;
+    document.querySelectorAll("[data-flcat]").forEach(function(b){ b.onclick=function(){ STATE.sel.flcat=b.getAttribute("data-flcat"); STATE.flash=null; render(); }; });
     var modeBtn=document.getElementById("flmode"); if(modeBtn)modeBtn.onclick=function(){ FL_MODE=FL_MODE==="reveal"?"choice":"reveal"; if(fv){fv.revealed=false;fv.answered=false;fv.selectedOption=null;} render(); };
     var sh=document.getElementById("flshow"); if(sh)sh.onclick=function(){fv.revealed=true;render();};
     var fc=document.getElementById("flcorrect"); if(fc)fc.onclick=function(){markFlashCorrect(true);};
@@ -730,6 +795,7 @@ function bindView(){
   }
   if(tab==="ban"){
     document.querySelectorAll(".tab[data-banmode]").forEach(function(b){ b.onclick=function(){ STATE.sel.banmode=b.getAttribute("data-banmode"); render(); }; });
+    document.querySelectorAll("[data-banfc]").forEach(function(b){ b.onclick=function(){ STATE.sel.banfc=b.getAttribute("data-banfc"); render(); }; });
     var bq=document.getElementById("banq"); if(bq){ bq.oninput=function(){ STATE.sel.banq=bq.value; }; }
     document.querySelectorAll("[data-addfl]").forEach(function(b){ b.onclick=function(){ addFromBank(+b.getAttribute("data-addfl")); }; });
   }

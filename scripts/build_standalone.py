@@ -95,6 +95,14 @@ payload = json.dumps(APP_DATA, ensure_ascii=False).replace("</", "<\\/")
 html = tmpl.replace("/*__DATA__*/", payload)
 html = html.replace("/*__VERSION__*/", VERSION)
 
+# Mapa de ids eliminados por la deduplicación -> id conservado. Al cambiar la
+# versión de datos, el progreso guardado bajo el id viejo se reasigna al nuevo
+# (las tarjetas duplicadas se fusionan conservando el mejor contador), en vez
+# de purgar el progreso de usuarios existentes.
+remap_path = os.path.join(root, "data", "dedupe_remap.json")
+remap = json.load(open(remap_path, encoding="utf-8")) if os.path.exists(remap_path) else {}
+html = html.replace("/*__FC_REMAP__*/", json.dumps(remap, ensure_ascii=False))
+
 # `index.html` en la raíz: GitHub Pages lo sirve directamente como la página
 # principal del sitio (Settings → Pages → "Deploy from a branch" → main → /).
 out = os.path.join(root, "index.html")
