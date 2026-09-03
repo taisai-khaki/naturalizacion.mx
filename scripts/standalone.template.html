@@ -87,6 +87,7 @@ var FA_ERROR = "";
 var FA_LAST_VIEW = "";
 var phone = localStorage.getItem("nmx_phone") || "";
 var DB = loadDB();
+migrateDataVersion();
 migrateFlashcards();
 
 function key(){ return "nmx_db_" + (phone||"").trim(); }
@@ -120,6 +121,22 @@ function cardAllowed(qid){
 function wasAnswered(qid){
   var arr=(DB.correctDays||{})[qid];
   return Array.isArray(arr) && arr.length>0;
+}
+// Primer id del lote reasignado en la reparación de 2026. Los ids >= este valor
+// apuntan HOY a preguntas distintas de las que apuntaban cuando el progreso del
+// usuario se guardó, así que al cambiar la versión de datos se purga el progreso
+// ligado a ids (flashcards/simSeen/bankAdded/correctDays) en ese rango para no
+// mostrar tarjetas "aprendidas" o avances de preguntas que nunca se estudiaron.
+var REMAP_MIN_ID=605;
+function migrateDataVersion(){
+  if(DB.dataVersion===APP_VERSION) return;
+  function purge(map){
+    if(!map||typeof map!=="object") return;
+    for(var k in map){ if(+k>=REMAP_MIN_ID) delete map[k]; }
+  }
+  purge(DB.flashcards); purge(DB.simSeen); purge(DB.bankAdded); purge(DB.correctDays);
+  DB.dataVersion=APP_VERSION;
+  saveDB();
 }
 function migrateFlashcards(){
   var fc=DB.flashcards||{};
@@ -437,7 +454,10 @@ function recordAnswers(list,type){
       var card=fc[x.id]||{correctCount:0,learned:false,lastReviewedAt:null};
       if(x.ans===x.correct){
         card.correctCount=(card.correctCount||0)+1;
+        card.wrong=false;
         if(card.correctCount>=FLASHCARD_LEARN_COUNT) card.learned=true;
+      } else {
+        card.wrong=true; // fallada en el simulador: repasar al día siguiente
       }
       card.lastReviewedAt=new Date().toISOString();
       fc[x.id]=card;
@@ -537,7 +557,10 @@ function availablePool(){
     if(!cardAllowed(q.id)) return false; // only simulator-answered or bank-added
     if(card.learned) return false;
     if(!card.lastReviewedAt) return true; // not reviewed yet
-    return daysSince(card.lastReviewedAt) >= FLASHCARD_MIN_DAYS;
+    // Si fallaste, la tarjeta vuelve al día siguiente; si acertaste, espera el
+    // intervalo completo de repetición espaciada.
+    var minDays = card.wrong ? 1 : FLASHCARD_MIN_DAYS;
+    return daysSince(card.lastReviewedAt) >= minDays;
   });
   return pool;
 }
@@ -551,7 +574,7 @@ function flHTML(){
       return '<div class="card" style="padding:40px;text-align:center">'+
         '<div class="row" style="margin-bottom:12px;justify-content:center"><span class="pill gold">Pendientes: '+pending.length+'</span><span class="pill green">Aprendidas: '+learned.length+'</span></div>'+
         '<h2>¡Sin pendientes! 🎉</h2>'+
-        '<p class="small mut" style="margin-top:8px">No hay tarjetas disponibles para repasar ahora. Cada pregunta se presenta como máximo 1 vez al día con un intervalo de '+FLASHCARD_MIN_DAYS+' días. Vuelve a practicar en el simulador o agrega preguntas desde el banco.</p></div>';
+        '<p class="small mut" style="margin-top:8px">No hay tarjetas disponibles para repasar ahora. Las tarjetas ya repasadas vuelven con un intervalo de '+FLASHCARD_MIN_DAYS+' días (o al día siguiente si fallaste). Vuelve a practicar en el simulador o agrega preguntas desde el banco.</p></div>';
     }
     STATE.flash={q:shuffle(pool)[0],revealed:false,answered:false,selectedOption:null};
   }
@@ -588,7 +611,7 @@ function flHTML(){
       (v.selectedOption==null?'<p class="small mut">Selecciona la opción correcta</p>':'');
   }
   return '<div class="card">'+header+body+
-    '<p class="small mut" style="margin-top:8px">Modo '+(FL_MODE==="reveal"?"autoevaluación":"opciones múltiples")+' · Cada pregunta se presenta como máximo <b>1 vez al día</b> con un <b>intervalo de '+FLASHCARD_MIN_DAYS+' días</b>. Responde correctamente '+FLASHCARD_LEARN_COUNT+' veces para aprenderla.</p></div>';
+    '<p class="small mut" style="margin-top:8px">Modo '+(FL_MODE==="reveal"?"autoevaluación":"opciones múltiples")+' · Repetición espaciada: una tarjeta acertada vuelve en <b>'+FLASHCARD_MIN_DAYS+' días</b> y una fallada, <b>al día siguiente</b>. Responde correctamente '+FLASHCARD_LEARN_COUNT+' veces para aprenderla.</p></div>';
 }
 function getFlashcardInfo(qid){
   var fc=DB.flashcards||{};
@@ -598,7 +621,8 @@ function markFlashCorrect(isCorrect){
   var v=STATE.flash,q=v.q;
   var fc=DB.flashcards=DB.flashcards||{};
   var card=fc[q.id]||{correctCount:0,learned:false,lastReviewedAt:null};
-  if(isCorrect) card.correctCount=(card.correctCount||0)+1;
+  if(isCorrect){ card.correctCount=(card.correctCount||0)+1; card.wrong=false; }
+  else { card.wrong=true; } // fallada: se reprograma para el día siguiente
   card.lastReviewedAt=new Date().toISOString();
   if(card.correctCount>=FLASHCARD_LEARN_COUNT) card.learned=true;
   fc[q.id]=card;
