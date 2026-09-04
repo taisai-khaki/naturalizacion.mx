@@ -44,11 +44,11 @@ export async function GET(req: NextRequest) {
 
     // Preguntas pendientes en flashcards (no aprendidas)
     const pending = await db.execute(sql`
-      SELECT f.question_id, f.correct_count, f.last_reviewed_at
+      SELECT f.question_id, f.correct_count, f.last_reviewed_at, f.mark
       FROM flashcards f
       WHERE f.user_id = ${userId} AND f.learned = false
     `);
-    const pendingRows = pending.rows as { question_id: number; correct_count: number; last_reviewed_at: string }[];
+    const pendingRows = pending.rows as { question_id: number; correct_count: number; last_reviewed_at: string; mark: string }[];
 
     let pendingQuestions: any[] = [];
     if (pendingRows.length > 0) {
@@ -56,20 +56,23 @@ export async function GET(req: NextRequest) {
       const pendingMap = new Map(
         pendingRows.map((r) => [
           r.question_id,
-          { correctCount: r.correct_count, lastReviewedAt: r.last_reviewed_at },
+          { correctCount: r.correct_count, lastReviewedAt: r.last_reviewed_at, mark: r.mark },
         ]),
       );
 
-      const minDate = new Date();
-      minDate.setDate(minDate.getDate() - FLASHCARD_MIN_DAYS);
+      const minDateCorrect = new Date();
+      minDateCorrect.setDate(minDateCorrect.getDate() - FLASHCARD_MIN_DAYS);
+      const minDateWrong = new Date();
+      minDateWrong.setDate(minDateWrong.getDate() - 1);
 
       pendingQuestions = await db
         .select()
         .from(questions)
         .where(inArray(questions.id, ids));
       pendingQuestions = pendingQuestions.map((q: any) => {
-        const info = pendingMap.get(q.id) || { correctCount: 0, lastReviewedAt: null };
+        const info = pendingMap.get(q.id) || { correctCount: 0, lastReviewedAt: null, mark: "facil" };
         const last = info.lastReviewedAt ? new Date(info.lastReviewedAt) : null;
+        const minDate = info.mark === "wrong" ? minDateWrong : minDateCorrect;
         return {
           ...q,
           correctCount: info.correctCount,
@@ -105,8 +108,10 @@ export async function GET(req: NextRequest) {
 
     const allFcRows = await db.select().from(flashcards).where(eq(flashcards.userId, userId));
     const fcMap = new Map(allFcRows.map((f: any) => [f.questionId, f]));
-    const minDateAll = new Date();
-    minDateAll.setDate(minDateAll.getDate() - FLASHCARD_MIN_DAYS);
+    const minDateAllCorrect = new Date();
+    minDateAllCorrect.setDate(minDateAllCorrect.getDate() - FLASHCARD_MIN_DAYS);
+    const minDateAllWrong = new Date();
+    minDateAllWrong.setDate(minDateAllWrong.getDate() - 1);
 
     const allQuestions = allHistQuestions.map((q: any) => {
       const fc: any = fcMap.get(q.id);
@@ -131,13 +136,14 @@ export async function GET(req: NextRequest) {
         };
       }
       const last = fc.lastReviewedAt ? new Date(fc.lastReviewedAt) : null;
+      const minDate = fc.mark === "wrong" ? minDateAllWrong : minDateAllCorrect;
       return {
         ...q,
         status: "pending" as const,
         correctCount: fc.correctCount,
         learned: false,
         lastReviewedAt: fc.lastReviewedAt,
-        availableForReview: last ? last <= minDateAll : true,
+        availableForReview: last ? last <= minDate : true,
       };
     });
 

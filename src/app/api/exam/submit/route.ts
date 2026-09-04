@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
         .insert(userProgress)
         .values({ userId: uid, questionId: qId, sessionDay, isCorrect });
 
-      // Si es simulador: mover la pregunta a flashcards (si no está ya) y registrar resultado
+      // Si es simulador: mover la pregunta a flashcards (si no está ya)
       if (type === "simulador") {
         const existing = await db
           .select()
@@ -69,29 +69,16 @@ export async function POST(req: NextRequest) {
           )
           .limit(1);
         if (!existing.length) {
-          // Nuevo: disponible de inmediato para repasar
+          // Nueva tarjeta: disponible de inmediato para repasar
           await db.insert(flashcards).values({
             userId: uid,
             questionId: qId,
-            mark: "facil",
+            mark: isCorrect ? "facil" : "wrong",
             createdAt: new Date(),
             lastReviewedAt: new Date(0),
             correctCount: isCorrect ? 1 : 0,
             learned: false,
           });
-        } else {
-          const fc = existing[0];
-          // Si se falla, el contador vuelve a 0 (requiere 5 aciertos seguidos)
-          const newCorrect = isCorrect ? fc.correctCount + 1 : 0;
-          const newLearned = newCorrect >= FLASHCARD_LEARN_COUNT;
-          await db
-            .update(flashcards)
-            .set({
-              correctCount: newCorrect,
-              learned: newLearned,
-              lastReviewedAt: new Date(),
-            })
-            .where(eq(flashcards.id, fc.id));
         }
       }
     }

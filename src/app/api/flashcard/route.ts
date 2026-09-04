@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { questions, flashcards } from "@/db/schema";
-import { sql, eq, and, lt, lte } from "drizzle-orm";
+import { sql, eq, and, ne, or, lte } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import { FLASHCARD_LEARN_COUNT, FLASHCARD_MIN_DAYS } from "@/lib/constants";
 
@@ -13,22 +13,26 @@ export async function GET(req: NextRequest) {
     if (!userId) return NextResponse.json({ error: "userId requerido" }, { status: 400 });
     const categoria = req.nextUrl.searchParams.get("categoria") || "all";
 
-    // Corte de fecha: hace FLASHCARD_MIN_DAYS días
-    const minDate = new Date();
-    minDate.setDate(minDate.getDate() - FLASHCARD_MIN_DAYS);
+    // Intervalos de repetición espaciada: 5 días para acertadas, 1 día para falladas
+    const minDateCorrect = new Date();
+    minDateCorrect.setDate(minDateCorrect.getDate() - FLASHCARD_MIN_DAYS);
+    const minDateWrong = new Date();
+    minDateWrong.setDate(minDateWrong.getDate() - 1);
 
     const filters = [
       eq(flashcards.userId, userId),
       eq(flashcards.learned, false),
-      lte(flashcards.lastReviewedAt, minDate),
+      or(
+        and(eq(flashcards.mark, "wrong"), lte(flashcards.lastReviewedAt, minDateWrong)),
+        and(ne(flashcards.mark, "wrong"), lte(flashcards.lastReviewedAt, minDateCorrect)),
+      ),
     ];
     if (categoria !== "all") filters.push(eq(questions.categoria, categoria));
 
     // Buscar una pregunta en flashcards que cumpla:
     // 1. No está aprendida (learned = false)
-    // 2. Han pasado al menos FLASHCARD_MIN_DAYS desde lastReviewedAt
+    // 2. Cumple el intervalo de repetición espaciada (5 días si acertada, 1 día si fallada, o nueva)
     // 3. (opcional) filtro de categoría Historia/Cultura/Cívica/Geografía
-    // (las flashcards vienen del simulador o se agregan desde el banco)
     // Ordenamos por lastReviewedAt ASC (más antigua primero) para rotación
     // estable y evitar que random devuelva la misma tarjeta todos los días.
     const rows = await db
@@ -59,7 +63,12 @@ export async function GET(req: NextRequest) {
     const dueRow = await db.execute(sql`
       SELECT COUNT(*)::int AS d
       FROM flashcards
-      WHERE user_id = ${userId} AND learned = false AND last_reviewed_at <= ${minDate}
+      WHERE user_id = ${userId}
+        AND learned = false
+        AND (
+          (mark = 'wrong' AND last_reviewed_at <= ${minDateWrong})
+          OR (mark != 'wrong' AND last_reviewed_at <= ${minDateCorrect})
+        )
     `);
     const dueCount = parseInt((dueRow.rows[0] as any).d, 10);
 
@@ -155,10 +164,12 @@ export async function POST(req: NextRequest) {
     // Si la respuesta es incorrecta, el contador vuelve a 0 (requiere 5 aciertos seguidos)
     const newCorrectCount = isCorrect ? fc.correctCount + 1 : 0;
     const newLearned = newCorrectCount >= FLASHCARD_LEARN_COUNT;
+    const newMark = isCorrect ? "facil" : "wrong";
 
     await db
       .update(flashcards)
       .set({
+        mark: newMark,
         correctCount: newCorrectCount,
         learned: newLearned,
         lastReviewedAt: new Date(),
