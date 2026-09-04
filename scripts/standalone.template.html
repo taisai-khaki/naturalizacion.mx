@@ -96,8 +96,17 @@ migrateFlashcards();
 
 function key(){ return "nmx_db_" + (phone||"").trim(); }
 function loadDB(){
-  try { return JSON.parse(localStorage.getItem(key()) || "{}") || {}; }
-  catch(e){ return {}; }
+  try {
+    var db = JSON.parse(localStorage.getItem(key()) || "{}") || {};
+    if(!db.flashcards || typeof db.flashcards !== "object") db.flashcards={};
+    if(!db.simSeen || typeof db.simSeen !== "object") db.simSeen={};
+    if(!db.bankAdded || typeof db.bankAdded !== "object") db.bankAdded={};
+    if(!db.correctDays || typeof db.correctDays !== "object") db.correctDays={};
+    if(!Array.isArray(db.attempts)) db.attempts=[];
+    if(!db.daily || typeof db.daily !== "object") db.daily={};
+    return db;
+  }
+  catch(e){ return {flashcards:{},simSeen:{},bankAdded:{},correctDays:{},attempts:[],daily:{}}; }
 }
 function saveDB(){ localStorage.setItem(key(), JSON.stringify(DB)); }
 function loadFarsiCache(){
@@ -110,14 +119,12 @@ function saveFarsiCache(){
 }
 function user(){ return DB.user || {id:1,name:"",practiceSession:0,totalCorrect:0,totalAnswered:0,masteredCount:0,simuladorApproved:false,lecturaApproved:false}; }
 function isHistoryId(qid){ qid=+qid; for(var i=0;i<HIST.length;i++){ if(HIST[i].id===qid) return true; } return false; }
-// Una tarjeta es válida SOLO si la pregunta fue respondida en el simulador
-// (DB.simSeen) o se añadió a mano desde el banco (DB.bankAdded). Cualquier otra
-// tarjeta —incluidas las que dejaron versiones anteriores de la app— se descarta,
-// así Flashcards nunca muestra una pregunta que no esté en tu progreso.
+// Una tarjeta es válida si la pregunta fue respondida en el simulador
+// (DB.simSeen o DB.correctDays) o se añadió a mano desde el banco (DB.bankAdded).
 function cardAllowed(qid){
   qid=+qid;
   var seen=DB.simSeen||{}, added=DB.bankAdded||{};
-  return !!seen[qid] || !!added[qid];
+  return !!seen[qid] || !!added[qid] || wasAnswered(qid);
 }
 // Historial antiguo: antes de DB.simSeen solo quedaba registro de las preguntas
 // contestadas correctamente (DB.correctDays). Eso también prueba que la pregunta
@@ -183,7 +190,7 @@ function migrateFlashcards(){
     if(Array.isArray(val)){
       // Migrate from old format (array of marks) to new format (object)
       var correctCount=val.filter(function(x){return x==="facil";}).length;
-      fc[qid]={correctCount:correctCount,learned:correctCount>=5,lastReviewedAt:new Date().toISOString()};
+      fc[qid]={correctCount:correctCount,learned:correctCount>=5,lastReviewedAt:null};
       changed=true;
       val=fc[qid];
     }
@@ -195,24 +202,18 @@ function migrateFlashcards(){
       continue;
     }
     // ...y solo si viene del simulador o se añadió desde el banco.
-    if(wasAnswered(qid) && !seen[qid]) seen[qid]=true;
+    if(wasAnswered(qid) && !seen[qid]){ seen[qid]=true; changed=true; }
     if(!cardAllowed(qid)){
       delete fc[qid];
       delete seen[qid];
       changed=true;
       continue;
     }
-    // Sincronizar respuestas correctas registradas en el simulador si correctCount era 0
-    var cDays=(DB.correctDays||{})[qid];
-    if(Array.isArray(cDays) && cDays.length > (val.correctCount||0)){
-      val.correctCount=cDays.length;
-      if(val.correctCount>=FLASHCARD_LEARN_COUNT) val.learned=true;
-      changed=true;
-    }
-    // Si la pregunta fue respondida en el simulador pero no tenía fecha de último repaso, registrar fecha
-    if(wasAnswered(qid) && !val.lastReviewedAt){
-      val.lastReviewedAt=new Date().toISOString();
-      changed=true;
+    // Si una tarjeta nueva o pendiente con <=1 aciertos quedó bloqueada con fecha por versiones anteriores,
+    // desbloquearla para que esté disponible de inmediato para repasar.
+    if(val && !val.learned && (val.correctCount||0) <= 1 && val.lastReviewedAt){
+      val.lastReviewedAt = null;
+      changed = true;
     }
   }
   for(var sid in seen){
@@ -225,11 +226,12 @@ function migrateFlashcards(){
   }
   DB.simSeen=seen;
   DB.bankAdded=added;
+  DB.flashcards=fc;
   // Keep the displayed mastered count in sync after the cleanup.
   var u=user();
   var newCount=learnedIds().length;
   if(u.masteredCount!==newCount){ u.masteredCount=newCount; DB.user=u; changed=true; }
-  if(changed){ DB.flashcards=fc; DB.simSeen=seen; DB.bankAdded=added; saveDB(); }
+  if(changed){ saveDB(); }
 }
 function today(){ return new Date().toISOString().slice(0,10); }
 function setUser(patch){ DB.user = Object.assign({}, user(), patch); saveDB(); }
@@ -750,9 +752,9 @@ function proHTML(){
     '<div class="stat"><b>'+u.totalCorrect+'</b><div class="small mut">Correctas totales</div></div>'+
     '<div class="stat"><b>'+u.totalAnswered+'</b><div class="small mut">Respondidas</div></div></div>'+
     '<div class="card"><h2 style="margin-bottom:8px">Últimos intentos</h2>'+(attempts.length?'<table><tr><th>Tipo</th><th>Resultado</th><th>Fecha</th></tr>'+attempts.slice(0,10).map(function(a){return '<tr><td>'+(a.type==="simulador"?"Simulador":"Lectura")+'</td><td>'+a.score+'/'+a.total+' <span class="badge '+(a.passed?'ok':'no')+'">'+(a.passed?'Aprobado':'No aprobado')+'</span></td><td class="small mut">'+new Date(a.at).toLocaleString()+'</td></tr>';}).join("")+'</table>':'<p class="small mut">Aún no hay intentos registrados.</p>')+'</div>'+
-    '<div class="card"><h2 style="margin-bottom:8px">Preguntas aprendidas <span class="pill green">'+learned.length+'</span></h2>'+(learned.length?learned.slice(0,40).map(function(id){var q=byHistId(id);var card=getFlashcardInfo(id);return '<div class="small" style="margin:4px 0;display:flex;justify-content:space-between">'+
+    '<div class="card"><h2 style="margin-bottom:8px">Preguntas aprendidas <span class="pill green">'+learned.length+'</span></h2>'+(learned.length?learned.map(function(id){var q=byHistId(id);var card=getFlashcardInfo(id);return '<div class="small" style="margin:4px 0;display:flex;justify-content:space-between">'+
       '<span>• '+esc(q.pregunta)+'</span><span class="mut">✅ '+(card?card.correctCount:FLASHCARD_LEARN_COUNT)+'/'+FLASHCARD_LEARN_COUNT+'</span></div>';}).join(""):'<p class="small mut">Responde correctamente '+FLASHCARD_LEARN_COUNT+' veces en flashcards para aprender una pregunta.</p>')+'</div>'+
-    '<div class="card"><h2 style="margin-bottom:8px">En repaso <span class="pill gold">'+pending.length+' pendientes</span></h2>'+(pending.length?pending.slice(0,40).map(function(p){var q=byHistId(p.id);var card=getFlashcardInfo(p.id);var minDays=card&&card.wrong?1:FLASHCARD_MIN_DAYS;var canReview=!p.lastReviewedAt||daysSince(p.lastReviewedAt)>=minDays;return '<div class="small" style="margin:4px 0;display:flex;justify-content:space-between">'+
+    '<div class="card"><h2 style="margin-bottom:8px">En repaso <span class="pill gold">'+pending.length+' pendientes</span></h2>'+(pending.length?pending.map(function(p){var q=byHistId(p.id);var card=getFlashcardInfo(p.id);var minDays=card&&card.wrong?1:FLASHCARD_MIN_DAYS;var canReview=!p.lastReviewedAt||daysSince(p.lastReviewedAt)>=minDays;return '<div class="small" style="margin:4px 0;display:flex;justify-content:space-between">'+
       '<span>• '+esc(q.pregunta)+' '+(canReview?'<span class="pill green" style="font-size:10px;padding:1px 6px">Disponible</span>':'<span class="pill rose" style="font-size:10px;padding:1px 6px">En espera</span>')+'</span><span class="mut">'+p.correctCount+'/'+FLASHCARD_LEARN_COUNT+'</span></div>';}).join(""):'<p class="small mut">Sin preguntas pendientes. Practica en el simulador o agrega preguntas desde el banco.</p>')+'</div>';
 }
 
