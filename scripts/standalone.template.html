@@ -209,10 +209,9 @@ function migrateFlashcards(){
       changed=true;
       continue;
     }
-    // Si una tarjeta nueva (o proveniente del simulador con <=1 aciertos y no aprendida)
-    // quedó bloqueada con fecha por versiones anteriores, desbloquearla para que
-    // esté disponible de inmediato para repasar.
-    if(val && !val.learned && (val.correctCount||0) <= 1 && val.wrong === undefined && val.lastReviewedAt){
+    // Si una tarjeta nueva o pendiente con <=1 aciertos quedó bloqueada con fecha por versiones anteriores,
+    // desbloquearla para que esté disponible de inmediato para repasar.
+    if(val && !val.learned && (val.correctCount||0) <= 1 && val.lastReviewedAt){
       val.lastReviewedAt = null;
       changed = true;
     }
@@ -753,9 +752,9 @@ function proHTML(){
     '<div class="stat"><b>'+u.totalCorrect+'</b><div class="small mut">Correctas totales</div></div>'+
     '<div class="stat"><b>'+u.totalAnswered+'</b><div class="small mut">Respondidas</div></div></div>'+
     '<div class="card"><h2 style="margin-bottom:8px">Últimos intentos</h2>'+(attempts.length?'<table><tr><th>Tipo</th><th>Resultado</th><th>Fecha</th></tr>'+attempts.slice(0,10).map(function(a){return '<tr><td>'+(a.type==="simulador"?"Simulador":"Lectura")+'</td><td>'+a.score+'/'+a.total+' <span class="badge '+(a.passed?'ok':'no')+'">'+(a.passed?'Aprobado':'No aprobado')+'</span></td><td class="small mut">'+new Date(a.at).toLocaleString()+'</td></tr>';}).join("")+'</table>':'<p class="small mut">Aún no hay intentos registrados.</p>')+'</div>'+
-    '<div class="card"><h2 style="margin-bottom:8px">Preguntas aprendidas <span class="pill green">'+learned.length+'</span></h2>'+(learned.length?learned.slice(0,40).map(function(id){var q=byHistId(id);var card=getFlashcardInfo(id);return '<div class="small" style="margin:4px 0;display:flex;justify-content:space-between">'+
+    '<div class="card"><h2 style="margin-bottom:8px">Preguntas aprendidas <span class="pill green">'+learned.length+'</span></h2>'+(learned.length?learned.map(function(id){var q=byHistId(id);var card=getFlashcardInfo(id);return '<div class="small" style="margin:4px 0;display:flex;justify-content:space-between">'+
       '<span>• '+esc(q.pregunta)+'</span><span class="mut">✅ '+(card?card.correctCount:FLASHCARD_LEARN_COUNT)+'/'+FLASHCARD_LEARN_COUNT+'</span></div>';}).join(""):'<p class="small mut">Responde correctamente '+FLASHCARD_LEARN_COUNT+' veces en flashcards para aprender una pregunta.</p>')+'</div>'+
-    '<div class="card"><h2 style="margin-bottom:8px">En repaso <span class="pill gold">'+pending.length+' pendientes</span></h2>'+(pending.length?pending.slice(0,40).map(function(p){var q=byHistId(p.id);var card=getFlashcardInfo(p.id);var minDays=card&&card.wrong?1:FLASHCARD_MIN_DAYS;var canReview=!p.lastReviewedAt||daysSince(p.lastReviewedAt)>=minDays;return '<div class="small" style="margin:4px 0;display:flex;justify-content:space-between">'+
+    '<div class="card"><h2 style="margin-bottom:8px">En repaso <span class="pill gold">'+pending.length+' pendientes</span></h2>'+(pending.length?pending.map(function(p){var q=byHistId(p.id);var card=getFlashcardInfo(p.id);var minDays=card&&card.wrong?1:FLASHCARD_MIN_DAYS;var canReview=!p.lastReviewedAt||daysSince(p.lastReviewedAt)>=minDays;return '<div class="small" style="margin:4px 0;display:flex;justify-content:space-between">'+
       '<span>• '+esc(q.pregunta)+' '+(canReview?'<span class="pill green" style="font-size:10px;padding:1px 6px">Disponible</span>':'<span class="pill rose" style="font-size:10px;padding:1px 6px">En espera</span>')+'</span><span class="mut">'+p.correctCount+'/'+FLASHCARD_LEARN_COUNT+'</span></div>';}).join(""):'<p class="small mut">Sin preguntas pendientes. Practica en el simulador o agrega preguntas desde el banco.</p>')+'</div>';
 }
 
