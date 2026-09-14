@@ -92,6 +92,41 @@ Reglas ajustadas al mismo tiempo:
 - Se restauró el filtro **Todas / En flashcards / Sin agregar** en el Banco y se
   añadió el filtro por **categoría** en Flashcards.
 
+### ✅ Repetición espaciada que sí avanza (2026-09)
+
+Síntoma: algunas preguntas **nunca cambiaban su historial** aunque se respondieran
+bien y volvían a salir **todos los días**.
+
+Causa: `migrateFlashcards()` aplicaba una migración en **cada** carga de la página que
+ponía `lastReviewedAt = null` en toda tarjeta pendiente con **<= 1 acierto**. La fecha
+del último repaso se borraba apenas guardada, `availablePool()` volvía a ofrecer la
+tarjeta al día siguiente y Progreso nunca mostraba "Último repaso". Las tarjetas que
+crea el simulador nacen con 1 acierto, justo dentro de ese rango.
+
+Corregido en `scripts/standalone.template.html` (regenerar con `npm run bank:build`):
+
+- El desbloqueo corre **una sola vez por versión de datos** (`DATA_VERSION_CHANGED`),
+  no en cada carga. Las tarjetas nuevas siguen disponibles de inmediato porque se
+  crean con `lastReviewedAt: null`.
+- `today()` y `daysSince()` usan el **día local** del usuario en vez de UTC: antes el
+  día cambiaba a las 18:00 (UTC-6) y una tarjeta fallada por la tarde volvía a salir a
+  las pocas horas en lugar de al día siguiente.
+- `saveDB()` ya no falla en silencio: si `localStorage` está lleno o bloqueado (modo
+  privado) aparece un aviso en Flashcards. Antes las respuestas correctas se perdían
+  sin ninguna señal y la tarjeta repetía al día siguiente.
+- La sesión (`nmx_phone`) se guarda al entrar y se borra con "Salir": antes cada
+  recarga pedía el número otra vez y escribirlo en otro formato (`+52`, con espacios)
+  abría una base vacía.
+
+En la app Next.js (`src/`):
+
+- `POST /api/flashcard` **crea** la tarjeta si no existe en vez de devolver
+  `404 Flashcard no encontrada`, que hacía que el acierto no se registrara nunca.
+- `Flashcards.tsx` devuelve los botones para reintentar si la petición falla (antes la
+  tarjeta quedaba congelada en "Cargando siguiente...").
+- `/api/progress` expone `mark` para que "Próximo repaso" muestre 1 día (fallada) o
+  `FLASHCARD_MIN_DAYS` (acertada) en vez de 5 días siempre.
+
 ## 🌐 App en GitHub Pages (un solo archivo)
 
 `index.html` es una **app autocontenida**: funciona sin servidor y sin base de datos

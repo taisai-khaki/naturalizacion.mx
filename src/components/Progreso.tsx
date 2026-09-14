@@ -5,7 +5,7 @@ import { BookCheck, Repeat, History, Search, ListChecks, GraduationCap, Clock } 
 import type { User, Question } from "@/lib/client";
 import { api } from "@/lib/client";
 import { Card, Pill } from "./ui";
-import { FLASHCARD_LEARN_COUNT } from "@/lib/constants";
+import { FLASHCARD_LEARN_COUNT, FLASHCARD_MIN_DAYS } from "@/lib/constants";
 
 type Attempt = { id: number; type: string; score: number; total: number; passed: boolean; createdAt: string };
 
@@ -14,8 +14,8 @@ type ProgressData = {
   totalQuestions: number;
   totalHist?: number;
   learned: (Question & { correctCount: number })[];
-  pending: (Question & { correctCount: number; lastReviewedAt: string | null; availableForReview: boolean })[];
-  allQuestions?: (Question & { status: "learned" | "pending" | "not_started"; correctCount: number; lastReviewedAt: string | null; availableForReview: boolean })[];
+  pending: (Question & { correctCount: number; lastReviewedAt: string | null; availableForReview: boolean; mark?: string | null })[];
+  allQuestions?: (Question & { status: "learned" | "pending" | "not_started"; correctCount: number; lastReviewedAt: string | null; availableForReview: boolean; mark?: string | null })[];
   notStarted?: Question[];
   attempts: Attempt[];
 };
@@ -215,7 +215,13 @@ export default function Progreso({ user }: { user: User }) {
                       {item.status === "pending" && !item.availableForReview && item.lastReviewedAt && (
                         <span className="text-amber-300/70">
                           Próximo repaso:{" "}
-                          {new Date(new Date(item.lastReviewedAt).getTime() + 5 * 24 * 60 * 60 * 1000).toLocaleDateString()}
+                          {new Date(
+                            new Date(item.lastReviewedAt).getTime() +
+                              // Una tarjeta fallada vuelve al día siguiente; las
+                              // demás, cada FLASHCARD_MIN_DAYS días (antes se
+                              // mostraban siempre 5 días).
+                              (item.mark === "wrong" ? 1 : FLASHCARD_MIN_DAYS) * 24 * 60 * 60 * 1000
+                          ).toLocaleDateString()}
                         </span>
                       )}
                     </>

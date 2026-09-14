@@ -93,7 +93,12 @@ export default function Flashcards({
       onResult();
       setTimeout(() => next(), 1500);
     } catch (e: any) {
+      // Si no se pudo registrar la respuesta, se devuelven los botones para
+      // reintentar: antes la tarjeta quedaba congelada en "Cargando siguiente..."
+      // y el acierto no se guardaba nunca (la pregunta repetía todos los días).
       alert(e.message);
+      setAnswered(false);
+      setSelectedOption(null);
       setLoading(false);
     }
   }

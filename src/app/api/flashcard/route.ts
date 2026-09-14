@@ -145,16 +145,41 @@ export async function POST(req: NextRequest) {
     }
 
     // Obtener la fila actual de flashcards
-    const existing = await db
-      .select()
-      .from(flashcards)
-      .where(
-        and(
-          eq(flashcards.userId, uid),
-          eq(flashcards.questionId, qid),
-        ),
-      )
-      .limit(1);
+    const findExisting = () =>
+      db
+        .select()
+        .from(flashcards)
+        .where(and(eq(flashcards.userId, uid), eq(flashcards.questionId, qid)))
+        .limit(1);
+
+    let existing = await findExisting();
+
+    // Si la tarjeta no existe, se crea en vez de devolver 404: antes el acierto
+    // no se registraba nunca (el cliente solo mostraba una alerta) y la pregunta
+    // volvía a salir al día siguiente con su historial sin cambios.
+    if (!existing.length) {
+      const qRow = await db
+        .select({ id: questions.id })
+        .from(questions)
+        .where(eq(questions.id, qid))
+        .limit(1);
+      if (!qRow.length) {
+        return NextResponse.json({ error: "Pregunta no encontrada" }, { status: 404 });
+      }
+      await db
+        .insert(flashcards)
+        .values({
+          userId: uid,
+          questionId: qid,
+          mark: "facil",
+          createdAt: new Date(),
+          lastReviewedAt: new Date(0),
+          correctCount: 0,
+          learned: false,
+        })
+        .onConflictDoNothing();
+      existing = await findExisting();
+    }
 
     if (!existing.length) {
       return NextResponse.json({ error: "Flashcard no encontrada" }, { status: 404 });

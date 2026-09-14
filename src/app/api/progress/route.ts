@@ -78,6 +78,8 @@ export async function GET(req: NextRequest) {
           correctCount: info.correctCount,
           lastReviewedAt: info.lastReviewedAt,
           availableForReview: last ? last <= minDate : true,
+          // 'wrong' vuelve al día siguiente; el resto, cada FLASHCARD_MIN_DAYS días.
+          mark: info.mark,
         };
       });
     }
@@ -123,6 +125,7 @@ export async function GET(req: NextRequest) {
           learned: false,
           lastReviewedAt: null,
           availableForReview: false,
+          mark: null,
         };
       }
       if (fc.learned) {
@@ -133,6 +136,7 @@ export async function GET(req: NextRequest) {
           learned: true,
           lastReviewedAt: fc.lastReviewedAt,
           availableForReview: false,
+          mark: fc.mark,
         };
       }
       const last = fc.lastReviewedAt ? new Date(fc.lastReviewedAt) : null;
@@ -144,6 +148,7 @@ export async function GET(req: NextRequest) {
         learned: false,
         lastReviewedAt: fc.lastReviewedAt,
         availableForReview: last ? last <= minDate : true,
+        mark: fc.mark,
       };
     });
 

@@ -91,6 +91,15 @@ var DB = loadDB();
 // de data/dedupe_remap.json. Se define ANTES de migrateDataVersion() porque
 // con var se usa después de la asignación.
 var FC_REMAP = /*__FC_REMAP__*/;
+// ¿Cambió la versión de datos desde la última visita? Las migraciones que se
+// aplican una sola vez (p. ej. desbloquear tarjetas bloqueadas por builds
+// anteriores) deben correr únicamente cuando esto es verdadero: si se repiten en
+// cada carga borran el historial recién guardado y la misma tarjeta vuelve a
+// salir todos los días aunque se responda bien.
+var DATA_VERSION_CHANGED = DB.dataVersion !== APP_VERSION;
+// Se declara aquí (antes de las migraciones, que ya guardan) para no perder el
+// error de un guardado fallido; saveDB() vive más abajo.
+var DB_SAVE_ERROR = "";
 migrateDataVersion();
 migrateFlashcards();
 
@@ -108,7 +117,19 @@ function loadDB(){
   }
   catch(e){ return {flashcards:{},simSeen:{},bankAdded:{},correctDays:{},attempts:[],daily:{}}; }
 }
-function saveDB(){ localStorage.setItem(key(), JSON.stringify(DB)); }
+// Error del último guardado ("" si todo salió bien). Se muestra en Flashcards:
+// si localStorage está lleno o el navegador está en modo privado, el progreso se
+// perdía en silencio y las tarjetas respondidas volvían al día siguiente con el
+// contador sin cambios.
+function saveDB(){
+  try {
+    localStorage.setItem(key(), JSON.stringify(DB));
+    DB_SAVE_ERROR = "";
+  } catch(e){
+    DB_SAVE_ERROR = String(e && e.message || e);
+    if(typeof console !== "undefined") console.error("No se pudo guardar el progreso", e);
+  }
+}
 function loadFarsiCache(){
   try { return JSON.parse(localStorage.getItem("nmx_farsi_translations") || "{}") || {}; }
   catch(e){ return {}; }
@@ -209,9 +230,12 @@ function migrateFlashcards(){
       changed=true;
       continue;
     }
-    // Si una tarjeta nueva o pendiente con <=1 aciertos quedó bloqueada con fecha por versiones anteriores,
-    // desbloquearla para que esté disponible de inmediato para repasar.
-    if(val && !val.learned && (val.correctCount||0) <= 1 && val.lastReviewedAt){
+    // Una sola vez por versión de datos: si una tarjeta nueva o pendiente quedó
+    // bloqueada con fecha por versiones anteriores, desbloquearla para que esté
+    // disponible de inmediato. NO debe correr en cada carga: borraba el
+    // lastReviewedAt de toda tarjeta con <=1 acierto, así que su historial nunca
+    // cambiaba y volvía a salir todos los días aunque se respondiera bien.
+    if(DATA_VERSION_CHANGED && val && !val.learned && (val.correctCount||0) <= 1 && val.lastReviewedAt){
       val.lastReviewedAt = null;
       changed = true;
     }
@@ -233,7 +257,14 @@ function migrateFlashcards(){
   if(u.masteredCount!==newCount){ u.masteredCount=newCount; DB.user=u; changed=true; }
   if(changed){ saveDB(); }
 }
-function today(){ return new Date().toISOString().slice(0,10); }
+// Día local del usuario (antes se usaba toISOString(), que es UTC: para UTC-6
+// el día cambiaba a las 18:00 y una tarjeta fallada por la tarde volvía a salir
+// a las pocas horas en vez de al día siguiente).
+function localDay(d){
+  d = d || new Date();
+  return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+}
+function today(){ return localDay(); }
 function setUser(patch){ DB.user = Object.assign({}, user(), patch); saveDB(); }
 function correctDays(){
   var m = {};
@@ -269,6 +300,11 @@ function bindLogin(){
     var ph=document.getElementById("ph").value.trim();
     if(ph.length<5){ alert("Escribe tu número de teléfono"); return; }
     phone=ph;
+    // Persistir la sesión: sin esto, al recargar la página el usuario volvía a la
+    // pantalla de login y, si escribía su número en otro formato (+52, con
+    // espacios…), loadDB() abría otra base distinta y parecía que el progreso
+    // nunca avanzaba.
+    try{ localStorage.setItem("nmx_phone", phone); }catch(e){}
     var db=loadDB();
     if(!db.user){ db.user={id:1,name:document.getElementById("nm").value.trim(),practiceSession:0,totalCorrect:0,totalAnswered:0,masteredCount:0,simuladorApproved:false,lecturaApproved:false}; }
     else if(document.getElementById("nm").value.trim()){ db.user.name=document.getElementById("nm").value.trim(); }
@@ -320,7 +356,7 @@ function bindApp(){
     if(tab!=="fl") STATE.view=null;
     render();
   }; });
-  document.getElementById("out").onclick=function(){ phone=""; STATE.view=null; STATE.flash=null; render(); };
+  document.getElementById("out").onclick=function(){ phone=""; try{ localStorage.removeItem("nmx_phone"); }catch(e){} STATE.view=null; STATE.flash=null; render(); };
   document.getElementById("en").onclick=function(){ TRANSLATION=TRANSLATION==="en"?"":"en"; render(); };
   document.getElementById("fa").onclick=function(){ FA_ERROR=""; FA_LAST_VIEW=""; TRANSLATION=TRANSLATION==="fa"?"":"fa"; render(); };
   bindView();
@@ -595,10 +631,17 @@ function pendingCards(){
   for(var qid in fc){ var card=fc[qid]; if(card&&!card.learned&&isHistoryId(qid)&&cardAllowed(qid)) out.push({id:+qid,correctCount:card.correctCount||0,lastReviewedAt:card.lastReviewedAt||null}); }
   return out;
 }
+// Día (local) en que se repasó una tarjeta. Las marcas ISO llevan hora y zona,
+// así que se convierten al día local; las fechas sueltas legacy ("YYYY-MM-DD")
+// ya son un día local.
+function reviewDay(dateStr){
+  var s = String(dateStr);
+  return s.indexOf("T") >= 0 ? localDay(new Date(s)) : s.slice(0,10);
+}
 function daysSince(dateStr){
   if(!dateStr) return 9999;
-  var d1=new Date(String(dateStr).slice(0,10)+"T00:00:00Z");
-  var d2=new Date(today()+"T00:00:00Z");
+  var d1=new Date(reviewDay(dateStr)+"T00:00:00");
+  var d2=new Date(today()+"T00:00:00");
   return Math.round((d2.getTime()-d1.getTime())/86400000);
 }
 // Filtros por categoría para la sección Flashcards: separar por tema
@@ -626,11 +669,15 @@ function flHTML(){
   var pending=pendingCards();
   var cat=STATE.sel.flcat||"all";
   var studied=(DB.daily[today()]||{}).flashcards||0;
+  // Aviso si el navegador no pudo guardar el progreso (localStorage lleno o
+  // bloqueado): sin él, las respuestas correctas se pierden en silencio y la
+  // misma tarjeta vuelve a salir al día siguiente con el contador sin cambios.
+  var saveWarn=DB_SAVE_ERROR?('<div class="card" style="background:rgba(251,113,133,.12);border-color:rgba(251,113,133,.4);margin-bottom:10px"><b>⚠️ No se pudo guardar tu progreso en este navegador</b><p class="small mut" style="margin-top:4px">Tus respuestas correctas no se están registrando, así que las tarjetas seguirán repitiéndose. Prueba desactivar el modo privado/navegación incógnito o libera espacio. Detalle: '+esc(DB_SAVE_ERROR)+'</p></div>'):'';
   if(!STATE.flash){
     var pool=availablePool(cat);
     var poolAll=availablePool("all");
     if(!pool.length){
-      return '<div class="card" style="padding:40px;text-align:center">'+
+      return saveWarn+'<div class="card" style="padding:40px;text-align:center">'+
         '<div class="row" style="margin-bottom:12px;justify-content:center"><span class="pill gold">Pendientes: '+pending.length+'</span><span class="pill green">Aprendidas: '+learned.length+'</span></div>'+
         '<div class="row" style="margin-bottom:12px;justify-content:center">'+FL_CATS.map(function(c){return '<button class="tab'+(cat===c[0]?' on':'')+'" data-flcat="'+c[0]+'" style="font-size:12px;padding:6px 12px">'+c[1]+'</button>';}).join("")+'</div>'+
         '<h2>'+(poolAll.length?'¡Ninguna disponible hoy'+(cat!=="all"?' en esta categoría':'')+'! ⏳':'¡Sin pendientes! 🎉')+'</h2>'+
@@ -671,7 +718,7 @@ function flHTML(){
       }).join("")+'</div>'+
       (v.selectedOption==null?'<p class="small mut">Selecciona la opción correcta</p>':'');
   }
-  return '<div class="card">'+header+body+
+  return saveWarn+'<div class="card">'+header+body+
     '<p class="small mut" style="margin-top:8px">Modo '+(FL_MODE==="reveal"?"autoevaluación":"opciones múltiples")+' · Repetición espaciada: una tarjeta acertada vuelve en <b>'+FLASHCARD_MIN_DAYS+' días</b> y una fallada, <b>al día siguiente</b>. Responde correctamente '+FLASHCARD_LEARN_COUNT+' veces seguidas para aprenderla; si fallas, el contador vuelve a 0.</p></div>';
 }
 function getFlashcardInfo(qid){
