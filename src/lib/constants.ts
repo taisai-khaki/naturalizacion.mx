@@ -10,5 +10,11 @@ export const LECTURA_SECONDS = 20 * 60; // 20 minutos
 
 // Flashcards: respuestas correctas necesarias para aprender una pregunta
 export const FLASHCARD_LEARN_COUNT = 5;
-// Días mínimos entre repasos de una misma pregunta en flashcards
-export const FLASHCARD_MIN_DAYS = 5;
+// Días mínimos entre repasos de una misma pregunta en flashcards.
+// Con 1, una tarjeta respondida hoy vuelve a estar disponible al día siguiente
+// (antes eran 5 días).
+export const FLASHCARD_MIN_DAYS = 1;
+// Texto para la UI, para que no se lea "cada 1 días" (y siga siendo correcto si
+// el intervalo vuelve a subir).
+export const FLASHCARD_INTERVAL_LABEL =
+  FLASHCARD_MIN_DAYS === 1 ? "al día siguiente" : `cada ${FLASHCARD_MIN_DAYS} días`;

@@ -5,7 +5,7 @@ import { BookCheck, Repeat, History, Search, ListChecks, GraduationCap, Clock } 
 import type { User, Question } from "@/lib/client";
 import { api } from "@/lib/client";
 import { Card, Pill } from "./ui";
-import { FLASHCARD_LEARN_COUNT, FLASHCARD_MIN_DAYS } from "@/lib/constants";
+import { FLASHCARD_LEARN_COUNT, FLASHCARD_MIN_DAYS, FLASHCARD_INTERVAL_LABEL } from "@/lib/constants";
 
 type Attempt = { id: number; type: string; score: number; total: number; passed: boolean; createdAt: string };
 
@@ -235,7 +235,7 @@ export default function Progreso({ user }: { user: User }) {
         )}
 
         <p className="text-[11px] text-emerald-300/40 mt-3">
-          Cada flashcard requiere {FLASHCARD_LEARN_COUNT} aciertos seguidos para marcarse como aprendida. Si fallas, el contador vuelve a 0. Solo puedes repasar la misma tarjeta una vez cada 5 días.
+          Cada flashcard requiere {FLASHCARD_LEARN_COUNT} aciertos seguidos para marcarse como aprendida. Si fallas, el contador vuelve a 0. La misma tarjeta se repasa una vez al día: si la respondes hoy, vuelve {FLASHCARD_INTERVAL_LABEL}.
         </p>
       </Card>
 

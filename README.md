@@ -11,7 +11,7 @@ preguntas real extraído de las aplicaciones de escritorio originales
 | **Simulador Historia/Cultura** | 10 preguntas al azar de un banco limpio de **683**. Apruebas con **8/10**. Las preguntas que ya están en tus flashcards **no vuelven a salir aquí**: se estudian desde Flashcards. |
 | **Examen de Lectura** | Un pasaje completo + **6** preguntas de comprensión (banco de **16** lecturas). Apruebas con **5/6**. |
 | **Entrevista y Redacción** | 10 preguntas de entrevista con tips + 5 temas de redacción (80–120 palabras) con checklist. |
-| **Flashcards** | Tarjetas de Historia/Cultura; se aprenden con **5 respuestas correctas**. Solo entran preguntas que ya respondiste en el simulador o que agregaste desde el banco. |
+| **Flashcards** | Tarjetas de Historia/Cultura; se aprenden con **5 respuestas correctas** y cada tarjeta se repasa **una vez al día** (la que respondes hoy vuelve al día siguiente). Solo entran preguntas que ya respondiste en el simulador o que agregaste desde el banco. |
 | **Banco completo** | Busca y navega todas las preguntas, lecturas y temas de conversación, y **añade cualquier pregunta del banco a tus flashcards** con un botón. |
 | **Progreso** | Dominadas, intentos de examen, archivadas y en repetición. |
 
@@ -124,8 +124,23 @@ En la app Next.js (`src/`):
   `404 Flashcard no encontrada`, que hacía que el acierto no se registrara nunca.
 - `Flashcards.tsx` devuelve los botones para reintentar si la petición falla (antes la
   tarjeta quedaba congelada en "Cargando siguiente...").
-- `/api/progress` expone `mark` para que "Próximo repaso" muestre 1 día (fallada) o
-  `FLASHCARD_MIN_DAYS` (acertada) en vez de 5 días siempre.
+- `/api/progress` expone `mark` para que "Próximo repaso" muestre el intervalo real
+  (1 día si fallaste, `FLASHCARD_MIN_DAYS` si acertaste) en vez de 5 días siempre.
+
+### ✅ Intervalo de repaso: 1 día (2026-09)
+
+`FLASHCARD_MIN_DAYS` bajó de **5 a 1**: una tarjeta respondida hoy (correcta o
+incorrecta) vuelve a estar disponible **al día siguiente**. Con 5 aciertos seguidos
+sigue marcándose como aprendida, así que ahora una tarjeta se aprende en 5 días de
+repaso en lugar de 25.
+
+Cambiado en `src/lib/constants.ts` y en `scripts/standalone.template.html` (más
+`index.html` regenerado). Los textos de la UI usan `FLASHCARD_INTERVAL_LABEL` para que
+no se lean como "cada 1 días" y sigan siendo correctos si el intervalo vuelve a subir.
+
+Nota: en la app autocontenida el corte es por **día local** (responde hoy → aparece
+mañana a cualquier hora). En la app Next.js la comparación es una ventana móvil de 24 h
+desde el último repaso.
 
 ## 🌐 App en GitHub Pages (un solo archivo)
 

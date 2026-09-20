@@ -13,7 +13,8 @@ export async function GET(req: NextRequest) {
     if (!userId) return NextResponse.json({ error: "userId requerido" }, { status: 400 });
     const categoria = req.nextUrl.searchParams.get("categoria") || "all";
 
-    // Intervalos de repetición espaciada: 5 días para acertadas, 1 día para falladas
+    // Intervalo de repetición espaciada: FLASHCARD_MIN_DAYS (1 día) para acertadas,
+    // 1 día para falladas — es decir, una tarjeta respondida hoy vuelve mañana.
     const minDateCorrect = new Date();
     minDateCorrect.setDate(minDateCorrect.getDate() - FLASHCARD_MIN_DAYS);
     const minDateWrong = new Date();
@@ -31,7 +32,7 @@ export async function GET(req: NextRequest) {
 
     // Buscar una pregunta en flashcards que cumpla:
     // 1. No está aprendida (learned = false)
-    // 2. Cumple el intervalo de repetición espaciada (5 días si acertada, 1 día si fallada, o nueva)
+    // 2. Cumple el intervalo de repetición espaciada (FLASHCARD_MIN_DAYS si acertada, 1 día si fallada, o nueva)
     // 3. (opcional) filtro de categoría Historia/Cultura/Cívica/Geografía
     // Ordenamos por lastReviewedAt ASC (más antigua primero) para rotación
     // estable y evitar que random devuelva la misma tarjeta todos los días.
