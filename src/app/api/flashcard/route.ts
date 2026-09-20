@@ -13,7 +13,8 @@ export async function GET(req: NextRequest) {
     if (!userId) return NextResponse.json({ error: "userId requerido" }, { status: 400 });
     const categoria = req.nextUrl.searchParams.get("categoria") || "all";
 
-    // Intervalos de repetición espaciada: 5 días para acertadas, 1 día para falladas
+    // Intervalo de repetición espaciada: FLASHCARD_MIN_DAYS (1 día) para acertadas,
+    // 1 día para falladas — es decir, una tarjeta respondida hoy vuelve mañana.
     const minDateCorrect = new Date();
     minDateCorrect.setDate(minDateCorrect.getDate() - FLASHCARD_MIN_DAYS);
     const minDateWrong = new Date();
@@ -31,7 +32,7 @@ export async function GET(req: NextRequest) {
 
     // Buscar una pregunta en flashcards que cumpla:
     // 1. No está aprendida (learned = false)
-    // 2. Cumple el intervalo de repetición espaciada (5 días si acertada, 1 día si fallada, o nueva)
+    // 2. Cumple el intervalo de repetición espaciada (FLASHCARD_MIN_DAYS si acertada, 1 día si fallada, o nueva)
     // 3. (opcional) filtro de categoría Historia/Cultura/Cívica/Geografía
     // Ordenamos por lastReviewedAt ASC (más antigua primero) para rotación
     // estable y evitar que random devuelva la misma tarjeta todos los días.
@@ -145,16 +146,41 @@ export async function POST(req: NextRequest) {
     }
 
     // Obtener la fila actual de flashcards
-    const existing = await db
-      .select()
-      .from(flashcards)
-      .where(
-        and(
-          eq(flashcards.userId, uid),
-          eq(flashcards.questionId, qid),
-        ),
-      )
-      .limit(1);
+    const findExisting = () =>
+      db
+        .select()
+        .from(flashcards)
+        .where(and(eq(flashcards.userId, uid), eq(flashcards.questionId, qid)))
+        .limit(1);
+
+    let existing = await findExisting();
+
+    // Si la tarjeta no existe, se crea en vez de devolver 404: antes el acierto
+    // no se registraba nunca (el cliente solo mostraba una alerta) y la pregunta
+    // volvía a salir al día siguiente con su historial sin cambios.
+    if (!existing.length) {
+      const qRow = await db
+        .select({ id: questions.id })
+        .from(questions)
+        .where(eq(questions.id, qid))
+        .limit(1);
+      if (!qRow.length) {
+        return NextResponse.json({ error: "Pregunta no encontrada" }, { status: 404 });
+      }
+      await db
+        .insert(flashcards)
+        .values({
+          userId: uid,
+          questionId: qid,
+          mark: "facil",
+          createdAt: new Date(),
+          lastReviewedAt: new Date(0),
+          correctCount: 0,
+          learned: false,
+        })
+        .onConflictDoNothing();
+      existing = await findExisting();
+    }
 
     if (!existing.length) {
       return NextResponse.json({ error: "Flashcard no encontrada" }, { status: 404 });

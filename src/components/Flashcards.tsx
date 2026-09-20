@@ -5,7 +5,12 @@ import { Layers, Check, X, BookCheck, SplitSquareVertical } from "lucide-react";
 import type { User, Question } from "@/lib/client";
 import { api } from "@/lib/client";
 import { Card, PrimaryButton, GhostButton, Pill, OptionButton } from "./ui";
-import { FLASHCARD_LEARN_COUNT, FLASHCARD_MIN_DAYS } from "@/lib/constants";
+import {
+  FLASHCARD_LEARN_COUNT,
+  FLASHCARD_INTERVAL_LABEL,
+  FLASHCARD_ONCE_PER_LABEL,
+  FLASHCARD_SCHEDULE_TEXT,
+} from "@/lib/constants";
 
 type Mode = "reveal" | "choice";
 
@@ -93,7 +98,12 @@ export default function Flashcards({
       onResult();
       setTimeout(() => next(), 1500);
     } catch (e: any) {
+      // Si no se pudo registrar la respuesta, se devuelven los botones para
+      // reintentar: antes la tarjeta quedaba congelada en "Cargando siguiente..."
+      // y el acierto no se guardaba nunca (la pregunta repetía todos los días).
       alert(e.message);
+      setAnswered(false);
+      setSelectedOption(null);
       setLoading(false);
     }
   }
@@ -168,7 +178,7 @@ export default function Flashcards({
             <p className="text-emerald-200/80">
               Tienes <strong>{pendingCount}</strong> tarjeta{pendingCount !== 1 ? "s" : ""} pendiente{pendingCount !== 1 ? "s" : ""} pero ninguna disponible hoy.
               <br />
-              Cada tarjeta se repasa como máximo 1 vez cada <strong>{FLASHCARD_MIN_DAYS} días</strong>. Vuelve mañana o agrega preguntas nuevas desde el banco.
+              Cada tarjeta se repasa como máximo {FLASHCARD_ONCE_PER_LABEL}: si la respondes hoy, vuelve <strong>{FLASHCARD_INTERVAL_LABEL}</strong>. Vuelve mañana o agrega preguntas nuevas desde el banco.
             </p>
             <p className="text-xs text-emerald-300/60 mt-3">
               Necesitas {FLASHCARD_LEARN_COUNT} aciertos seguidos para aprender una tarjeta — si fallas, el contador vuelve a 0.
@@ -179,7 +189,7 @@ export default function Flashcards({
             <h2 className="text-xl font-extrabold mb-2">¡Sin pendientes! 🎉</h2>
             <p className="text-emerald-200/80">
               No hay tarjetas para repasar. Practica en el simulador (las preguntas se agregan solas) o agrega preguntas desde el banco.
-              Cada tarjeta se repasa como máximo 1 vez cada {FLASHCARD_MIN_DAYS} días y requiere {FLASHCARD_LEARN_COUNT} aciertos seguidos; si fallas, vuelve a 0.
+              Cada tarjeta se repasa como máximo {FLASHCARD_ONCE_PER_LABEL} (vuelve {FLASHCARD_INTERVAL_LABEL}) y requiere {FLASHCARD_LEARN_COUNT} aciertos seguidos; si fallas, vuelve a 0.
             </p>
           </Card>
         )
@@ -276,7 +286,7 @@ export default function Flashcards({
 
       <p className="text-xs text-emerald-300/60">
         Modo {mode === "reveal" ? "autoevaluación" : "opciones múltiples"} · 
-        Repetición espaciada: una tarjeta acertada vuelve cada {FLASHCARD_MIN_DAYS} días y una fallada, al día siguiente.
+        Repetición espaciada: {FLASHCARD_SCHEDULE_TEXT}.
         Responde correctamente {FLASHCARD_LEARN_COUNT} veces seguidas para aprenderla — si fallas, el contador vuelve a 0.
       </p>
     </div>
