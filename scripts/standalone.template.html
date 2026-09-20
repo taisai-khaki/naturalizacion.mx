@@ -686,7 +686,7 @@ function flHTML(){
         '<div class="row" style="margin-bottom:12px;justify-content:center"><span class="pill gold">Pendientes: '+pending.length+'</span><span class="pill green">Aprendidas: '+learned.length+'</span></div>'+
         '<div class="row" style="margin-bottom:12px;justify-content:center">'+FL_CATS.map(function(c){return '<button class="tab'+(cat===c[0]?' on':'')+'" data-flcat="'+c[0]+'" style="font-size:12px;padding:6px 12px">'+c[1]+'</button>';}).join("")+'</div>'+
         '<h2>'+(poolAll.length?'¡Ninguna disponible hoy'+(cat!=="all"?' en esta categoría':'')+'! ⏳':'¡Sin pendientes! 🎉')+'</h2>'+
-        '<p class="small mut" style="margin-top:8px">'+(poolAll.length?('Hay '+poolAll.length+' tarjeta(s) disponible(s) hoy en otras categorías. Cambia el filtro para repasarlas. '):'No hay tarjetas para repasar. ')+'Las tarjetas ya repasadas vuelven '+FLASHCARD_INTERVAL_LABEL+' (y las falladas, también al día siguiente). Vuelve a practicar en el simulador o agrega preguntas desde el banco.</p></div>';
+        '<p class="small mut" style="margin-top:8px">'+(poolAll.length?('Hay '+poolAll.length+' tarjeta(s) disponible(s) hoy en otras categorías. Cambia el filtro para repasarlas. '):'No hay tarjetas para repasar. ')+'Las tarjetas ya repasadas vuelven '+FLASHCARD_INTERVAL_LABEL+(FLASHCARD_MIN_DAYS>1?' (y las falladas, al día siguiente)':'')+'. Vuelve a practicar en el simulador o agrega preguntas desde el banco.</p></div>';
     }
     STATE.flash={q:shuffle(pool)[0],revealed:false,answered:false,selectedOption:null};
   }
@@ -724,7 +724,7 @@ function flHTML(){
       (v.selectedOption==null?'<p class="small mut">Selecciona la opción correcta</p>':'');
   }
   return saveWarn+'<div class="card">'+header+body+
-    '<p class="small mut" style="margin-top:8px">Modo '+(FL_MODE==="reveal"?"autoevaluación":"opciones múltiples")+' · Repetición espaciada: una tarjeta acertada vuelve <b>'+FLASHCARD_INTERVAL_LABEL+'</b> y una fallada, <b>al día siguiente</b>. Responde correctamente '+FLASHCARD_LEARN_COUNT+' veces seguidas para aprenderla; si fallas, el contador vuelve a 0.</p></div>';
+    '<p class="small mut" style="margin-top:8px">Modo '+(FL_MODE==="reveal"?"autoevaluación":"opciones múltiples")+' · Repetición espaciada: '+(FLASHCARD_MIN_DAYS<=1?'una tarjeta respondida hoy vuelve <b>al día siguiente</b>':'una tarjeta acertada vuelve en <b>'+FLASHCARD_MIN_DAYS+' días</b> y una fallada, <b>al día siguiente</b>')+'. Responde correctamente '+FLASHCARD_LEARN_COUNT+' veces seguidas para aprenderla; si fallas, el contador vuelve a 0.</p></div>';
 }
 function getFlashcardInfo(qid){
   var fc=DB.flashcards||{};
