@@ -256,11 +256,11 @@ Q: ¿Qué ocurrió primero según el párrafo?
 - El ejército regresó al pueblo
 - La joven se recuperó del dolor
 - El padre firmó un tratado de paz
-Q: ¿Qué significa «lamentable» en la frase «tan lamentable noticia»?
-* Triste y dolorosa
-- Alegre y festiva
-- Sin importancia
-- Esperada por todos
+Q: ¿Qué significa «versión» en «la versión de que el joven guerrero había muerto»?
+* Noticia o relato que se cuenta
+- Un tipo de canción
+- Un documento oficial
+- Una prenda de vestir
 Q: ¿Qué relación tiene la mañana siguiente con la noche anterior?
 * El mismo día cambia la tristeza por el regreso del guerrero
 - Son dos historias sin relación

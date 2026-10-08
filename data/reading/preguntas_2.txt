@@ -49,9 +49,9 @@ Q: ¿Qué tipo de origen tiene el balcón natural según el texto?
 - Volcánico, por una erupción reciente
 
 Q: ¿Cuál de estos datos NO aparece en el primer párrafo?
-* La altura de sus muros, de más de 1000 metros
-- Su superficie en hectáreas
-- Los municipios que lo abarcan
+* Que fue decretado Parque Nacional en 1980
+- 21,789 hectáreas
+- Cinco municipios de Chiapas
 - Su cercanía a Tuxtla Gutiérrez
 
 @P 2.2

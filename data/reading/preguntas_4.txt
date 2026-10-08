@@ -482,11 +482,11 @@ Q: ¿Qué expresión indica que el adivino habló después de la conquista?
 - Antes de que comenzaran las lluvias
 - Mientras los animales dormían
 - Tras la muerte de Itzamná
-Q: ¿Qué palabra indica contraste en la frase «Pero aún así»?
-* Que, a pesar de la conquista, hubo esperanza
-- Que la conquista fue inútil
-- Que los animales se fueron
-- Que los mayas se rindieron
+Q: ¿Qué significa «aún así» en «Pero aún así»?
+* A pesar de eso, de todos modos
+- Como consecuencia de eso
+- Antes de que sucediera
+- Por eso mismo
 Q: ¿Qué significa «conquistaron» en el texto?
 * Se apoderaron de un territorio por la fuerza
 - Se fueron de un territorio en paz
@@ -579,11 +579,11 @@ Q: ¿Qué hará la serpiente en la tercera señal?
 - Se esconderá en las cavernas
 - Atacará a los extranjeros con veneno
 - Volará sobre los árboles
-Q: ¿Qué sentirán al oír la música de la serpiente?
-* Que se oirá por todas partes
-- Que solo la escucharán los animales
-- Que no la oirán nadie
-- Que se oirá solo de noche
+Q: ¿Hasta dónde se oirá la música de la serpiente?
+* Por todas partes
+- Solo entre los animales del bosque
+- Solo de noche, en la selva
+- A ninguna parte
 Q: ¿Qué avisarán los animales a los mayas?
 * Que es tiempo de recuperar la tierra que les quitaron
 - Que deben abandonar El Mayab
@@ -619,7 +619,7 @@ Q: ¿Qué significa «mensajera» aplicado a la serpiente?
 - Quien vende productos en el mercado
 - Quien construye palacios
 - Quien guarda los secretos del templo
-Q: ¿Qué sentirán los mayas al reconocer las señales?
+Q: ¿Qué entenderán los mayas al reconocer las señales?
 * Que ha llegado el tiempo de recuperar su tierra
 - Que deben huir de la selva
 - Que han perdido toda esperanza

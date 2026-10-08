@@ -744,9 +744,9 @@
    {
     "question": "¿Cuál de estos datos NO aparece en el primer párrafo?",
     "options": [
-     "La altura de sus muros, de más de 1000 metros",
-     "Su superficie en hectáreas",
-     "Los municipios que lo abarcan",
+     "Que fue decretado Parque Nacional en 1980",
+     "21,789 hectáreas",
+     "Cinco municipios de Chiapas",
      "Su cercanía a Tuxtla Gutiérrez"
     ],
     "correct": 0
@@ -1586,22 +1586,22 @@
     "correct": 0
    },
    {
-    "question": "¿Qué indica el término «legado» si se aplica a esta festividad?",
+    "question": "¿Qué significa «convivir» en «para convivir con los vivos»?",
     "options": [
-     "Una herencia cultural transmitida por generaciones",
-     "Una deuda económica pendiente",
-     "Un contrato de trabajo",
-     "Un tipo de comida típica"
+     "Estar juntos, compartir la vida",
+     "Pelear con alguien",
+     "Viajar lejos de casa",
+     "Ocultarse de los demás"
     ],
     "correct": 0
    },
    {
-    "question": "¿Qué año se menciona en relación con la declaración de la UNESCO?",
+    "question": "¿Qué significa «declarada» en «fue declarada en 2008»?",
     "options": [
-     "2008",
-     "1985",
-     "2012",
-     "2020"
+     "Reconocida oficialmente",
+     "Prohibida por la ley",
+     "Olvidada por completo",
+     "Inventada en secreto"
     ],
     "correct": 0
    },
@@ -1616,7 +1616,7 @@
     "correct": 0
    },
    {
-    "question": "¿Qué cosa creen los mexicanos que regresa a casa en esas fechas?",
+    "question": "¿Qué se cree que regresa en esas fechas?",
     "options": [
      "Las almas de los fallecidos",
      "Los turistas extranjeros",
@@ -2122,12 +2122,12 @@
     "correct": 0
    },
    {
-    "question": "¿Qué se hace arder en el cementerio junto con las velas?",
+    "question": "¿Qué lugar es el escenario de la alumbrada?",
     "options": [
-     "Incienso",
-     "Papel moneda",
-     "Leña para calentarse",
-     "Hojas secas"
+     "El panteón o cementerio",
+     "La plaza principal del pueblo",
+     "El templo parroquial",
+     "La escuela del pueblo"
     ],
     "correct": 0
    },
@@ -3288,12 +3288,12 @@
     "correct": 0
    },
    {
-    "question": "¿Qué palabra indica contraste en la frase «Pero aún así»?",
+    "question": "¿Qué significa «aún así» en «Pero aún así»?",
     "options": [
-     "Que, a pesar de la conquista, hubo esperanza",
-     "Que la conquista fue inútil",
-     "Que los animales se fueron",
-     "Que los mayas se rindieron"
+     "A pesar de eso, de todos modos",
+     "Como consecuencia de eso",
+     "Antes de que sucediera",
+     "Por eso mismo"
     ],
     "correct": 0
    },
@@ -3490,12 +3490,12 @@
     "correct": 0
    },
    {
-    "question": "¿Qué sentirán al oír la música de la serpiente?",
+    "question": "¿Hasta dónde se oirá la música de la serpiente?",
     "options": [
-     "Que se oirá por todas partes",
-     "Que solo la escucharán los animales",
-     "Que no la oirán nadie",
-     "Que se oirá solo de noche"
+     "Por todas partes",
+     "Solo entre los animales del bosque",
+     "Solo de noche, en la selva",
+     "A ninguna parte"
     ],
     "correct": 0
    },
@@ -3570,7 +3570,7 @@
     "correct": 0
    },
    {
-    "question": "¿Qué sentirán los mayas al reconocer las señales?",
+    "question": "¿Qué entenderán los mayas al reconocer las señales?",
     "options": [
      "Que ha llegado el tiempo de recuperar su tierra",
      "Que deben huir de la selva",
@@ -4146,12 +4146,12 @@
     "correct": 0
    },
    {
-    "question": "¿Qué significa «lamentable» en la frase «tan lamentable noticia»?",
+    "question": "¿Qué significa «versión» en «la versión de que el joven guerrero había muerto»?",
     "options": [
-     "Triste y dolorosa",
-     "Alegre y festiva",
-     "Sin importancia",
-     "Esperada por todos"
+     "Noticia o relato que se cuenta",
+     "Un tipo de canción",
+     "Un documento oficial",
+     "Una prenda de vestir"
     ],
     "correct": 0
    },
@@ -4924,7 +4924,7 @@
     "correct": 0
    },
    {
-    "question": "¿Qué significa «desgastamiento» o «erosión» en el primer párrafo?",
+    "question": "¿Qué significa «erosión» en el primer párrafo?",
     "options": [
      "Pérdida progresiva de material por el paso del agua y del tiempo",
      "Formación rápida de una montaña",
@@ -5592,12 +5592,12 @@
     "correct": 0
    },
    {
-    "question": "¿Por qué se decía que Sac-Nicte era inocente y pura?",
+    "question": "¿Cómo era Sac-Nicte según el quinto párrafo?",
     "options": [
-     "Porque su amor era sincero y sin malicia",
-     "Porque era rica y poderosa",
-     "Porque vivía en un templo sagrado",
-     "Porque era hija de un sacerdote"
+     "Inocente y pura",
+     "Cruel y ambiciosa",
+     "Rica y poderosa",
+     "Vieja y enferma"
     ],
     "correct": 0
    },

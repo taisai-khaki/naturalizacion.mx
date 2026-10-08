@@ -22,7 +22,7 @@ Q: ¿Qué clase de agua contiene un cenote?
 - Agua salada
 - Agua de lluvia acidulada
 - Agua hirviendo
-Q: ¿Qué significa «desgastamiento» o «erosión» en el primer párrafo?
+Q: ¿Qué significa «erosión» en el primer párrafo?
 * Pérdida progresiva de material por el paso del agua y del tiempo
 - Formación rápida de una montaña
 - Construcción artificial de un pozo
@@ -340,11 +340,11 @@ Q: ¿Quién tenía el sentimiento más grande y avasallador?
 - Hul-Kin
 - La hechicera
 - El cacique Halach-Huinic
-Q: ¿Por qué se decía que Sac-Nicte era inocente y pura?
-* Porque su amor era sincero y sin malicia
-- Porque era rica y poderosa
-- Porque vivía en un templo sagrado
-- Porque era hija de un sacerdote
+Q: ¿Cómo era Sac-Nicte según el quinto párrafo?
+* Inocente y pura
+- Cruel y ambiciosa
+- Rica y poderosa
+- Vieja y enferma
 Q: ¿Dónde se veían los jóvenes?
 * A escondidas
 - En la plaza del pueblo

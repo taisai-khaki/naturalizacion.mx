@@ -120,22 +120,22 @@ Q: ¿Qué se busca mantener con la celebración, según el segundo párrafo?
 - La separación entre vivos y muertos
 - El olvido de las tradiciones
 - Un calendario agrícola
-Q: ¿Qué indica el término «legado» si se aplica a esta festividad?
-* Una herencia cultural transmitida por generaciones
-- Una deuda económica pendiente
-- Un contrato de trabajo
-- Un tipo de comida típica
-Q: ¿Qué año se menciona en relación con la declaración de la UNESCO?
-* 2008
-- 1985
-- 2012
-- 2020
+Q: ¿Qué significa «convivir» en «para convivir con los vivos»?
+* Estar juntos, compartir la vida
+- Pelear con alguien
+- Viajar lejos de casa
+- Ocultarse de los demás
+Q: ¿Qué significa «declarada» en «fue declarada en 2008»?
+* Reconocida oficialmente
+- Prohibida por la ley
+- Olvidada por completo
+- Inventada en secreto
 Q: ¿Qué tipo de patrimonio es el Día de Muertos según el texto?
 * Patrimonio Cultural Inmaterial de la Humanidad
 - Patrimonio natural de la humanidad
 - Patrimonio arquitectónico de México
 - Patrimonio documental del Estado
-Q: ¿Qué cosa creen los mexicanos que regresa a casa en esas fechas?
+Q: ¿Qué se cree que regresa en esas fechas?
 * Las almas de los fallecidos
 - Los turistas extranjeros
 - Los migrantes que se fueron al norte
@@ -378,11 +378,11 @@ Q: ¿Qué se entiende por «alumbrada» ligada a la luz de las velas?
 - Una carrera de antorchas por el pueblo
 - Un espectáculo de fuegos artificiales
 - La iluminación eléctrica de las calles
-Q: ¿Qué se hace arder en el cementerio junto con las velas?
-* Incienso
-- Papel moneda
-- Leña para calentarse
-- Hojas secas
+Q: ¿Qué lugar es el escenario de la alumbrada?
+* El panteón o cementerio
+- La plaza principal del pueblo
+- El templo parroquial
+- La escuela del pueblo
 Q: ¿Por qué se describe como místico el ambiente de la alumbrada?
 * Por la luz de las velas, el incienso y la comunión con los difuntos
 - Por la música estridente de bandas
