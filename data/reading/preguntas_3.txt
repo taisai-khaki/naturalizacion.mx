@@ -1,0 +1,452 @@
+# Pasaje 3 — La celebración del día de muertos. Preguntas de opción múltiple por párrafo.
+# Formato: @P n.k  ·  Q: enunciado  ·  * opción correcta  ·  - distractor (3 por pregunta)
+
+@P 3.1
+Q: ¿En qué fechas se realiza el Día de Muertos?
+* El 1 y 2 de noviembre
+- El 15 y 16 de septiembre
+- El 12 de octubre
+- El 25 de diciembre
+Q: ¿Para qué se preparan las ofrendas?
+* Para convidar a los seres queridos que ya no están
+- Para pagar impuestos a los dioses
+- Para celebrar una cosecha de maíz
+- Para festejar la llegada del verano
+Q: ¿Cuál de estos elementos NO aparece en la descripción de las ofrendas?
+* Globos de helio
+- Flores de cempasúchil
+- Pan de muerto
+- Velas
+Q: ¿Qué tipo de flor se menciona en las ofrendas?
+* Cempasúchil
+- Rosa de Castilla
+- Lirio blanco
+- Orquídea silvestre
+Q: ¿Qué alimentos se colocan en las ofrendas?
+* Los alimentos preferidos de los difuntos
+- Solo carne asada
+- Solo alimentos enlatados
+- Únicamente frutas tropicales
+Q: ¿Qué son las calaveritas mencionadas en el texto?
+* Dulces de azúcar y chocolate
+- Cráneos de animales
+- Piezas de cerámica
+- Juguetes de madera
+Q: ¿Qué significa «agasaja» en el primer párrafo?
+* Honra o recibe con atenciones
+- Castiga o reprende
+- Olvida o desprecia
+- Vende o intercambia
+Q: ¿Qué elemento de papel se usa en la decoración?
+* Papel picado
+- Papel de china sin recortar
+- Cartón corrugado
+- Papel tapiz
+Q: ¿Qué se incluye en la ofrenda además de la comida?
+* Agua, flores y velas
+- Armas y herramientas
+- Monedas de oro
+- Ropa nueva
+Q: ¿Qué expresa la frase «para convidar a los seres queridos que ya no están»?
+* Que la ofrenda invita a recordar y acoger a los difuntos
+- Que los difuntos deben pagar una deuda
+- Que los vivos deben abandonar sus casas
+- Que la fiesta solo es para niños
+
+Q: ¿Qué pan se coloca en la ofrenda?
+* Pan de muerto
+- Pan dulce de canela
+- Pan integral de centeno
+- Bolillo recién horneado
+Q: ¿Qué líquido se incluye en la ofrenda?
+* Agua
+- Atole de chocolate
+- Pulque
+- Jugo de naranja
+Q: ¿De quién son los alimentos preferidos que se colocan en la ofrenda?
+* De los difuntos
+- De los niños de la familia
+- De los sacerdotes del templo
+- De los visitantes extranjeros
+
+@P 3.2
+Q: ¿Por qué el Día de Muertos es muestra de la riqueza cultural de México?
+* Porque expresa una gran diversidad de tradiciones
+- Porque es una festividad solo para turistas
+- Porque se celebra únicamente en la capital
+- Porque fue creada en el siglo XXI
+Q: ¿En qué año fue declarada la festividad por la UNESCO?
+* En 2008
+- En 1980
+- En 2004
+- En 1810
+Q: ¿Qué organismo declaró la festividad Patrimonio Cultural Inmaterial de la Humanidad?
+* La UNESCO
+- La Organización Mundial de la Salud
+- La Organización de Estados Americanos
+- El Fondo Monetario Internacional
+Q: ¿Qué significa «Patrimonio Cultural Inmaterial»?
+* Una expresión cultural viva que se transmite de generación en generación
+- Un edificio histórico de piedra
+- Una obra de arte guardada en un museo
+- Un documento de archivo oficial
+Q: ¿Qué tradiciones se combinan en la celebración?
+* Raíces prehispánicas y la celebración católica de Todos los Santos
+- Tradiciones japonesas y europeas
+- Ritos africanos y celebraciones navideñas
+- Costumbres del norte y del Caribe
+Q: ¿Qué busca la celebración según el texto?
+* Rendir culto a los antepasados
+- Promover el turismo internacional
+- Conmemorar una batalla militar
+- Festejar el fin de la cosecha de café
+Q: ¿Qué creencia tiene la gente sobre el 1 y 2 de noviembre?
+* Que las almas de los fallecidos regresan para convivir con los vivos
+- Que los muertos deben quedarse en el panteón
+- Que los vivos deben viajar lejos de su hogar
+- Que es un día de luto sin visitas
+Q: ¿Qué significa «prehispánicas» en el texto?
+* Anteriores a la llegada de los españoles
+- Posteriores a la independencia de México
+- Propias del siglo XXI
+- Traídas por los conquistadores
+Q: ¿Qué relación tiene la celebración con el Día de Todos los Santos?
+* Se combina con ella
+- Se opone totalmente a ella
+- Es exactamente igual a ella
+- No tiene ninguna relación
+Q: ¿Qué se busca mantener con la celebración, según el segundo párrafo?
+* La convivencia con los antepasados
+- La separación entre vivos y muertos
+- El olvido de las tradiciones
+- Un calendario agrícola
+Q: ¿Qué indica el término «legado» si se aplica a esta festividad?
+* Una herencia cultural transmitida por generaciones
+- Una deuda económica pendiente
+- Un contrato de trabajo
+- Un tipo de comida típica
+Q: ¿Qué año se menciona en relación con la declaración de la UNESCO?
+* 2008
+- 1985
+- 2012
+- 2020
+Q: ¿Qué tipo de patrimonio es el Día de Muertos según el texto?
+* Patrimonio Cultural Inmaterial de la Humanidad
+- Patrimonio natural de la humanidad
+- Patrimonio arquitectónico de México
+- Patrimonio documental del Estado
+Q: ¿Qué cosa creen los mexicanos que regresa a casa en esas fechas?
+* Las almas de los fallecidos
+- Los turistas extranjeros
+- Los migrantes que se fueron al norte
+- Las golondrinas de la temporada
+Q: ¿Qué origen tienen las raíces de la festividad según el texto?
+* Prehispánico
+- Europeo medieval
+- Africano
+- Asiático
+Q: ¿Qué cualidad atribuye el texto a la festividad?
+* Muestra la gran riqueza cultural del país
+- Es una festividad aburrida y sin interés
+- Solo interesa a las generaciones mayores
+- Se celebra con el mismo ritual en todo el mundo
+
+Q: ¿Cuál es la sigla de la organización que declaró la festividad?
+* UNESCO
+- ONU
+- OMS
+- OEA
+Q: ¿Qué tipo de celebración es la festividad según su origen?
+* Mestiza, combina raíces indígenas y católicas
+- Solo indígena, sin influencias externas
+- Solo española e importada
+- Totalmente moderna y comercial
+Q: ¿Qué palabra del texto significa honrar a los antepasados con prácticas religiosas?
+* Culto
+- Castigo
+- Olvido
+- Mercado
+
+@P 3.3
+Q: ¿Cuál de estos lugares se menciona como emblemático de la celebración?
+* Pátzcuaro, en Michoacán
+- Tulum, en Quintana Roo
+- Oaxaca, en Oaxaca
+- Monterrey, en Nuevo León
+Q: ¿En qué estado se encuentra Huaquechula?
+* Puebla
+- Morelos
+- Michoacán
+- Potosí
+Q: ¿En qué estado está Ocotepec?
+* Morelos
+- Puebla
+- Guerrero
+- Hidalgo
+Q: ¿Qué región de San Luis Potosí se menciona en el párrafo?
+* La Huasteca Potosina
+- La Sierra Gorda
+- El Altiplano
+- La Sierra Madre Oriental
+Q: ¿Qué relación aparece entre vivos y muertos en estos lugares?
+* Una convivencia que se mantiene en casas, calles y cementerios
+- Una separación total durante toda la festividad
+- Un conflicto que se resuelve con la fiesta
+- Ninguna relación, sólo recuerdos
+Q: ¿En qué espacios se mantiene la tradición según el texto?
+* En casas, calles y cementerios
+- Solo en iglesias
+- Solo en escuelas y oficinas
+- Solo en mercados y plazas comerciales
+Q: ¿Qué palabra indica que la tradición se ha conservado en estos lugares?
+* Mantener
+- Abandonar
+- Ocultar
+- Prohibir
+Q: ¿Qué tipo de tradición se describe en este párrafo?
+* Una tradición ancestral
+- Una moda reciente de internet
+- Una celebración importada del extranjero
+- Una fiesta deportiva
+Q: ¿Qué significa «emblemáticos» en el texto?
+* Representativos o característicos
+- Sin importancia ni fama
+- Desconocidos por la población
+- Recientemente construidos
+Q: ¿Cuántos lugares emblemáticos se mencionan en el tercer párrafo?
+* Cinco
+- Tres
+- Siete
+- Diez
+Q: ¿A qué se refiere «Distrito Federal» en el texto?
+* Al actual territorio de la Ciudad de México
+- A un estado del norte del país
+- A una región de Michoacán
+- A una isla del Caribe
+Q: ¿Cuál es el nombre del lugar de Michoacán mencionado en el párrafo?
+* Pátzcuaro
+- Uruapan
+- Morelia
+- Zamora
+Q: ¿Qué lugar de Puebla aparece en la lista?
+* Huaquechula
+- Cholula
+- Atlixco
+- Tehuacán
+Q: ¿Qué tipo de convivencia se establece en la celebración?
+* Entre vivos y muertos
+- Entre dos pueblos rivales
+- Entre artistas y público
+- Entre niños y maestros
+
+@P 3.4
+Q: ¿A qué parte de la Ciudad de México pertenece Mixquic?
+* Al sur
+- Al norte
+- Al oriente extremo
+- Al poniente
+Q: ¿En qué delegación se ubica Mixquic según el texto?
+* Tláhuac
+- Xochimilco
+- Iztapalapa
+- Coyoacán
+Q: ¿Qué sucede en Mixquic durante la celebración?
+* Todo el pueblo participa en la fiesta
+- Solo asisten las autoridades municipales
+- La gente se queda encerrada en sus casas
+- Se suspenden todas las ceremonias
+Q: ¿Qué llega el 1 de noviembre según el texto?
+* Las ánimas de los niños
+- Los comerciantes del mercado
+- Los turistas extranjeros
+- Las aves migratorias
+Q: ¿Qué día llegan las ánimas de los adultos?
+* El 2 de noviembre
+- El 1 de noviembre
+- El 31 de octubre
+- El 3 de noviembre
+Q: ¿Qué elementos acompañan la llegada de las ánimas?
+* Ofrendas, oraciones y el repique de las campanas
+- Fuegos artificiales y música de banda
+- Desfiles de carros alegóricos
+- Concursos de disfraces
+Q: ¿Qué significa «repique» en el texto?
+* Sonido fuerte y repetido de campanas
+- Un tipo de comida tradicional
+- Una prenda de vestir
+- Un baile típico
+Q: ¿Qué tipo de celebración es la de Mixquic según el párrafo?
+* Una de las más impactantes del país
+- Una celebración apagada y discreta
+- Una fiesta que se celebra solo en privado
+- Una festividad sin ofrendas
+Q: ¿Qué relación tiene la llegada de las ánimas con las ofrendas?
+* Las ofrendas se preparan para recibirlas
+- Las ofrendas se queman para ahuyentarlas
+- Las ofrendas se venden a los turistas
+- No tienen relación alguna
+Q: ¿Qué se entiende por «ánimas» en el texto?
+* Las almas de los difuntos
+- Los habitantes del pueblo
+- Los turistas que visitan el pueblo
+- Los músicos de la fiesta
+Q: ¿Qué grupo de personas llega primero según el texto?
+* Los niños
+- Los adultos
+- Los ancianos
+- Los sacerdotes
+Q: ¿Cuál es el sonido característico que se menciona?
+* El de las campanas
+- El de los tambores
+- El de los cohetes
+- El de las trompetas
+
+@P 3.5
+Q: ¿Qué es la alumbrada según el texto?
+* El evento más significativo de la celebración
+- Un concurso de cocina tradicional
+- Un desfile de catrinas
+- Un mercado nocturno de artesanías
+Q: ¿Por qué se le llama también noche de las velas?
+* Porque las tumbas se iluminan con velas
+- Porque la fiesta se hace sin luz eléctrica
+- Porque todos participan con linternas de colores
+- Porque el evento dura toda la semana
+Q: ¿A qué hora empiezan a encaminarse los habitantes hacia el panteón?
+* A partir de las 18:00 horas
+- A las 6:00 de la mañana
+- A las 12:00 del mediodía
+- A las 21:00 horas
+Q: ¿Qué llevan los habitantes al panteón?
+* Velas, incienso y flores
+- Comida enlatada
+- Juguetes y globos
+- Instrumentos musicales
+Q: ¿Qué ocurre con las tumbas en el cementerio?
+* Son iluminadas con velas
+- Son pintadas de colores brillantes
+- Son cerradas al público
+- Son retiradas para hacer obras
+Q: ¿Qué se hace arder en el cementerio?
+* Incienso
+- Leña para calentarse
+- Papel moneda
+- Hojas secas
+Q: ¿Qué tipo de ambiente se crea según el párrafo?
+* Un ambiente místico, de comunión entre vivos y muertos
+- Un ambiente de competencia deportiva
+- Un ambiente comercial y festivo
+- Un ambiente de temor y silencio total
+Q: ¿Qué día se realiza la alumbrada en Mixquic?
+* El 2 de noviembre
+- El 1 de noviembre
+- El 15 de septiembre
+- El 25 de diciembre
+Q: ¿Qué significa «comunión» en el texto?
+* Unión o vínculo espiritual
+- Conflicto entre grupos
+- Separación de las familias
+- Ceremonia religiosa de bautismo
+Q: ¿Qué se realiza en el panteón durante la alumbrada?
+* Se iluminan las tumbas y se quema incienso
+- Se construyen nuevas tumbas
+- Se realizan competencias deportivas
+- Se venden flores a los turistas
+Q: ¿Qué se encamina hacia el panteón?
+* Los habitantes de Mixquic
+- Los músicos de la banda
+- Los vendedores de comida
+- Los visitantes extranjeros
+Q: ¿Qué ambiente lleva la alumbrada en su conjunto?
+* Místico
+- Festivo y ruidoso
+- Deportivo y competitivo
+- Comercial y urbano
+Q: ¿Cuál es el evento más significativo, según el texto?
+* La alumbrada o noche de las velas
+- La quema de juguetes
+- La carrera de cruces
+- El concurso de catrinas
+Q: ¿Qué elementos se llevan además de las velas?
+* Incienso y flores
+- Mapas y brújulas
+- Herramientas de jardinería
+- Almohadas y mantas
+
+Q: ¿Qué se entiende por «alumbrada» ligada a la luz de las velas?
+* La iluminación de las tumbas con velas durante la noche
+- Una carrera de antorchas por el pueblo
+- Un espectáculo de fuegos artificiales
+- La iluminación eléctrica de las calles
+Q: ¿Qué se hace arder en el cementerio junto con las velas?
+* Incienso
+- Papel moneda
+- Leña para calentarse
+- Hojas secas
+Q: ¿Por qué se describe como místico el ambiente de la alumbrada?
+* Por la luz de las velas, el incienso y la comunión con los difuntos
+- Por la música estridente de bandas
+- Por los fuegos artificiales y los cohetes
+- Por la oscuridad total del panteón
+
+@P 3.6
+Q: ¿Qué se realiza durante la noche de la alumbrada?
+* Oraciones y cantos
+- Carreras de bicicletas
+- Concursos de canto nacional
+- Desfiles de carros
+Q: ¿Quiénes permanecen al lado de las tumbas?
+* Los habitantes del pueblo de Mixquic
+- Solo los sacerdotes del templo
+- Únicamente los turistas
+- Los funcionarios municipales
+Q: ¿A quiénes pertenecen las tumbas junto a las que se permanece?
+* A sus deudos, es decir, a sus familiares y seres queridos
+- A personas desconocidas del pueblo
+- A los conquistadores españoles
+- A los animales del panteón
+Q: ¿Qué alumbra a las ánimas en su camino de regreso?
+* La luz de las velas
+- Los faros de los autos
+- La luna llena
+- Las luces de la ciudad
+Q: ¿Cuál es el propósito de las velas según el último párrafo?
+* Guiar a las ánimas en su regreso
+- Espantar a los animales del cementerio
+- Calentar a los visitantes
+- Decorar los caminos del pueblo
+Q: ¿Qué se entiende por «deudos» en el texto?
+* Familiares y seres queridos del difunto
+- Acreedores de dinero del pueblo
+- Vecinos de la misma calle
+- Sacerdotes encargados del panteón
+Q: ¿Cuándo permanecen los habitantes junto a las tumbas?
+* Durante esa noche
+- Durante la semana completa
+- Solo al mediodía
+- Únicamente en Navidad
+Q: ¿Qué transcurre durante la noche según el texto?
+* Oraciones y cantos en medio de la luz de las velas
+- Carreras de caballos
+- Un mercado de flores
+- Una competencia de cocina
+Q: ¿Qué hacen los habitantes mientras transcurre la noche?
+* Acompañan a sus difuntos junto a las tumbas
+- Se van a dormir a sus casas
+- Viajan a otra ciudad
+- Organizan partidos de fútbol
+Q: ¿Qué ocurre con las ánimas al final de la noche según el párrafo?
+* Regresan a su mundo siguiendo la luz de las velas
+- Se quedan para siempre en el pueblo
+- Se transforman en aves
+- Desaparecen sin rastro
+Q: ¿Qué sentimiento transmite la escena de los habitantes junto a las tumbas?
+* Acompañamiento y cercanía con los difuntos
+- Alegría desbordada y competencia
+- Indiferencia total hacia los muertos
+- Temor a los fantasmas
+Q: ¿Qué significa «camino de regreso» en el último párrafo?
+* El viaje de las ánimas de vuelta a su mundo
+- Una ruta de peregrinación turística
+- Un atajo entre dos barrios del pueblo
+- El recorrido del panteón a la iglesia

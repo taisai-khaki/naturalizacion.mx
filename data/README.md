@@ -8,7 +8,7 @@ Datos reales extraídos de las aplicaciones de práctica originales
 | Archivo | Contenido |
 | --- | --- |
 | `questions.json` | **3,000** preguntas de Historia y Cultura (4 opciones c/u, con categoría, subtema, dificultad, explicación y fuente). |
-| `reading_passages.json` | **16** pasajes de lectura con **6** preguntas cada uno (**96** preguntas de comprensión). |
+| `reading_passages.json` | **39** párrafos de los **6** textos de lectura, con **600** preguntas de comprensión. Se genera con `python3 scripts/build_reading.py` desde `data/reading/`. |
 | `interview_writing.json` | **10** preguntas de entrevista (con tips) y **5** temas de redacción. |
 
 ## Cómo cargar los datos
@@ -38,8 +38,13 @@ El script trunca las tablas y vuelve a insertar todo (es idempotente).
 ```
 
 ### `reading_passages.json` (Lectura)
-Cada pasaje trae `title`, `topic`, `source_hint`, `text` y `questions[]`
-con `question`, `options[]` y `correct`.
+Una fila por párrafo: `id` (1–39), `passage_id` (1–6), `passage` (nombre del texto),
+`paragraph` (número dentro del texto), `title` (`Párrafo 1 · Leyenda del maíz`), `topic`,
+`source_hint`, `text` y `questions[]` con `question`, `options[]` y `correct` (índice).
+
+Fuentes editables: `data/reading/pasajes.txt` (textos) y `data/reading/preguntas_1..6.txt`
+(preguntas, formato `@P n.k` / `Q:` / `*` correcta / `-` distractor). Después de editarlas:
+`python3 scripts/build_reading.py`.
 
 ### `interview_writing.json`
 - `interview[]` → `{ question, tip }`

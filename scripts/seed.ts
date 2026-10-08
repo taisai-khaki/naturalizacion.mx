@@ -137,7 +137,7 @@ async function seed() {
   }
 
   console.log(
-    `Seeded ${histRows.length} historia/cultura + ${lecturaRows.length} lectura = ${allRows.length} preguntas (${passagesData.length} pasajes).`,
+    `Seeded ${histRows.length} historia/cultura + ${lecturaRows.length} lectura = ${allRows.length} preguntas (${passagesData.length} párrafos de lectura).`,
   );
 }
 

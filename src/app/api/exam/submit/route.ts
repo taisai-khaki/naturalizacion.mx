@@ -9,7 +9,7 @@ import {
 } from "@/db/schema";
 import { sql, eq, and } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
-import { SIMULADOR_PASS, LECTURA_PASS, FLASHCARD_LEARN_COUNT } from "@/lib/constants";
+import { SIMULADOR_PASS, lecturaPassBar, FLASHCARD_LEARN_COUNT } from "@/lib/constants";
 
 type Answer = { questionId?: number; answerIndex?: number };
 
@@ -84,7 +84,8 @@ export async function POST(req: NextRequest) {
     }
 
     const total = answered.length;
-    const passBar = type === "simulador" ? SIMULADOR_PASS : LECTURA_PASS;
+    // Lectura: el 80% de todas las preguntas del párrafo (answers incluye las no contestadas).
+    const passBar = type === "simulador" ? SIMULADOR_PASS : lecturaPassBar(answers.length);
     const passed = total > 0 && correct >= passBar;
 
     // Stats agregados del usuario

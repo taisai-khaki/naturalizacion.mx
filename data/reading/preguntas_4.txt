@@ -1,0 +1,641 @@
+# Pasaje 4 — Leyenda del Mayab, la tierra del faisán y del venado. Preguntas de opción múltiple por párrafo.
+# Formato: @P n.k  ·  Q: enunciado  ·  * opción correcta  ·  - distractor (3 por pregunta)
+
+@P 4.1
+Q: ¿Quién decidió crear una tierra muy hermosa?
+* Itzamná
+- Quetzalcóatl
+- Tláloc
+- Hunab Ku
+Q: ¿Por qué querría la gente vivir en esa tierra?
+* Porque quedaría enamorada de su belleza
+- Porque allí había mucho oro
+- Porque el clima era frío
+- Porque los invasores la protegían
+Q: ¿Cómo se llamó la tierra creada por Itzamná?
+* El Mayab
+- El Yucatán colonial
+- Tierra de los elegidos del norte
+- Tierra de las ceibas
+Q: ¿Cómo se describe El Mayab?
+* Como la tierra de los elegidos
+- Como un desierto árido y sin agua
+- Como una isla sin habitantes
+- Como una montaña de hielo
+Q: ¿Qué sembró Itzamná en la tierra?
+* Las más bellas flores que adornaran los caminos
+- Enormes bosques de pinos
+- Campos de trigo y cebada
+- Cañaverales de azúcar
+Q: ¿Qué tipo de agua tenían los cenotes creados por Itzamná?
+* Aguas cristalinas
+- Aguas turbias y sucias
+- Aguas saladas del mar
+- Aguas heladas de montaña
+Q: ¿Qué efecto producían los cenotes sobre la luz?
+* Reflejaban la luz del sol
+- Absorbían toda la luz
+- La convertían en fuego
+- La oscurecían por completo
+Q: ¿Qué otra creación de Itzamná se menciona además de los cenotes?
+* Profundas cavernas llenas de misterio
+- Murallas de hierro
+- Puentes colgantes
+- Pirámides de cristal
+Q: ¿Qué significa «cenote» según el contexto?
+* Un pozo natural de agua
+- Un tipo de flor silvestre
+- Una piedra preciosa
+- Un ave de la selva
+Q: ¿Qué sentimiento provocaba la creación de Itzamná?
+* Admiración por su belleza
+- Miedo a la oscuridad
+- Indiferencia total
+- Enojo entre los habitantes
+Q: ¿Qué adjetivo describe las cavernas?
+* Misteriosas
+- Diminutas
+- Calurosas
+- Luminosas
+Q: ¿Qué relación hay entre los cenotes y la luz del sol?
+* Sus aguas reflejaban la luz del sol
+- Se secaban con el sol
+- El sol los iluminaba desde abajo
+- No tenían relación alguna con el sol
+Q: ¿Qué quería Itzamná que sintiera quien conociera la tierra?
+* El deseo de vivir allí
+- El deseo de conquistarla
+- El deseo de abandonarla
+- El deseo de olvidarla
+Q: ¿Cuál de estas creaciones NO aparece en la leyenda de Itzamná?
+* Templos de piedra con escalinatas
+- Enormes cenotes
+- Profundas cavernas
+- Flores en los caminos
+Q: ¿Qué creó Itzamná que reflejaba la luz del sol?
+* Los cenotes de aguas cristalinas
+- Los palacios dorados
+- Los templos de piedra
+- Las montañas de cristal
+Q: ¿Cuál era el propósito de sembrar flores en los caminos?
+* Adornarlos
+- Alimentar a los animales
+- Marcar los límites de la tierra
+- Ocultar las cavernas
+
+@P 4.2
+Q: ¿A quién le entregó Itzamná la nueva tierra?
+* A los mayas
+- A los aztecas
+- A los olmecas
+- A los incas
+Q: ¿Cuántos animales escogió Itzamná?
+* Tres
+- Dos
+- Cuatro
+- Cinco
+Q: ¿Qué animales fueron elegidos por Itzamná?
+* El faisán, el venado y la serpiente de cascabel
+- El jaguar, el águila y el colibrí
+- El tucán, el jabalí y el puma
+- El lobo, el coyote y la tortuga
+Q: ¿Para qué escogió Itzamná a los animales?
+* Para que vivieran por siempre en El Mayab
+- Para que trabajaran en los campos
+- Para que cazaran a los invasores
+- Para que vendieran la tierra
+Q: ¿Qué debía ocurrir cuando alguien pensaba en los animales?
+* Lo recordaba de inmediato
+- Lo olvidaba por completo
+- Se alejaba de la tierra
+- Los cazaba en el bosque
+Q: ¿Cómo vivieron los mayas según el texto?
+* Felices
+- Atemorizados
+- En la pobreza
+- En guerra constante
+Q: ¿Qué construyeron los mayas?
+* Palacios y ciudades de piedra
+- Barcos de madera para el mar
+- Casas de paja en la selva
+- Presas de tierra en los ríos
+Q: ¿De qué material eran las ciudades construidas por los mayas?
+* De piedra
+- De hierro
+- De adobe y paja
+- De vidrio
+Q: ¿Qué tipo de construcciones se mencionan en el segundo párrafo?
+* Palacios
+- Presas hidroeléctricas
+- Estaciones de tren
+- Puertos marítimos
+Q: ¿Qué significa «entregó» en la frase «Itzamná le entregó la nueva tierra»?
+* Dio o concedió
+- Quitó o arrebató
+- Vendió a crédito
+- Perdió de vista
+Q: ¿Qué sentimiento tenían los mayas según el segundo párrafo?
+* Vivieron felices
+- Vivieron con tristeza
+- Vivieron con miedo
+- Vivieron con rabia
+Q: ¿Qué se dice sobre la permanencia de los animales?
+* Vivirían por siempre en El Mayab
+- Solo vivirían un año en la tierra
+- Se irían cuando llegaran los extranjeros
+- Serían llevados a otro continente
+Q: ¿Qué relación tienen los animales con el pueblo maya según el párrafo?
+* Son símbolos elegidos por el dios para recordar la tierra
+- Son animales domésticos que sirven de alimento
+- Son enemigos que deben ser cazados
+- No tienen relación alguna con los mayas
+
+Q: ¿Qué expresión indica que los animales vivirían para siempre en El Mayab?
+* «Por siempre»
+- «De vez en cuando»
+- «Por un año»
+- «Hasta mañana»
+Q: ¿Qué hicieron los mayas con la tierra que recibieron?
+* Construyeron palacios y ciudades de piedra
+- La abandonaron para siempre
+- La vendieron a extranjeros
+- La cubrieron de agua
+
+@P 4.3
+Q: ¿Qué hacían los animales escogidos por Itzamná?
+* Recorrer El Mayab sin cansarse
+- Dormir en cuevas durante todo el día
+- Construir ciudades de piedra
+- Emigrar hacia el mar
+Q: ¿Hasta dónde volaba el faisán?
+* Hasta los árboles más altos
+- Hasta el fondo de los cenotes
+- Hasta las montañas nevadas
+- Hasta la costa del mar
+Q: ¿Por qué podían escucharlo todos los habitantes?
+* Porque su grito era muy poderoso
+- Porque hablaba en voz baja
+- Porque lo transmitía por radio
+- Porque cantaba en coro con los mayas
+Q: ¿Cómo corría el venado?
+* Ligero como el viento
+- Lento como una tortuga
+- Torpe y pesado
+- Solo a saltos cortos
+Q: ¿Qué producía la serpiente a su paso?
+* Música con sus cascabeles
+- Humo y fuego
+- Un olor fuerte
+- Pequeñas piedras
+Q: ¿Qué significa «ligero» en el texto?
+* Veloz y ágil
+- Pesado y lento
+- Ligero de peso, sin fuerza
+- Claro de color
+Q: ¿Qué animal emite un grito que se oye en toda la tierra?
+* El faisán
+- El venado
+- La serpiente
+- El jaguar
+Q: ¿Qué animal produce música?
+* La serpiente de cascabel
+- El faisán
+- El venado
+- El colibrí
+Q: ¿Qué animal recorre la tierra con gran rapidez?
+* El venado
+- El faisán
+- La serpiente de cascabel
+- El tapir
+Q: ¿Qué características se atribuyen al faisán?
+* Vuela sobre los árboles más altos y tiene un grito poderoso
+- Nada en los cenotes y canta bajo el agua
+- Cava túneles en la tierra
+- Camina sobre el agua de los lagos
+Q: ¿Para qué movía sus cascabeles la serpiente?
+* Para producir música a su paso
+- Para avisar de un peligro inminente
+- Para atraer presas a su cueva
+- Para asustar a los visitantes
+Q: ¿Qué idea se expresa con la frase «no se cansaban de recorrer»?
+* Recorrían la tierra con constancia y entusiasmo
+- Estaban agotados y dormían mucho
+- Eran animales perezosos
+- Se aburrían en la selva
+Q: ¿Qué tipo de sonido produce el faisán?
+* Un grito potente
+- Un silbido suave
+- Un canto melodioso
+- Un zumbido grave
+
+Q: ¿Qué efecto tenía la música de la serpiente en su paso?
+* Se oía por donde pasaba
+- Espantaba a todas las aves
+- Apagaba el sonido de los ríos
+- No se oía a distancia
+ 
+@P 4.4
+Q: ¿Quiénes vieron en el futuro algo que causó tristeza?
+* Los chilam, o adivinos mayas
+- Los sacerdotes de Itzamná
+- Los invasores extranjeros
+- Los animales elegidos
+Q: ¿Qué significa «chilam» en el texto?
+* Adivinos mayas
+- Guerreros de la selva
+- Jefes de los cenotes
+- Constructores de palacios
+Q: ¿Qué hicieron los chilam después de su visión?
+* Llamaron a todos los habitantes para anunciar lo que vieron
+- Huyeron de la tierra en secreto
+- Atacaron a los extranjeros
+- Ocultaron la visión a todos
+Q: ¿Quiénes llegarían a El Mayab según el anuncio?
+* Hombres venidos de muy lejos
+- Los animales de la selva
+- Los pobladores del norte
+- Los dioses de la lluvia
+Q: ¿Qué traerían los invasores?
+* Armas
+- Semillas y herramientas
+- Libros y papeles
+- Telas y colores
+Q: ¿Qué querían los invasores según el anuncio?
+* Quitarles su tierra
+- Enseñarles una nueva religión
+- Crear una alianza comercial
+- Visitar los cenotes
+Q: ¿Qué advirtieron los chilam sobre la defensa de El Mayab?
+* Tal vez no podrían defenderla y la perderían
+- Que la defensa sería muy sencilla
+- Que nadie intentaría defenderla
+- Que los dioses la defenderían solos
+Q: ¿Cómo describe el texto el anuncio de los chilam?
+* Como noticias que causarían mucha pena
+- Como una fiesta de bienvenida
+- Como una canción alegre
+- Como un mensaje sin importancia
+Q: ¿Qué sentimiento causó el anuncio entre los habitantes?
+* Tristeza y preocupación
+- Alegría y celebración
+- Indiferencia total
+- Entusiasmo guerrero
+Q: ¿Qué significa «invadirán» en el anuncio?
+* Entrarán por la fuerza en un territorio ajeno
+- Visitarán amablemente la región
+- Comprarán tierras pacíficamente
+- Abandonarán la tierra
+Q: ¿Cuál era la visión de los chilam?
+* Una invasión extranjera que conquistaría El Mayab
+- Una gran fiesta en los cenotes
+- Una lluvia que destruiría las ciudades
+- Un terremoto bajo las montañas
+Q: ¿Qué tipo de noticia dieron los chilam?
+* Una noticia dolorosa sobre el futuro
+- Una noticia de paz y prosperidad
+- Una noticia sobre una cosecha abundante
+- Una noticia sobre un nuevo rey
+Q: ¿Qué expresión indica que la invasión aún no había ocurrido?
+* Pronto nos invadirán
+- Nos invadieron en el pasado
+- Nunca nos invadirán
+- Ya nos conquistaron
+Q: ¿Qué palabra indica que el peligro era incierto?
+* Tal vez
+- Siempre
+- Nunca
+- Seguramente
+Q: ¿Qué relación hay entre los chilam y los habitantes?
+* Los chilam informan a los habitantes sobre lo que vieron en el futuro
+- Los habitantes dirigen a los chilam
+- No se conocen entre sí
+- Los chilam trabajan para los invasores
+Q: ¿Cuál es la consecuencia de la visión para los mayas?
+* Se preparan para defender su tierra
+- Abandonan la tierra de inmediato
+- Destruyen los cenotes
+- Pierden la memoria de los animales
+Q: ¿Qué se busca transmitir al decir «tenemos que dar noticias»?
+* Una advertencia seria y urgente
+- Un anuncio festivo
+- Una petición de ayuda comercial
+- Una invitación a un banquete
+Q: ¿Qué tipo de texto es este párrafo?
+* Un anuncio de los adivinos sobre una invasión
+- Una receta de cocina tradicional
+- Un informe de un viaje comercial
+- Una carta de amor entre dos personas
+
+@P 4.5
+Q: ¿Qué hizo el faisán al oír las palabras de los chilam?
+* Huyó a la selva y se escondió entre las yerbas
+- Voló hasta el sol para pedir ayuda
+- Se unió al ejército de los invasores
+- Corrió a la costa para esperarlos
+Q: ¿Por qué dejó de volar el faisán?
+* Para que los invasores no lo encontraran
+- Porque estaba cansado y enfermo
+- Porque no le gustaba la altura
+- Porque los chilam se lo ordenaron
+Q: ¿Dónde se escondió el faisán?
+* Entre las yerbas de la selva
+- En el fondo de un cenote
+- En lo alto de una montaña
+- En una cueva de piedra
+Q: ¿Qué significa «de inmediato» en el texto?
+* Sin tardar, al momento
+- Después de mucho tiempo
+- Solo en la noche
+- Nunca
+Q: ¿Qué prefirió el faisán en lugar de seguir volando?
+* Dejar de volar para no ser visto
+- Volar más alto que los árboles
+- Cantar para atraer a los invasores
+- Pelear contra los extranjeros
+Q: ¿Qué quería evitar el faisán?
+* Que los invasores lo encontraran
+- Que llegara la noche
+- Que lo viera el venado
+- Que sus plumas se mojaran
+
+@P 4.6
+Q: ¿Qué ocurrió cuando el venado supo que perdería su tierra?
+* Sintió una gran tristeza y lloró
+- Se alegró y celebró la noticia
+- Se unió a los invasores
+- Huyó hacia el mar
+Q: ¿Qué formaron las lágrimas del venado?
+* Muchas aguadas
+- Un río de agua salada
+- Una montaña de piedra
+- Un lago de fuego
+Q: ¿Qué le quedó al venado a partir de ese momento?
+* Los ojos muy húmedos
+- Las patas rotas
+- Un cuerno dorado
+- Las alas para volar
+Q: ¿Por qué parece el venado siempre triste?
+* Porque tiene los ojos húmedos desde que lloró
+- Porque lo tratan mal en el bosque
+- Porque no tiene amigos
+- Porque ya no puede correr
+Q: ¿Quién se enojó más al saber de la conquista?
+* La serpiente de cascabel
+- El venado
+- El faisán
+- Los mayas
+Q: ¿Qué decidió hacer la serpiente?
+* Olvidar su música y luchar contra los enemigos
+- Irse a vivir al mar
+- Pedir perdón a los invasores
+- Esconderse en una cueva
+Q: ¿Qué nuevo sonido creó la serpiente?
+* Uno que produce al mover la cola
+- Un canto con la boca
+- Un silbido al amanecer
+- Un zumbido con las alas
+Q: ¿Cuándo usa la serpiente su nuevo sonido?
+* Antes de atacar
+- Al despertar cada mañana
+- Cuando llueve en la selva
+- Solo para dormir
+Q: ¿Qué significa «aguadas» en el texto?
+* Charcos o lagunas formados por agua
+- Árboles de la selva
+- Tipos de flores
+- Montañas de arena
+Q: ¿Qué sentimiento provocó la conquista en la serpiente?
+* Un gran enojo
+- Una profunda alegría
+- Una enorme indiferencia
+- Un miedo paralizante
+Q: ¿Por qué lloró tanto el venado?
+* Porque supo que perdería su tierra
+- Porque perdió su cuerno
+- Porque tuvo un accidente en el bosque
+- Porque se había perdido en la selva
+Q: ¿Qué hizo la serpiente con su música?
+* La olvidó para luchar
+- La compartió con los invasores
+- La grabó en piedra
+- La enseñó a los mayas
+Q: ¿Qué relación hay entre la tristeza del venado y sus ojos?
+* Su tristeza dejó sus ojos húmedos para siempre
+- Sus ojos se volvieron de color rojo
+- Sus ojos perdieron la vista
+- No hubo cambios en sus ojos
+Q: ¿Qué sentimiento compartió el venado con la serpiente?
+* La tristeza y el enojo por la conquista
+- La alegría por la llegada de extranjeros
+- La indiferencia ante la pérdida
+- El amor por los invasores
+Q: ¿Cuál es el efecto de la conquista en la serpiente?
+* Cambió su canto y se preparó para luchar
+- La hizo desaparecer del bosque
+- La convirtió en una piedra
+- No tuvo ningún efecto
+Q: ¿Qué características tiene la serpiente tras la conquista?
+* Es combativa y su sonido ahora sirve para atacar
+- Es pacífica y canta todo el día
+- Es ciega y no oye nada
+- Es una serpiente de agua que vive en los lagos
+Q: ¿Qué tipo de relato es este párrafo?
+* Una explicación de por qué los animales tienen esas características
+- Un informe científico sobre serpientes
+- Una noticia de un periódico
+- Un manual de caza
+
+Q: ¿Qué significa «a partir de ese momento» en el texto?
+* Desde entonces
+- Antes de ese suceso
+- Durante la noche
+- Hasta el fin del año
+Q: ¿Qué expresa la frase «sin duda»?
+* Certeza de que algo es verdadero
+- Duda constante
+- Una pregunta abierta
+- Una negación rotunda
+
+@P 4.7
+Q: ¿Quiénes conquistaron El Mayab?
+* Los extranjeros
+- Los mayas del sur
+- Los animales de la selva
+- Los chilam
+Q: ¿Qué anunció un famoso adivino maya?
+* Que los tres animales elegidos cumplirían una importante misión
+- Que el mundo llegaría a su fin
+- Que los mayas abandonarían El Mayab
+- Que los extranjeros se marcharían
+Q: ¿Qué misión tendrían los animales?
+* Una importante misión en la tierra
+- Llevar el maíz a otros pueblos
+- Construir un nuevo templo
+- Vigilar las fronteras del mar
+Q: ¿Quién recuerda las palabras del adivino?
+* Los mayas
+- Los extranjeros
+- Solo los animales
+- Nadie las recuerda
+Q: ¿Qué expresión indica que el adivino habló después de la conquista?
+* Como dijeron los chilam, los extranjeros conquistaron El Mayab
+- Antes de que comenzaran las lluvias
+- Mientras los animales dormían
+- Tras la muerte de Itzamná
+Q: ¿Qué palabra indica contraste en la frase «Pero aún así»?
+* Que, a pesar de la conquista, hubo esperanza
+- Que la conquista fue inútil
+- Que los animales se fueron
+- Que los mayas se rindieron
+Q: ¿Qué significa «conquistaron» en el texto?
+* Se apoderaron de un territorio por la fuerza
+- Se fueron de un territorio en paz
+- Visitaron un territorio con curiosidad
+- Compraron un territorio al gobierno
+Q: ¿Qué relación tiene el anuncio del adivino con los chilam?
+* Se confirma la predicción de los chilam sobre la conquista
+- Se contradice la predicción de los chilam
+- No tiene relación con ellos
+- Los chilam fueron acusados de mentir
+Q: ¿Cuál es el tono del anuncio del adivino?
+* Esperanzador, pues anuncia una recuperación futura
+- Burlón y desesperanzado
+- Enojado con los animales
+- Indiferente al destino de los mayas
+Q: ¿Qué cumplirán los tres animales según el adivino?
+* Una misión importante en su tierra
+- Un viaje al mar
+- Un castigo para los invasores
+- Un ritual de purificación
+Q: ¿Qué hecho ocurrió antes del anuncio del adivino?
+* Los extranjeros conquistaron El Mayab
+- Los animales recuperaron la tierra
+- Los mayas construyeron un nuevo imperio
+- Los cenotes se secaron
+
+@P 4.8
+Q: ¿Qué condición da esperanza según el adivino?
+* Que las ceibas estén en pie y las cavernas sigan abiertas
+- Que los extranjeros se marchen de la tierra
+- Que los animales vuelvan a volar en el cielo
+- Que los mayas construyan más palacios
+Q: ¿Qué cosas deben seguir en pie para que haya esperanza?
+* Las ceibas
+- Los palacios de piedra
+- Los puentes de madera
+- Las presas de agua
+Q: ¿Qué cavidades deben seguir abiertas para que haya esperanza?
+* Las cavernas de El Mayab
+- Las puertas de los templos
+- Las ventanas de los palacios
+- Los pozos de las minas
+Q: ¿Qué llegará en el futuro según el adivino?
+* El día en que recobrarán su tierra
+- La llegada de nuevos invasores
+- Una gran sequía
+- El final de los animales
+Q: ¿Qué deberán hacer los mayas cuando llegue ese día?
+* Reunirse y combatir
+- Huir al bosque
+- Rendirse a los extranjeros
+- Abandonar la tierra
+Q: ¿Cómo sabrán los mayas que la fecha ha llegado?
+* Cuando reciban tres señales
+- Cuando llueva durante siete días
+- Cuando los extranjeros se marchen
+- Cuando aparezca un cometa
+Q: ¿Qué traerá la primera señal?
+* El faisán
+- El venado
+- La serpiente de cascabel
+- El jaguar
+Q: ¿Qué traerá la segunda señal?
+* El venado
+- El faisán
+- La serpiente
+- El tucán
+Q: ¿Qué traerá la tercera señal?
+* La serpiente de cascabel
+- El faisán
+- El venado
+- La lluvia
+Q: ¿Qué hará el faisán en la primera señal?
+* Volará sobre los árboles más altos
+- Se esconderá en las yerbas
+- Cantará en la ceiba sagrada
+- Nadará en un cenote
+Q: ¿Dónde podrá verse la sombra del faisán?
+* En todo El Mayab
+- Solo en la costa
+- En una sola ciudad
+- En el fondo de los cenotes
+Q: ¿Qué hará el venado en la segunda señal?
+* Atravesará la tierra de un solo salto
+- Se quedará quieto en el bosque
+- Huirá hacia el mar
+- Bajará a una caverna
+Q: ¿Qué hará la serpiente en la tercera señal?
+* Producirá música de nuevo
+- Se esconderá en las cavernas
+- Atacará a los extranjeros con veneno
+- Volará sobre los árboles
+Q: ¿Qué sentirán al oír la música de la serpiente?
+* Que se oirá por todas partes
+- Que solo la escucharán los animales
+- Que no la oirán nadie
+- Que se oirá solo de noche
+Q: ¿Qué avisarán los animales a los mayas?
+* Que es tiempo de recuperar la tierra que les quitaron
+- Que deben abandonar El Mayab
+- Que los extranjeros llegarán mañana
+- Que la lluvia destruirá las ceibas
+Q: ¿Cuál es la idea central del último párrafo?
+* La esperanza de recuperar la tierra con las señales de los animales
+- La destrucción total de El Mayab
+- La llegada de nuevos dioses
+- La huida de los mayas a otras tierras
+Q: ¿Qué significa «recobraremos» en el texto?
+* Recuperaremos lo que se había perdido
+- Olvidaremos lo que nos pertenece
+- Venderemos la tierra
+- Destruiremos lo que nos queda
+Q: ¿Qué palabra expresa que la esperanza depende de algo que debe mantenerse?
+* Mientras
+- Nunca
+- Aunque
+- Jamás
+Q: ¿Qué tono tiene el mensaje final del adivino?
+* Esperanzado y de llamado a la unión
+- Desesperanzado y resignado
+- Burlón hacia los animales
+- Amenazante hacia los extranjeros
+Q: ¿Qué significa «atravesará» en la segunda señal?
+* Cruzará de un lado a otro
+- Se quedará parado en un lugar
+- Lo mirará desde lejos
+- Lo olvidará por completo
+Q: ¿Qué significa «mensajera» aplicado a la serpiente?
+* Quien lleva un aviso o señal
+- Quien vende productos en el mercado
+- Quien construye palacios
+- Quien guarda los secretos del templo
+Q: ¿Qué sentirán los mayas al reconocer las señales?
+* Que ha llegado el tiempo de recuperar su tierra
+- Que deben huir de la selva
+- Que han perdido toda esperanza
+- Que los animales los abandonan
+Q: ¿Qué significa «combatir» en el texto?
+* Luchar para defender algo
+- Huir de un peligro
+- Construir una muralla
+- Celebrar una fiesta
+Q: ¿A quién se dirige el mensaje del adivino?
+* A los mayas
+- A los extranjeros
+- A los animales
+- A los dioses
+Q: ¿Qué significa «sombra» en la primera señal?
+* La presencia visible del vuelo del faisán sobre la tierra
+- Un refugio contra el calor
+- Una mancha en el agua de los cenotes
+- Un tipo de árbol de la selva

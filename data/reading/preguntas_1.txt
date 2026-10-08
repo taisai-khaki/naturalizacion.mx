@@ -1,0 +1,299 @@
+# Pasaje 1 — Leyenda del maíz. Preguntas de opción múltiple por párrafo.
+# Formato: @P n.k  ·  Q: enunciado  ·  * opción correcta  ·  - distractor (3 por pregunta)
+
+@P 1.1
+Q: ¿Qué comían los primeros habitantes de Mesoamérica antes de la llegada de Quetzalcóatl?
+* Raíces y animales que cazaban
+- Solo frutas silvestres de los árboles
+- Pescado que capturaban en el mar
+- Cereales cultivados en grandes valles
+Q: ¿Cuál era la situación de los aztecas antes de la llegada del dios Quetzalcóatl?
+* Sobrevivían solo con raíces y animales cazados
+- Tenían grandes ciudades y templos
+- Cultivaban maíz en abundancia
+- Comerciaban con pueblos de la costa
+Q: ¿En qué periodo se sitúa la falta de maíz según la leyenda?
+* En el periodo anterior a la llegada de Quetzalcóatl
+- Después de la llegada de los conquistadores
+- Durante la construcción de los grandes templos
+- En los años posteriores a la muerte del dios
+Q: ¿A qué pueblo se refiere el primer párrafo como el que vivía de raíces y de la cacería?
+* A los aztecas
+- A los mayas de la península
+- A los incas del sur
+- A los olmecas de la costa
+Q: ¿Qué tipo de vida llevaban los habitantes mencionados en el primer párrafo?
+* Se alimentaban de raíces y de animales que cazaban
+- Vivían de la agricultura intensiva de regadío
+- Se alimentaban de pescado de río
+- Se dedicaban al comercio marítimo
+Q: ¿Qué dios aparece en la leyenda como el que llegó a Mesoamérica?
+* Quetzalcóatl
+- Tláloc
+- Huitzilopochtli
+- Xipe Tótec
+Q: ¿Qué expresa la frase «periodo anterior a la llegada del dios Quetzalcóatl»?
+* Un tiempo previo a su llegada
+- Un tiempo posterior a su muerte
+- Un momento de celebración religiosa
+- Una época de paz total
+Q: ¿Qué significa la palabra «únicamente» en «se alimentaban únicamente de las raíces»?
+* Solo, exclusivamente
+- Principalmente, aunque no solo
+- Además de otros alimentos
+- De forma ocasional
+Q: ¿De qué modo obtenían los aztecas parte de su alimento según el primer párrafo?
+* Cazando animales
+- Criándolos en granjas
+- Comprándolos en mercados
+- Pescándolos en el mar
+
+@P 1.2
+Q: ¿Por qué no tenían maíz los aztecas?
+* Porque estaba escondido detrás de las montañas y no tenían acceso a él
+- Porque lo habían quemado en una guerra
+- Porque los dioses lo habían prohibido
+- Porque se había acabado en las cosechas
+Q: ¿Dónde estaba escondido el maíz?
+* Detrás de las montañas
+- En el fondo de un lago
+- Bajo tierra, en cuevas profundas
+- En una isla lejana
+Q: ¿Cómo describe el texto al maíz?
+* Como un cereal muy alimenticio
+- Como una planta venenosa
+- Como un alimento de lujo sin valor
+- Como una fruta silvestre y amarga
+Q: ¿Qué intentaron hacer los antiguos dioses para obtener el maíz?
+* Separar las montañas con su fuerza
+- Construir un puente hacia el cielo
+- Robar el maíz de los pueblos vecinos
+- Pedir el maíz a los dioses del mar
+Q: ¿Lograron los antiguos dioses obtener el maíz por la fuerza?
+* No, no lograron separar las montañas
+- Sí, separaron las montañas en un solo día
+- Sí, mediante un acuerdo con los aztecas
+- Sí, con ayuda de los animales
+Q: ¿A quién pidieron ayuda los aztecas?
+* Al dios Quetzalcóatl
+- Al dios de la lluvia
+- A los antiguos dioses del fuego
+- A un cacique de la costa
+Q: ¿Qué pasó con el intento de los antiguos dioses de separar las montañas?
+* No tuvo éxito; no lograron obtener el maíz
+- Abrió un paso hacia el maíz
+- Creó un lago entre los montes
+- Hizo que las montañas se elevaran aún más
+Q: ¿Cómo se describe la fuerza de los antiguos dioses?
+* Colosal
+- Débil
+- Moderada
+- Insignificante
+Q: ¿Qué hicieron los aztecas al no poder obtener el maíz por sí mismos?
+* Pidieron ayuda al dios Quetzalcóatl
+- Abandonaron la región para siempre
+- Atacaron a los dioses antiguos
+- Se rindieron sin intentar nada más
+Q: ¿Qué significa la expresión «no tenían acceso a él»?
+* No podían alcanzarlo ni obtenerlo
+- Lo rechazaban por costumbre
+- Lo tenían guardado en sus casas
+- Lo vendían en los mercados
+Q: ¿Qué relación indica «así que» en «así que los aztecas pidieron ayuda»?
+* Una consecuencia: como no lo lograron, pidieron ayuda
+- Un contraste entre dos ideas
+- Una condición que debe cumplirse
+- Una comparación entre dos dioses
+Q: ¿Qué elemento de la naturaleza bloqueaba el acceso al maíz?
+* Las montañas
+- El mar
+- Los ríos
+- Los desiertos
+Q: ¿Quién intentó separar las montañas?
+* Los antiguos dioses
+- Los aztecas
+- Quetzalcóatl
+- Los pueblos de la costa
+
+@P 1.3
+Q: ¿Qué tipo de recurso eligió Quetzalcóatl para conseguir el maíz?
+* La inteligencia y la astucia
+- La fuerza física
+- La magia de los sacerdotes
+- El dinero y los regalos
+Q: ¿En qué animal se transformó Quetzalcóatl?
+* En una hormiga negra
+- En un águila real
+- En un jaguar
+- En un venado
+Q: ¿Quién acompañó a Quetzalcóatl en su viaje?
+* Una hormiga roja
+- Un perro fiel
+- Un guerrero azteca
+- Un sacerdote del templo
+Q: ¿Hacia dónde se dirigió Quetzalcóatl?
+* Hacia las montañas
+- Hacia el mar
+- Hacia un lago sagrado
+- Hacia un cenote de la selva
+Q: ¿Para quién buscaba Quetzalcóatl el maíz?
+* Para su pueblo
+- Para los dioses antiguos
+- Para sus enemigos
+- Para venderlo en mercados lejanos
+Q: ¿Por qué no quiso usar la fuerza Quetzalcóatl?
+* Prefería la inteligencia y la astucia
+- Le faltaba fuerza física
+- Los dioses se lo habían prohibido
+- Las montañas eran demasiado bajas
+Q: ¿De qué color era la hormiga que acompañó a Quetzalcóatl?
+* Roja
+- Negra
+- Dorada
+- Verde
+Q: ¿Qué significa «astucia» en el texto?
+* Habilidad para resolver problemas con ingenio
+- Fuerza bruta para vencer obstáculos
+- Miedo a los riesgos del viaje
+- Costumbre de los antiguos dioses
+Q: ¿Qué decidió hacer Quetzalcóatl después de transformarse?
+* Dirigirse a las montañas con la hormiga roja
+- Quedarse en el templo a rezar
+- Viajar al mar en una canoa
+- Pedir perdón a los dioses antiguos
+
+@P 1.4
+Q: ¿Qué hizo Quetzalcóatl al llegar a su destino?
+* Tomó con sus mandíbulas un grano maduro de maíz
+- Llamó a la lluvia para regar la tierra
+- Construyó un templo en la montaña
+- Peleó contra las montañas
+Q: ¿Qué parte de su cuerpo usó Quetzalcóatl para tomar el grano?
+* Las mandíbulas
+- Las patas delanteras
+- Las antenas
+- La cola
+Q: ¿Qué característica tenía el grano que tomó Quetzalcóatl?
+* Estaba maduro
+- Estaba todavía verde
+- Estaba seco y roto
+- Estaba mojado por la lluvia
+Q: ¿Cómo describe el texto el regreso de Quetzalcóatl?
+* Como un duro regreso
+- Como un viaje fácil y corto
+- Como una celebración alegre
+- Como una huida sin esfuerzo
+Q: ¿A quiénes entregó Quetzalcóatl el grano de maíz?
+* A los hambrientos indígenas
+- A los dioses de las montañas
+- A los mercaderes de la costa
+- A los guerreros de otros pueblos
+Q: ¿Qué hicieron los indígenas con el grano recibido?
+* Lo plantaron como semilla
+- Lo guardaron en un templo
+- Lo vendieron a extranjeros
+- Lo ofrecieron a los dioses sin plantarlo
+Q: ¿Qué les había prometido Quetzalcóatl a los indígenas?
+* Un grano de maíz
+- Una nueva ciudad
+- Riquezas de oro
+- La protección de los dioses
+Q: ¿Qué actitud mostró Quetzalcóatl durante la subida a las montañas?
+* Esfuerzo sin perder el ánimo
+- Miedo y desánimo constante
+- Indiferencia ante el peligro
+- Enojo contra los indígenas
+Q: ¿Desde cuándo tuvieron maíz los indígenas?
+* Desde que plantaron la semilla que les dio Quetzalcóatl
+- Desde el año de la conquista
+- Desde antes de la llegada de Quetzalcóatl
+- Desde que construyeron sus ciudades
+Q: ¿Qué significa «mandíbulas» en el texto?
+* Partes de la boca que sujetan y muerden
+- Patas delanteras del insecto
+- Antenas que sirven para oler
+- Alas con las que vuela
+Q: ¿Qué significa «maduro» referido al grano?
+* Listo para consumirse o sembrarse
+- Verde y todavía muy duro
+- Podrido por el tiempo
+- Pequeño y sin valor
+Q: ¿Qué hizo Quetzalcóatl después de tomar el grano?
+* Inició el regreso
+- Se quedó en la montaña a descansar
+- Subió a un templo para orar
+- Se escondió en una cueva
+Q: ¿Quién plantó la semilla del maíz?
+* Los hambrientos indígenas
+- Los antiguos dioses
+- Quetzalcóatl solo, sin ayuda
+- Los guerreros aztecas
+Q: ¿Qué beneficio obtuvieron los indígenas desde entonces?
+* Tuvieron maíz para alimentarse
+- Obtuvieron oro para comerciar
+- Ganaron guerras contra sus vecinos
+- Se trasladaron a otra región
+
+@P 1.5
+Q: ¿Qué efecto tuvo el maíz en la riqueza de los pueblos?
+* Aumentó sus riquezas
+- Las redujo de forma notable
+- No cambió nada en su vida
+- Las trasladó a otros pueblos
+Q: ¿Qué construyeron los pueblos después de tener maíz?
+* Ciudades, palacios y templos
+- Carreteras y puentes de hierro
+- Barcos de guerra para el mar
+- Fortalezas bajo el agua
+Q: ¿Cómo quedaron los pueblos después de tener maíz?
+* Más fuertes
+- Más débiles y enfermos
+- Igual que antes
+- Dispersos y sin hogar
+Q: ¿Qué frase resume cómo terminó el párrafo?
+* Vivieron felices
+- Se marcharon de la región
+- Se dividieron en dos pueblos
+- Perdieron sus tierras
+Q: ¿Qué significa «preciado» en «el preciado grano»?
+* Valioso y muy apreciado
+- Barato y fácil de conseguir
+- Podrido e inservible
+- Escaso y sin valor
+Q: ¿Cuál de estos elementos NO aparece como resultado del maíz?
+* Guerras de conquista
+- Ciudades
+- Palacios
+- Templos
+
+@P 1.6
+Q: ¿Qué hicieron los aztecas a partir de ese momento?
+* Veneraron a Quetzalcóatl
+- Abandonaron el maíz por completo
+- Emigraron hacia el norte
+- Destruyeron sus templos
+Q: ¿Cómo describe el texto a Quetzalcóatl en el último párrafo?
+* Como el dios amigo de los hombres
+- Como un dios cruel y distante
+- Como un dios guerrero y violento
+- Como un dios que los abandonó
+Q: ¿Qué les trajo Quetzalcóatl a los aztecas?
+* El maíz
+- El agua de los ríos
+- Un nuevo idioma
+- El caballo
+Q: ¿Qué sentimiento hacia Quetzalcóatl expresa el párrafo?
+* Veneración y gratitud
+- Miedo y rechazo
+- Indiferencia total
+- Burla y desprecio
+Q: ¿Por qué los aztecas veneraban a Quetzalcóatl?
+* Porque les trajo el maíz
+- Porque los derrotó en batalla
+- Porque construyó sus templos
+- Porque les enseñó a cazar
+Q: ¿Qué palabra describe el carácter de Quetzalcóatl en el último párrafo?
+* Generoso
+- Cruel
+- Egoísta
+- Temeroso
