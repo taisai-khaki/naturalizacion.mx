@@ -1,327 +1,326 @@
 # Pasaje 2 — Parque Nacional Cañón del Sumidero. Preguntas de opción múltiple por párrafo.
 # Formato: @P n.k  ·  Q: enunciado  ·  * opción correcta  ·  - distractor (3 por pregunta)
+# Regla: el enunciado usa las palabras del texto y la opción correcta (*) es un
+# fragmento LITERAL del párrafo (validado por scripts/build_reading.py).
 
 @P 2.1
-Q: ¿Qué originó el majestuoso balcón natural del Sumidero?
-* Un largo proceso de fallas geológicas
-- La erosión de un volcán activo
-- La construcción de una presa hace siglos
-- Un terremoto repentino en la costa
-Q: ¿Qué valor tiene el Sumidero según el primer párrafo?
-* Un alto valor ecológico
-- Solo un valor comercial
-- Ninguno, es un área urbana
-- Únicamente un valor histórico
-Q: ¿Cuántas hectáreas abarca el área protegida?
+Q: ¿Qué tuvo como origen un largo proceso de fallas geológicas?
+* El majestuoso balcón natural del Sumidero
+- La presa hidroeléctrica de Chicoasén
+- El embalse de treinta y dos kilómetros
+- La selva de los alrededores
+Q: ¿Qué tuvo como origen el majestuoso balcón natural del Sumidero?
+* un largo proceso de fallas geológicas
+- el impacto de un enorme meteorito
+- las erupciones de un antiguo volcán
+- la fuerza de un río subterráneo
+Q: ¿Cómo fue el proceso de fallas geológicas?
+* largo
+- corto
+- rápido
+- reciente
+Q: ¿Qué tipo de valor tiene el Sumidero?
+* un alto valor ecológico
+- un alto valor comercial
+- un alto valor histórico
+- un alto valor minero
+Q: ¿Con cuántas hectáreas cuenta el Sumidero?
 * 21,789 hectáreas
-- 2,178 hectáreas
-- 217,890 hectáreas
-- 12,000 hectáreas
-Q: ¿En cuántos municipios se extiende el parque?
-* En cinco municipios
-- En tres municipios
-- En siete municipios
-- En uno solo
-Q: ¿En qué estado de la República se encuentra el Sumidero?
-* Chiapas
-- Oaxaca
-- Yucatán
-- Michoacán
-Q: ¿Qué ciudad es la capital del estado donde se ubica el cañón?
+- 12,500 hectáreas
+- 31,789 hectáreas
+- 21,798 hectáreas
+Q: ¿En cuántos municipios se encuentra el Sumidero?
+* en cinco municipios
+- en tres municipios
+- en siete municipios
+- en diez municipios
+Q: ¿De qué estado son los cinco municipios donde se encuentra el Sumidero?
+* del estado de Chiapas
+- del estado de Oaxaca
+- del estado de Tabasco
+- del estado de Veracruz
+Q: ¿Cuál es la capital de Chiapas según el texto?
 * Tuxtla Gutiérrez
-- Tapachula
-- Villahermosa
-- Campeche
-Q: ¿Qué significa que el cañón esté «a pocos kilómetros» de la capital?
-* Que está cerca de Tuxtla Gutiérrez
-- Que está a cientos de kilómetros de Tuxtla
-- Que se encuentra dentro del mar
-- Que ya no forma parte de Chiapas
-Q: ¿Qué significa «majestuoso» en el primer párrafo?
-* Impresionante, grandioso
-- Pequeño y sencillo
-- Oscuro y peligroso
-- Abandonado y descuidado
-Q: ¿Qué tipo de origen tiene el balcón natural según el texto?
-* Geológico, por fallas
-- Humano, por una obra de ingeniería
-- Biológico, por la acción de animales
-- Volcánico, por una erupción reciente
-
-Q: ¿Cuál de estos datos NO aparece en el primer párrafo?
-* Que fue decretado Parque Nacional en 1980
-- 21,789 hectáreas
-- Cinco municipios de Chiapas
-- Su cercanía a Tuxtla Gutiérrez
+- San Cristóbal de las Casas
+- Chiapa de Corzo
+- Comitán
+Q: ¿A qué distancia de la capital Tuxtla Gutiérrez se encuentra el Sumidero?
+* a pocos kilómetros
+- a muchos kilómetros
+- a más de cien kilómetros
+- a miles de kilómetros
+Q: ¿Cómo describe el texto al balcón natural del Sumidero?
+* majestuoso
+- pequeño
+- moderno
+- escondido
 
 @P 2.2
-Q: ¿Qué adjetivo se usa para describir el acantilado?
-* Imponente
-- Diminuto
-- Llano
-- Dudoso
-Q: ¿Qué significa «cauce» en el segundo párrafo?
-* El lecho por donde corre un río
-- Un tipo de roca calcárea
-- Un lago artificial
-- Una planta de la zona
-Q: ¿Sobre qué cauce se eleva el imponente acantilado?
-* El río Grijalva
-- El río Usumacinta
-- El río Balsas
-- El río Papaloapan
-Q: ¿Cuánto alcanzan de altura los muros del cañón?
-* Más de 1000 metros
-- Unos 100 metros
-- Unos 300 metros
-- Menos de 50 metros
-Q: ¿Cómo se describe el cañón en este párrafo?
-* Como un imponente acantilado
-- Como una llanura seca
-- Como una playa de arena
-- Como un bosque plano
-Q: ¿Para qué ha sido propuesto el Sumidero según el texto?
-* Para ser una de las Siete Nuevas Maravillas Naturales
-- Para convertirse en una ciudad industrial
-- Para ser una reserva marina
-- Para albergar un aeropuerto internacional
-Q: ¿Desde cuándo está nominado el Sumidero para esa distinción?
-* Desde hace tiempo
-- Desde la fecha de su decreto como parque
-- Desde el año 2004
-- Desde la construcción de la presa
-Q: ¿Qué paisaje se menciona como uno de los más impresionantes de México?
-* Los muros del cañón
-- Las playas del Caribe
-- Los volcanes nevados
-- Los desiertos del norte
-Q: ¿Qué significa «nominado» en el segundo párrafo?
-* Propuesto o candidato para recibir un reconocimiento
-- Ya premiado con un galardón
-- Retirado de una lista oficial
-- Nombrado por un decreto presidencial
-Q: ¿Qué relación hay entre la altura de los muros y el paisaje?
-* Los muros altos hacen del paisaje uno de los más impresionantes
-- Los muros bajos hacen el paisaje más atractivo
-- La altura no tiene relación con el paisaje
-- Los muros impiden ver el río
-Q: ¿Qué elemento hídrico recorre la base del cañón?
-* El río Grijalva
-- Una laguna de agua salada
-- Un canal artificial de riego
-- Un arroyo de montaña temporal
-Q: ¿Qué forma geológica describe el segundo párrafo?
-* Un acantilado que se eleva sobre el cauce del río
-- Una planicie que se hunde en el mar
-- Una cueva que atraviesa una montaña
-- Una meseta de piedra caliza sin relieve
+Q: ¿En qué consiste el cañón?
+* en un imponente acantilado
+- en una caverna profunda
+- en una gran cascada
+- en un valle extenso
+Q: ¿Sobre qué se eleva el imponente acantilado?
+* sobre el cauce del río Grijalva
+- sobre el manto de la selva
+- sobre las aguas de un lago
+- sobre la ciudad cercana
+Q: ¿Sobre el cauce de qué río se eleva el acantilado?
+* del río Grijalva
+- del río Usumacinta
+- del río Coatzacoalcos
+- del río Papaloapan
+Q: ¿Qué altura alcanzan los muros del cañón?
+* los más de 1000 metros de altura
+- los más de 500 metros de altura
+- los más de 2000 metros de altura
+- los más de 300 metros de altura
+Q: ¿Qué alcanzan los más de 1000 metros de altura?
+* Sus muros
+- Las montañas cercanas
+- Los árboles de la selva
+- Las torres de la presa
+Q: ¿En qué se han convertido los muros del cañón?
+* en uno de los paisajes más impresionantes de México
+- en uno de los lugares más visitados del mundo
+- en uno de los parques más grandes del país
+- en uno de los sitios más peligrosos de la región
+Q: ¿De qué país es uno de los paisajes más impresionantes el cañón?
+* de México
+- de Guatemala
+- de Belice
+- de Honduras
+Q: ¿Para qué está nominado el cañón desde hace tiempo?
+* para ser una de las Siete Nuevas Maravillas Naturales
+- para ser Patrimonio de la Humanidad
+- para ser una reserva natural protegida
+- para ser un santuario ecológico
+Q: ¿Desde hace cuánto tiempo está nominado el cañón?
+* desde hace tiempo
+- desde hace poco
+- desde el siglo pasado
+- desde este año
+Q: ¿Cómo es el acantilado según el texto?
+* imponente
+- pequeño
+- erosionado
+- redondeado
+Q: ¿Cómo son los paisajes que forman los muros del cañón?
+* impresionantes
+- escondidos
+- comunes
+- áridos
+Q: Según el texto, ¿qué consiste en un imponente acantilado que se eleva sobre el cauce del río Grijalva?
+* El cañón
+- El parque
+- La presa
+- El embalse
 
 @P 2.3
-Q: ¿Qué han propiciado la luz, el calor y los escurrimientos sobre el acantilado?
-* Varios microclimas en la vegetación y la fauna
-- La desaparición de toda la vegetación
-- Un clima uniforme en todo el cañón
-- La formación de un desierto
-Q: ¿Qué son las especies endémicas?
-* Especies exclusivas de esta zona
-- Especies que llegaron de otro continente
-- Especies introducidas por el hombre
-- Especies comunes en todo el mundo
-Q: ¿Cuál de estas especies se menciona como endémica?
-* La salamandra Lengua Hongueada
-- El lobo gris
-- El oso pardo
-- El águila calva
-Q: ¿Qué ave endémica aparece en el texto?
-* El chupaflor Canelo
-- El águila real
-- El cóndor andino
-- El pelícano blanco
-Q: ¿Qué tipo de encino aparece en la lista de especies?
-* El encino Enano
-- El encino Gigante
-- El encino Rojo
-- El encino Blanco
-Q: ¿Qué pez de la lista recibe su nombre de la ciudad de Chiapa de Corzo?
-* La mojarra de Chiapa de Corzo
-- La trucha de Chiapa de Corzo
-- El bagre de Chiapa de Corzo
-- El robalo de Chiapa de Corzo
-Q: ¿Qué ser vivo se llama «cuija Mexicana» en el texto?
-* Un reptil de la zona
-- Un ave de gran tamaño
-- Un insecto acuático
-- Un mamífero nocturno
-Q: ¿Qué especie de anfibio aparece en la lista?
-* El sapo Jaspeado
-- El ajolote mexicano
-- La rana de cristal
-- El sapo gigante
-Q: ¿Qué significa «microclimas»?
-* Climas locales distintos dentro de una zona pequeña
-- Climas de todo el país
-- Climas desaparecidos por la sequía
-- Climas artificiales creados por el hombre
-Q: ¿Qué factor no aparece como causante de los microclimas?
-* La construcción de carreteras
-- La luz sobre las paredes
-- El calor sobre las paredes
-- Los abundantes escurrimientos
-Q: ¿Qué se entiende por «diferentes alturas del cañón» en el texto?
-* Distintos niveles donde cambian el clima y la vida
-- Cumbres que no tienen vegetación
-- Distancias entre dos ciudades
-- Medidas de la presa de Chicoasén
-Q: ¿Cuántas especies endémicas se citan en el párrafo?
-* Seis
-- Tres
-- Diez
-- Doce
-Q: ¿Qué tipo de vegetación se menciona en el párrafo?
-* Encino enano
-- Palmeras de coco
-- Cactus del desierto
-- Mangle rojo
-
-Q: ¿Cuál de estas NO es una especie endémica citada en el párrafo?
-* El jaguar
-- La salamandra Lengua Hongueada
-- El encino Enano
-- El sapo Jaspeado
-Q: ¿Qué especie endémica citada es un reptil?
-* La cuija Mexicana
-- El chupaflor Canelo
-- El sapo Jaspeado
-- La mojarra de Chiapa de Corzo
-Q: ¿Qué significa «escurrimientos» en el texto?
-* Corrientes de agua que bajan por las paredes
-- Derrumbes de piedra
-- Pinturas rupestres
-- Hongos que crecen en la roca
-Q: ¿Qué palabra indica que los microclimas se distribuyen en distintos niveles?
-* Alturas
-- Profundidades
-- Latitudes
-- Longitudes
+Q: ¿Qué ha propiciado el surgimiento de varios microclimas?
+* La luz y el calor sobre las paredes del acantilado
+- Las lluvias y los vientos del valle
+- Las sombras y el fresco de las cuevas
+- Las nieves y los hielos de las cumbres
+Q: ¿Sobre qué están la luz y el calor?
+* sobre las paredes del acantilado
+- sobre las aguas del río
+- sobre las copas de los árboles
+- sobre las laderas de la montaña
+Q: Además de la luz y el calor, ¿qué ha propiciado los microclimas?
+* sus abundantes escurrimientos
+- sus fuertes vientos de temporada
+- sus manantiales subterráneos
+- sus lluvias frecuentes
+Q: ¿Cómo son los escurrimientos del acantilado?
+* abundantes
+- escasos
+- temporales
+- sucios
+Q: ¿Qué han propiciado la luz, el calor y los escurrimientos?
+* el surgimiento de varios microclimas
+- la erosión de las paredes
+- la formación de nuevas cuevas
+- el secado de la vegetación
+Q: ¿En qué han surgido varios microclimas?
+* en la vegetación y fauna
+- en los ríos y los lagos
+- en los suelos y las rocas
+- en las nubes y los vientos
+Q: ¿En qué alturas del cañón hay varios microclimas?
+* en diferentes alturas del cañón
+- en el fondo del río
+- en los pueblos cercanos
+- en la cima únicamente
+Q: ¿Cómo llama el texto a las especies exclusivas de esta zona?
+* especies endémicas
+- especies migratorias
+- especies protegidas
+- especies marinas
+Q: Según el texto, ¿qué significa endémicas?
+* exclusivas de esta zona
+- en peligro de extinción
+- propias de climas cálidos
+- originarias de los ríos
+Q: ¿Qué salamandra endémica menciona el texto?
+* la salamandra Lengua Hongueada
+- la salamandra ajolote
+- la salamandra moteada
+- la salamandra verde
+Q: ¿Qué cuija endémica menciona el texto?
+* la cuija Mexicana
+- la cuija gris
+- la cuija moteada
+- la cuija de la selva
+Q: ¿Qué chupaflor endémico menciona el texto?
+* el chupaflor Canelo
+- el chupaflor rojo
+- el chupaflor esmeralda
+- el chupaflor azul
+Q: ¿Qué sapo endémico menciona el texto?
+* el sapo Jaspeado
+- el sapo común
+- el sapo verde
+- el sapo gigante
+Q: ¿Qué mojarra endémica menciona el texto?
+* la mojarra de Chiapa de Corzo
+- la mojarra del Usumacinta
+- la mojarra del Grijalva
+- la mojarra de Tuxtla
+Q: ¿Qué encino endémico menciona el texto?
+* el encino Enano
+- el encino blanco
+- el encino rojo
+- el encino gigante
+Q: ¿Cuál de estas plantas enumera el texto como especie endémica?
+* el encino Enano
+- la ceiba
+- el cedro
+- la caoba
+Q: ¿En diferentes qué del cañón hay varios microclimas?
+* alturas
+- profundidades
+- orillas
+- laderas
 
 @P 2.4
-Q: ¿Quiénes frecuentan el parque?
-* Decenas de miles de visitantes
-- Solo científicos y biólogos
-- Solo militares en entrenamiento
-- Únicamente pescadores locales
-Q: ¿Cuál de estas actividades NO aparece en el párrafo?
-* Esquí sobre nieve
-- Bicicleta de montaña
-- Nado
-- Kayak
-Q: ¿Qué actividad de cuerda se menciona?
-* El rapel
-- La escalada en hielo
-- El paracaidismo
-- El puenting
-Q: ¿Qué significa «frecuentado» en este párrafo?
-* Visitado con frecuencia
-- Evitado por peligroso
-- Cerrado al público
-- Olvidado por completo
-Q: ¿Qué vehículo de dos ruedas usan los visitantes para recorrer el parque?
-* La bicicleta de montaña
-- La motocicleta de carrera
-- El triciclo
-- El patinete eléctrico
-Q: ¿Qué deporte acuático se practica según el párrafo?
-* El kayak
-- El surf
-- El buceo profundo
-- El esquí acuático
-Q: ¿Cuál es el propósito principal de la visita según el párrafo?
-* Practicar actividades al aire libre
-- Participar en ceremonias religiosas
-- Comprar artesanías en mercados
-- Estudiar la historia colonial
-Q: ¿Qué tipo de turismo describe este párrafo?
-* Turismo de aventura y naturaleza
-- Turismo de compras y comercio
-- Turismo de congresos
-- Turismo de playa
+Q: ¿Quién frecuenta el parque?
+* decenas de miles de visitantes
+- solamente los investigadores
+- los habitantes de los pueblos
+- los turistas del extranjero
+Q: ¿Cuántos visitantes frecuentan el parque?
+* decenas de miles
+- cientos
+- unos pocos miles
+- millones
+Q: ¿Qué gustan de practicar los visitantes en el parque?
+* la bicicleta de montaña, el nado, el kayak y el rapel
+- la pesca, el campismo y el senderismo
+- el buceo, la navegación y el surf
+- el fútbol, el béisbol y el atletismo
+Q: ¿Qué lugar es frecuentado por decenas de miles de visitantes?
+* El parque
+- La presa
+- El río
+- La caverna
+Q: Además del nado, el kayak y el rapel, ¿qué más practican los visitantes?
+* la bicicleta de montaña
+- el senderismo
+- la pesca deportiva
+- la escalada en roca
+Q: Además de la bicicleta de montaña, el nado y el rapel, ¿qué más practican?
+* el kayak
+- la navegación
+- el buceo
+- el rafting
+Q: Además de la bicicleta de montaña, el nado y el kayak, ¿qué más practican?
+* el rapel
+- el montañismo
+- la exploración
+- el atletismo
+Q: ¿Qué les gusta a los decenas de miles de visitantes que frecuentan el parque?
+* practicar la bicicleta de montaña, el nado, el kayak y el rapel
+- acampar junto al río
+- fotografiar las especies
+- visitar la presa hidroeléctrica
 
 @P 2.5
-Q: ¿Qué obra hidroeléctrica se encuentra dentro de la zona?
-* La presa de Chicoasén
-- La presa de Malpaso
-- La presa de Angostura
-- La presa de El Infiernillo
-Q: ¿Cómo se describe la presa de Chicoasén?
-* Como una de las mayores obras mexicanas de ingeniería hidráulica
-- Como una pequeña obra de riego local
-- Como una presa abandonada desde hace años
-- Como un proyecto que nunca se terminó
-Q: ¿Qué longitud tiene el embalse?
-* 32 kilómetros
-- 3.2 kilómetros
-- 320 kilómetros
-- 6 kilómetros
-Q: ¿Qué parte del cañón abarca el embalse?
-* La totalidad del cañón
-- Solo la parte alta del cañón
-- Solo la entrada del cañón
-- Una pequeña laguna en el fondo
-Q: ¿Qué tipo de obra es la presa de Chicoasén?
-* Hidroeléctrica
-- Minera
-- Petrolera
-- Ferroviaria
-Q: ¿Qué significa «embalse» en el texto?
-* Depósito artificial de agua contenida por una presa
-- Parte alta de una montaña
-- Canal de drenaje urbano
-- Tipo de vegetación del cañón
-Q: ¿Qué relación tiene la presa con el cañón?
-* Se encuentra dentro de la zona del parque
-- Está a cientos de kilómetros del parque
-- Fue construida fuera del estado de Chiapas
-- Divide el parque en dos partes separadas
-Q: ¿Qué tipo de ingeniería destaca el texto?
-* Ingeniería hidráulica
-- Ingeniería aeronáutica
-- Ingeniería nuclear
-- Ingeniería minera
-
-Q: ¿Qué función cumple una presa hidroeléctrica?
-* Generar electricidad a partir del agua embalsada
-- Extraer petróleo del subsuelo
-- Regar cultivos de cacao
-- Proteger la costa de huracanes
+Q: ¿Qué se encuentra dentro de la zona?
+* la presa hidroeléctrica de Chicoasén
+- un antiguo templo maya
+- un puente de la época colonial
+- un mirador natural
+Q: ¿Qué tipo de presa es la de Chicoasén?
+* hidroeléctrica
+- de riego
+- de agua potable
+- de contención
+Q: ¿Cómo se considera la presa de Chicoasén?
+* una de las mayores obras mexicanas de ingeniería hidráulica
+- la obra más visitada del país
+- la obra más antigua de la región
+- la primera presa de América Latina
+Q: ¿De qué ingeniería es Chicoasén una de las mayores obras mexicanas?
+* de ingeniería hidráulica
+- de ingeniería civil
+- de ingeniería militar
+- de ingeniería moderna
+Q: ¿De cuántos kilómetros de largo es el embalse?
+* de 32 kilómetros de largo
+- de 21 kilómetros de largo
+- de 45 kilómetros de largo
+- de 18 kilómetros de largo
+Q: ¿Qué tiene la presa de Chicoasén con 32 kilómetros de largo?
+* un embalse
+- un túnel
+- un acueducto
+- un canal
+Q: ¿Qué abarca el embalse de la presa?
+* la totalidad del cañón
+- la mitad del parque
+- los valles cercanos
+- la desembocadura del río
+Q: ¿Dónde se encuentra la presa hidroeléctrica de Chicoasén?
+* Dentro de la zona
+- Fuera del parque
+- En un estado vecino
+- Lejos del río
+Q: ¿De qué país son las mayores obras de ingeniería hidráulica que incluye Chicoasén?
+* mexicanas
+- guatemaltecas
+- hondureñas
+- beliceñas
 
 @P 2.6
-Q: ¿En qué fecha fue decretado Parque Nacional el Sumidero?
-* El 8 de diciembre de 1980
-- El 15 de septiembre de 1810
-- El 2 de noviembre de 2004
-- El 20 de noviembre de 1910
+Q: ¿Por qué fue decretado Parque Nacional?
+* Por su riqueza ecológica
+- Por su belleza paisajística
+- Por su valor arqueológico
+- Por su gran extensión
+Q: ¿Qué fue decretado el 8 de diciembre de 1980?
+* Parque Nacional
+- Patrimonio de la Humanidad
+- Reserva de la biosfera
+- Área natural protegida
+Q: ¿Cuándo fue decretado Parque Nacional?
+* el 8 de diciembre de 1980
+- el 8 de diciembre de 1970
+- el 20 de noviembre de 1980
+- el 15 de septiembre de 1985
 Q: ¿En qué año fue clasificado como sitio Ramsar?
 * En 2004
 - En 1980
-- En 1994
-- En 2008
-Q: ¿Qué significa «sitio Ramsar» según el párrafo?
-* Humedal de importancia internacional
-- Zona de uso exclusivo militar
-- Área urbana con servicios públicos
-- Reserva de caza deportiva
-Q: ¿Por qué fue decretado el parque según el párrafo?
-* Por su riqueza ecológica
-- Por su potencial minero
-- Por su valor como zona industrial
-- Por ser una antigua fortaleza
-Q: ¿Qué tipo de reconocimiento recibió el Sumidero en 2004?
-* Internacional, como humedal
-- Un premio literario nacional
-- Un galardón deportivo
-- Una distinción gastronómica
-Q: ¿Qué orden cronológico es correcto en el párrafo?
-* Decreto como parque en 1980 y clasificación Ramsar en 2004
-- Clasificación Ramsar en 1980 y decreto en 2004
-- Ambos eventos ocurrieron el mismo año
-- Decreto en 2004 y clasificación en 1980
+- En 2010
+- En 1998
+Q: ¿Como qué fue clasificado en 2004?
+* como sitio Ramsar
+- como pueblo mágico
+- como santuario natural
+- como monumento nacional
+Q: Según el texto, ¿qué es un sitio Ramsar?
+* humedal de importancia internacional
+- reserva de selva tropical
+- sitio de valor arqueológico
+- área de aves migratorias
