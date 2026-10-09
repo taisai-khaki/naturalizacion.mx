@@ -1,0 +1,772 @@
+# Pasaje 6 — La leyenda del Cenote Zací. Preguntas de opción múltiple por párrafo.
+# Formato: @P n.k  ·  Q: enunciado  ·  * opción correcta  ·  - distractor (3 por pregunta)
+
+@P 6.1
+Q: ¿Qué es un cenote según el texto?
+* Un pozo de agua dulce
+- Un río subterráneo de agua salada
+- Una montaña de roca volcánica
+- Una laguna de agua de mar
+Q: ¿Cómo se forma un cenote?
+* Por el desgaste o erosión de las rocas calizas
+- Por la erupción de un volcán
+- Por el choque de dos placas de hielo
+- Por la acción de la lava sobre la arena
+Q: ¿Qué tipo de roca forma los cenotes según el texto?
+* Rocas calizas
+- Rocas volcánicas
+- Granito puro
+- Mármol blanco
+Q: ¿Qué clase de agua contiene un cenote?
+* Agua dulce
+- Agua salada
+- Agua de lluvia acidulada
+- Agua hirviendo
+Q: ¿Qué significa «erosión» en el primer párrafo?
+* Pérdida progresiva de material por el paso del agua y del tiempo
+- Formación rápida de una montaña
+- Construcción artificial de un pozo
+- Solidificación de la lava
+Q: ¿Qué significa «pozo» en el texto?
+* Una cavidad profunda que contiene agua
+- Una torre de vigilancia
+- Un tipo de planta acuática
+- Un camino de tierra
+Q: ¿Qué relación hay entre el agua y la roca caliza en la formación del cenote?
+* El agua desgasta la roca y forma el pozo
+- La roca caliza absorbe toda el agua
+- El agua y la roca no tienen relación
+- La roca se disuelve en aceite
+Q: ¿Qué se pregunta el primer párrafo del texto?
+* Qué es un cenote
+- Quién construyó el primer cenote
+- Cuándo se secó el cenote de Zací
+- Dónde se encuentra la ciudad de Mérida
+
+@P 6.2
+Q: ¿En qué ciudad se encuentra el cenote Zací?
+* En Valladolid, Yucatán
+- En Mérida, Yucatán
+- En Chichén Itzá, Yucatán
+- En Campeche, Campeche
+Q: ¿Cómo se describe el cenote Zací?
+* Como una impresionante caverna parcialmente colapsada
+- Como un lago tranquilo en medio de un bosque
+- Como una pirámide escalonada de piedra
+- Como un manantial de agua caliente
+Q: ¿Cuál es el diámetro aproximado del cenote Zací?
+* Unos 45 metros
+- Unos 4.5 metros
+- Unos 450 metros
+- Unos 15 metros
+Q: ¿Qué significa que la caverna esté «parcialmente colapsada»?
+* Que una parte de su techo se ha derrumbado
+- Que está completamente cubierta de agua
+- Que nunca ha sufrido daños
+- Que está pintada con colores brillantes
+Q: ¿Qué significa «impresionante» en el texto?
+* Que causa admiración por su tamaño o belleza
+- Que es pequeño y poco visible
+- Que está seco y vacío
+- Que es fácil de recorrer
+Q: ¿Qué tipo de formación es el cenote Zací?
+* Una caverna
+- Una montaña
+- Una playa de arena
+- Una selva tropical
+Q: ¿En qué estado mexicano se encuentra la ciudad de Valladolid?
+* Yucatán
+- Quintana Roo
+- Campeche
+- Tabasco
+Q: ¿Qué medida se da para el diámetro del cenote?
+* 45 metros
+- 15 kilómetros
+- 4.5 kilómetros
+- 150 metros
+
+@P 6.3
+Q: ¿Quiénes dominaban durante el imperio en el que se fundó Zací?
+* Los Cupules y los Cocomes
+- Los mexicas y los tlaxcaltecas
+- Los zapotecas y los mixtecos
+- Los olmecas y los toltecas
+Q: ¿En qué año se fundó la ciudad maya de Zací?
+* En 1543
+- En 1521
+- En 1810
+- En 1325
+Q: ¿Qué significa «Zací» según el texto?
+* Gavilán blanco
+- Serpiente de agua
+- Flor de la selva
+- Jaguar negro
+Q: ¿En qué ciudad actual se encontraba la ciudad de Zací?
+* En Valladolid, Yucatán
+- En Campeche
+- En Mérida
+- En Cancún
+Q: ¿Dónde estaba la vivienda de la curandera y hechicera?
+* Sobre la bóveda del cenote
+- Al pie de la montaña más alta
+- En la costa del mar Caribe
+- Dentro de un templo de piedra
+Q: ¿Qué papel tenía la anciana del pueblo?
+* Era curandera y hechicera
+- Era gobernante de la ciudad
+- Era guerrera del ejército
+- Era comerciante de sal
+Q: ¿De qué familia era patrona la anciana?
+* La familia Cocom
+- La familia Cupul
+- La familia Halach-Huinic
+- La familia Sac-Nicte
+Q: ¿Cómo se describe a la anciana en el texto?
+* Como una anciana poderosa e influyente
+- Como una mujer pobre y olvidada
+- Como una joven aprendiz de la hechicería
+- Como una sacerdotisa que vivía en el mar
+Q: ¿Qué existía desde siempre en Zací?
+* Dos familias que se disputaban el poder
+- Un solo gobierno sin conflictos
+- Un mercado de esclavos
+- Un templo abandonado
+Q: ¿Quién gobernaba en esa época?
+* El cacique Halach-Huinic
+- El cacique Hul-Kin
+- La hechicera
+- El rey de los Cocomes
+Q: ¿Qué significa «Halach-Huinic» según el texto?
+* El hombre verdadero
+- El rayo de sol
+- La flor blanca
+- El gavilán blanco
+Q: ¿Qué significa «Hul-Kin» según el texto?
+* Rayo de sol
+- Hombre verdadero
+- Flor blanca
+- Mujer noble
+Q: ¿A qué familia pertenecía Hul-Kin?
+* A la familia de los cupules
+- A la familia de los cocomes
+- A la familia de la hechicera
+- A la familia del cacique Halach-Huinic
+Q: ¿Quién era el hijo del cacique?
+* Hul-Kin
+- Sac-Nicte
+- Halach-Huinic
+- El gavilán blanco
+Q: ¿Qué se disputaban las dos familias de Zací?
+* El poder
+- Las tierras del norte
+- El comercio de cacao
+- La ciudad de Mérida
+Q: ¿Cuál de estos datos NO aparece en el tercer párrafo?
+* La fundación de Mérida en 1542
+- La fecha de fundación de Zací
+- El nombre del cacique Halach-Huinic
+- La familia a la que pertenecía Hul-Kin
+Q: ¿Qué significa «curandera» en el texto?
+* Persona que cura enfermedades con remedios y ritos
+- Persona que construye casas
+- Persona que dirige la guerra
+- Persona que vende telas
+Q: ¿Qué significa «bóveda» en el texto?
+* El techo curvo de una cavidad
+- El fondo de un pozo
+- Un tipo de árbol de la selva
+- La puerta principal del templo
+Q: ¿Qué representaba la anciana para la familia Cocom?
+* Su patrona, es decir, su protectora espiritual
+- Su enemiga política
+- Su mayor comerciante
+- Su guerrera principal
+Q: ¿Qué relación tenían los Cupules y los Cocomes en Zací?
+* Se disputaban el poder en la ciudad
+- Eran aliados en todas las guerras
+- Se habían unido por matrimonio
+- Vivían en ciudades distintas sin contacto
+Q: ¿Qué tipo de gobierno mantenía el cacique Halach-Huinic?
+* Gobernaba la ciudad en su tiempo
+- Gobernaba desde el mar
+- No gobernaba en la ciudad
+- Gobernaba desde una selva lejana
+Q: ¿En qué lugar se fundó la ciudad maya de Zací según el texto?
+* En lo que hoy es la ciudad de Valladolid
+- En lo que hoy es la ciudad de Campeche
+- En la costa del golfo de México
+- En el centro de la ciudad de México
+Q: ¿Qué relación tenía la vivienda de la hechicera con el cenote?
+* Estaba situada justo sobre la bóveda del cenote
+- Estaba a cientos de kilómetros del cenote
+- Estaba dentro del agua del cenote
+- No tenía ninguna relación con el cenote
+Q: ¿Qué significa «imperio» en el texto?
+* Un conjunto de pueblos gobernados por un poder central
+- Una casa de piedra con jardines
+- Una familia de comerciantes
+- Un pequeño pueblo de agricultores
+Q: ¿Qué tipo de ciudad era Zací?
+* Una ciudad maya
+- Una colonia española
+- Un puerto comercial
+- Un campamento militar
+Q: ¿Qué hechos ocurrían durante el imperio de los Cupules y los Cocomes?
+* Se fundó la ciudad de Zací en 1543
+- Se fundó la ciudad de México
+- Se construyó el Canal de Panamá
+- Comenzó la independencia de México
+Q: ¿Qué significa «gavilán» en el nombre Zací?
+* Un ave rapaz
+- Una serpiente de agua
+- Un jaguar de la selva
+- Una flor blanca
+Q: ¿Qué relación tenía el cacique Halach-Huinic con su hijo Hul-Kin?
+* Era su padre
+- Era su hermano
+- Era su tío
+- Era su maestro
+Q: ¿A qué familia rival pertenecía la familia de Hul-Kin?
+* A los cupules
+- A los cocomes
+- A los mexicas
+- A los tlaxcaltecas
+Q: ¿Qué significa «cacique» en el texto?
+* Jefe o líder de un pueblo
+- Sacerdote del templo
+- Comerciante de sal
+- Guerrero de élite
+Q: ¿Qué se entiende por «hechicera» en el texto?
+* Mujer que practica magia y hechizos
+- Maestra de escuela
+- Reina del pueblo
+- Comerciante de telas
+
+@P 6.4
+Q: ¿Por qué se quedó huérfana la nieta de la hechicera?
+* Quedó huérfana al nacer
+- Murió en una guerra de su pueblo
+- Su madre la abandonó en el bosque
+- Falleció por una enfermedad en la juventud
+Q: ¿Cómo quería la abuela a su nieta?
+* Doblemente
+- Con indiferencia
+- Con temor
+- De manera distante
+Q: ¿En qué cifraba la abuela su amor?
+* En su hija y en su nieta
+- En los dioses del cenote
+- En las riquezas de la familia
+- En su propio pasado de guerrera
+Q: ¿Cómo se llamaba la nieta de la hechicera?
+* Sac-Nicte
+- Hul-Kin
+- Halach-Huinic
+- Zací
+Q: ¿Qué significa «Sac-Nicte» en el texto?
+* Flor blanca
+- Rayo de sol
+- Hombre verdadero
+- Gavilán blanco
+Q: ¿Qué papel tendría Sac-Nicte en la vejez de su abuela?
+* Alegrarle la vida en su ancianidad
+- Hacerla trabajar en la cocina
+- Vender sus remedios en el mercado
+- Dejarla sola en la casa
+Q: ¿Qué significa «ancianidad» en el texto?
+* La vejez
+- La juventud
+- La niñez
+- La edad adulta
+Q: ¿Qué sentimiento tenía la abuela hacia la nieta?
+* Un amor doble, hacia su hija y hacia su nieta
+- Un odio profundo
+- Una indiferencia total
+- Un temor a los dioses
+Q: ¿Qué significa «cifraba» en la frase «en ella cifraba el amor»?
+* Depositaba o concentraba
+- Escondía o perdía
+- Dividía o repartía
+- Vendía o cambiaba
+Q: ¿Qué calificativo recibe Sac-Nicte en el texto?
+* Hermosa
+- Fea y olvidada
+- Cruel y violenta
+- Anciana y enferma
+Q: ¿Qué significa «huérfana» en el texto?
+* Persona que ha perdido a sus padres
+- Persona que vive sola en el bosque
+- Persona que trabaja en el templo
+- Persona que tiene muchos hermanos
+Q: ¿Qué le pasó a la madre de Sac-Nicte?
+* Murió al nacer su hija
+- Se casó con el cacique
+- Se fue a vivir al mar
+- Se convirtió en hechicera
+Q: ¿Cuál es la relación de la abuela con la madre de Sac-Nicte?
+* Era la madre de la madre de Sac-Nicte
+- Era su hermana menor
+- Era su tía lejana
+- No tenía parentesco alguno
+Q: ¿Qué expresa el cuarto párrafo sobre la vida de la abuela?
+* Que Sac-Nicte iba a alegrar sus últimos años
+- Que la abuela estaba enferma y triste
+- Que la abuela se fue de la aldea
+- Que la abuela dejó de amar a su familia
+Q: ¿Qué expresa que Sac-Nicte fuera «la hermosa»?
+* Que era una joven de gran belleza
+- Que era una anciana enferma
+- Que vivía dentro del templo
+- Que era una extranjera
+Q: ¿Qué significa «alegrar» en la frase «le habría de alegrar la vida»?
+* Hacer feliz
+- Entristecer
+- Apagar
+- Cansar
+
+@P 6.5
+Q: ¿Cómo se trataban Hul-Kin y Sac-Nicte al principio?
+* Parecían odiarse y peleaban constantemente
+- Eran grandes amigos desde la niñez
+- Se ignoraban por completo
+- Eran hermanos de sangre
+Q: ¿Qué surgió entre ellos al llegar a su juventud?
+* Una amistad que se convirtió en amor
+- Una enemistad que se volvió odio mortal
+- Un interés por la política del pueblo
+- Un pacto comercial entre familias
+Q: ¿Quién tenía el sentimiento más grande y avasallador?
+* Sac-Nicte
+- Hul-Kin
+- La hechicera
+- El cacique Halach-Huinic
+Q: ¿Cómo era Sac-Nicte según el quinto párrafo?
+* Inocente y pura
+- Cruel y ambiciosa
+- Rica y poderosa
+- Vieja y enferma
+Q: ¿Dónde se veían los jóvenes?
+* A escondidas
+- En la plaza del pueblo
+- En la casa del cacique
+- En el mercado público
+Q: ¿Qué entregó Sac-Nicte a Hul-Kin?
+* Su virginidad y su pureza
+- Una joya de oro
+- Un mensaje secreto
+- Un mapa del cenote
+Q: ¿Quién se enteró de la relación entre los jóvenes?
+* El cacique
+- Solo la hechicera
+- Todo el pueblo de Zací
+- Los sacerdotes del templo
+Q: ¿Cómo reaccionó el cacique al enterarse?
+* Se enfureció y envió a su hijo al sur de la península
+- Los bendijo y organizó una boda inmediata
+- Los dejó en paz sin decir nada
+- Desterró a la hechicera de la ciudad
+Q: ¿A dónde envió el cacique a su hijo?
+* A un pueblo del sur de la península
+- A la costa del golfo de México
+- A la ciudad de Mérida
+- A las montañas del norte
+Q: ¿Con qué propósito envió el cacique a Hul-Kin al sur?
+* Para casarlo con la princesa de aquel lugar
+- Para aprender el arte de la guerra
+- Para pedir ayuda militar al rey
+- Para construir un cenote nuevo
+Q: ¿Con qué cacique del sur ya había tratado una alianza el padre?
+* Con el cacique de aquel pueblo del sur
+- Con el cacique de Zací
+- Con la hechicera de la familia Cocom
+- Con los sacerdotes del templo
+Q: ¿Qué significa «avasallador» en el texto?
+* Abrumador, que domina por completo
+- Pequeño y frágil
+- Ligero y pasajero
+- Silencioso y tímido
+Q: ¿Qué significa «enfurecido» en el texto?
+* Lleno de ira y furia
+- Muy contento y tranquilo
+- Cansado y sin fuerzas
+- Triste y resignado
+Q: ¿Qué quiere decir «a pesar de que guardaban en secreto su amor»?
+* Que el amor se mantenía oculto, aunque el cacique lo descubrió
+- Que el amor fue público desde el principio
+- Que la pareja nunca se amó de verdad
+- Que el amor terminó antes de empezar
+Q: ¿Cuál era la alianza que motivó la separación?
+* Casar a Hul-Kin con la princesa del sur
+- Entregar Zací a los enemigos
+- Unir los cenotes de dos ciudades
+- Intercambiar tierras de cultivo
+Q: ¿Qué tipo de relación se describe al inicio entre Hul-Kin y Sac-Nicte?
+* Una relación hostil que luego cambió
+- Una relación de familia
+- Una relación de comercio
+- Una relación de maestro y alumna
+Q: ¿Qué provocó el cambio de sentimientos entre los jóvenes?
+* El trato y la convivencia que los hizo amarse
+- La llegada de un ejército extranjero
+- La muerte de la hechicera
+- Un viaje a otra ciudad
+Q: ¿Por qué ella entregó su virginidad a Hul-Kin?
+* Porque lo amaba, según el texto
+- Por obligación de la hechicera
+- Por dinero que le ofreció el cacique
+- Porque se lo ordenaron los dioses
+Q: ¿Qué sucedió con los encuentros de los jóvenes al final del párrafo?
+* El cacique los descubrió y los separó
+- Continuaron sin ser descubiertos
+- Se volvieron públicos y celebrados
+- Terminaron por voluntad de Sac-Nicte
+Q: ¿Qué se refiere la expresión «al cabo de unos meses»?
+* Después de algunos meses
+- En el mismo instante
+- Después de muchos años
+- Al día siguiente
+Q: ¿Qué idea central transmite el quinto párrafo?
+* Un amor prohibido que terminó en separación por decisión del cacique
+- Una alianza exitosa entre dos pueblos
+- La historia de la fundación de una ciudad
+- La llegada de nuevos gobernantes
+Q: ¿Qué sentimiento se volvió apasionado entre los jóvenes?
+* El amor
+- La ira
+- La envidia
+- La indiferencia
+Q: ¿Qué motivo tenía el cacique para enviar a su hijo al sur?
+* Cumplir una alianza ya acordada con el cacique del sur
+- Organizar una guerra contra los cocomes
+- Protegerlo de los peligros del cenote
+- Llevarlo a estudiar a otra ciudad
+Q: ¿Qué significa «enterarse» en el texto?
+* Llegar a saber algo
+- Olvidar algo
+- Enseñar algo
+- Ocultar algo
+Q: ¿Qué idea expresa «sin saberlo ni la hechicera ni el cacique»?
+* Que ambos ignoraban la relación secreta
+- Que ambos aprobaban la relación
+- Que ambos estaban de acuerdo con la boda
+- Que ambos amaban a Sac-Nicte
+Q: ¿Qué relación tenía el cacique con el cacique del sur?
+* Tenían una alianza ya acordada
+- Eran enemigos mortales
+- No se conocían
+- Eran hermanos
+Q: ¿A qué se refiere «aquel lugar» en la frase «la princesa de aquel lugar»?
+* Al pueblo del sur de la península
+- A la ciudad de Zací
+- Al cenote sagrado
+- Al templo del norte
+Q: ¿Qué significa «apasionado» en el texto?
+* Intenso y lleno de pasión
+- Frío y distante
+- Pequeño y frágil
+- Efímero y breve
+Q: ¿Cuánto tiempo pasó entre el inicio de los encuentros y la entrega de la joven?
+* Unos meses
+- Un solo día
+- Varios años
+- Una semana
+Q: ¿Cuál era el estado de ánimo del cacique al enterarse?
+* Enfurecido
+- Feliz
+- Indiferente
+- Preocupado por el clima
+Q: ¿Qué quiere decir «a escondidas»?
+* En secreto, sin que nadie lo viera
+- En público y con permiso
+- En la iglesia del pueblo
+- Con la presencia del padre
+
+@P 6.6
+Q: ¿Qué le pasó a la alegría de Sac-Nicte tras la separación?
+* Escapó de su alma
+- Se multiplicó con los años
+- Se trasladó a su abuela
+- Se mantuvo igual de intensa
+Q: ¿Qué perdieron los ojos de Sac-Nicte?
+* El brillo de la ilusión
+- La capacidad de ver
+- El color original
+- La luz del día
+Q: ¿A quién le contó Sac-Nicte el secreto?
+* A su abuela
+- A su madre
+- Al cacique
+- A Hul-Kin
+Q: ¿Qué secreto reveló Sac-Nicte a su abuela?
+* Que estaba embarazada
+- Que se iba a casar con otro hombre
+- Que quería huir del pueblo
+- Que había perdido su piedra preciosa
+Q: ¿Qué sentimiento provocó en Sac-Nicte la noticia de su embarazo?
+* Una gran tristeza que la llevó a no querer vivir
+- Una alegría enorme que la hizo celebrar
+- Indiferencia ante su situación
+- Una valentía para enfrentar al cacique
+Q: ¿Cómo reaccionó la abuela al oír el secreto?
+* Afligida y preocupada
+- Con alegría y celebración
+- Con enojo contra los dioses
+- Con indiferencia total
+Q: ¿Qué prometió la abuela a Sac-Nicte?
+* Traerle de vuelta a Hul-Kin con la ayuda de los dioses y sus hechizos
+- Casarla con un comerciante rico
+- Enviarla a vivir a otro pueblo
+- Ocultarle el embarazo a todos
+Q: ¿Qué significa «afligida» en el texto?
+* Triste y preocupada
+- Contenta y animada
+- Enojada y violenta
+- Cansada y dormida
+Q: ¿Qué medios usaría la abuela para traer de vuelta a Hul-Kin?
+* Los dioses y sus hechizos
+- Las armas de los guerreros
+- El dinero del cacique
+- Un viaje al sur de la península
+Q: ¿Qué significa «desde su separación» al inicio del párrafo?
+* A partir del momento en que se separaron
+- Antes de conocerse
+- Durante la boda de Hul-Kin
+- Después de la maldición del cenote
+Q: ¿Qué significaba para Sac-Nicte haber perdido su alegría?
+* Que dejó de sentir ilusión por la vida
+- Que dejó de hablar con su abuela
+- Que se mudó a otra ciudad
+- Que empezó a trabajar en el templo
+Q: ¿Qué significa «entre llantos» en el texto?
+* Mientras lloraba
+- Mientras cantaba
+- Mientras reía a carcajadas
+- Mientras dormía
+Q: ¿Qué ocurrió con la alegría y la ilusión de Sac-Nicte después de la separación?
+* Desaparecieron de su vida
+- Aumentaron con la noticia del embarazo
+- Se trasladaron a Hul-Kin
+- Siguieron igual que antes
+Q: ¿Qué significa «ilusión» en la frase «el brillo de la ilusión»?
+* Esperanza y deseo
+- Sueño nocturno
+- Mentira
+- Engaño visual
+Q: ¿Cómo describe el texto a Sac-Nicte al contar su secreto?
+* Entre llantos
+- Con alegría
+- Con calma
+- Con enojo
+
+@P 6.7
+Q: ¿Qué se enteró Sac-Nicte un día?
+* Que Hul-Kin se casaba
+- Que su abuela había muerto
+- Que el cacique la había desterrado
+- Que el cenote se estaba secando
+Q: ¿Qué decisión tomó Sac-Nicte?
+* Una terrible decisión: quitarse la vida
+- Huir del pueblo con un mensajero
+- Casarse con otro joven de Zací
+- Pedir perdón al cacique
+Q: ¿Cuándo se arrojó Sac-Nicte al cenote?
+* La noche antes de la boda
+- El día después de la boda
+- En la mañana del primer día del año
+- Durante la primera luna llena del otoño
+Q: ¿Qué amarró Sac-Nicte a su cabellera antes de arrojarse?
+* Una piedra
+- Una flor blanca
+- Una cuerda de henequén
+- Un collar de jade
+Q: ¿Dónde se arrojó Sac-Nicte?
+* A las aguas del cenote
+- Al mar Caribe
+- Al río del pueblo
+- A un pozo abandonado
+Q: ¿Qué sintió Hul-Kin en el momento en que ella se arrojó?
+* Un fuerte dolor en el pecho
+- Una gran alegría
+- Ningún cambio en su cuerpo
+- Un sueño tranquilo
+Q: ¿Qué tuvo Hul-Kin en ese momento?
+* Un atroz presentimiento
+- Una gran fiebre
+- Un sueño profundo
+- Una invitación de la hechicera
+Q: ¿Qué hizo Hul-Kin después del presentimiento?
+* Regresó a Zací esa misma noche
+- Se quedó en el sur con la princesa
+- Huyó a las montañas
+- Se fue a dormir a la casa del cacique
+Q: ¿Qué encontró Hul-Kin al llegar a Zací?
+* A la hechicera llorando y maldiciendo enloquecida
+- A su padre celebrando la boda
+- A Sac-Nicte cantando en el templo
+- Un pueblo vacío y silencioso
+Q: ¿Qué hizo Hul-Kin al enterarse de todo?
+* Se arrojó al cenote para morir con su verdadero amor
+- Se fue a vivir al sur con la princesa
+- Acusó a la hechicera ante el cacique
+- Pidió perdón a su padre
+Q: ¿Qué quería Hul-Kin al arrojarse al cenote?
+* Morir con Sac-Nicte, su verdadero amor
+- Escapar de la maldición de la hechicera
+- Encontrar un tesoro en el fondo del cenote
+- Huir del pueblo para siempre
+Q: ¿Qué hizo la hechicera al acercarse al borde de la bóveda?
+* Tiró una flor blanca
+- Tiró una piedra al cenote
+- Tiró su bastón al agua
+- Tiró una antorcha encendida
+Q: ¿Qué gritó la hechicera al tirar la flor?
+* ¡Sac-Nicte, te he cumplido! Te he traído a Hul-Kin
+- ¡Hul-Kin, vuelve a casa ahora!
+- ¡El cenote no se llevará a nadie más!
+- ¡Que la princesa venga al pueblo!
+Q: ¿Qué significa «sollozando» en el texto?
+* Llorando con sollozos
+- Riendo a carcajadas
+- Gritando con enojo
+- Cantando en voz baja
+Q: ¿Qué maldición puso la hechicera en el cenote?
+* Que cada año cobrara una vida en sacrificio
+- Que el cenote se secara para siempre
+- Que nadie volviera a bañarse en él
+- Que Hul-Kin nunca encontrara la paz
+Q: ¿Qué señal anunciaría que el cenote cobraría una vida?
+* Cuando el manto verde del agua se tornara oscuro
+- Cuando la flor blanca flotara en la superficie
+- Cuando el sol cubriera la bóveda
+- Cuando sonara la campana del templo
+Q: ¿Qué significa «se tornara» en la maldición?
+* Se volviera o se convirtiera
+- Se quedara igual
+- Se borrara para siempre
+- Se elevara al cielo
+Q: ¿Qué expresa el término «sacrificio» en el texto?
+* Una ofrenda de vida que se entrega
+- Un obsequio de flores a los dioses
+- Una fiesta de agradecimiento
+- Un castigo leve para los hechiceros
+Q: ¿Qué calificativo se da al amor de los jóvenes al final de la leyenda?
+* Prohibido
+- Eterno y perfecto
+- Pasajero y sin importancia
+- Feliz y celebrado
+Q: ¿Qué sucedió con la boda de Hul-Kin?
+* Nunca se realizó, pues murió al arrojarse al cenote
+- Se celebró con gran fiesta en Zací
+- Se pospuso para el año siguiente
+- Se realizó en el sur con la princesa
+Q: ¿Por qué se considera trágica la leyenda?
+* Porque los dos enamorados mueren y el cenote cobra vidas
+- Porque la ciudad fue destruida por guerreros
+- Porque los jóvenes se casan y se separan
+- Porque el cacique muere en batalla
+Q: ¿Qué tipo de muerte eligió Sac-Nicte?
+* Un suicidio en las aguas del cenote
+- Una muerte en batalla
+- Una muerte natural por vejez
+- Una muerte por enfermedad
+Q: ¿Qué papel tiene la hechicera al final de la leyenda?
+* Es quien maldice el cenote tras la muerte de los jóvenes
+- Es quien salva a los jóvenes del cenote
+- Es quien se casa con Hul-Kin
+- Es quien construye el templo de Zací
+Q: ¿Qué sentimientos domina el último párrafo?
+* Dolor, desesperación y una maldición
+- Alegría y celebración
+- Calma y paz eterna
+- Indiferencia ante la muerte
+Q: ¿Qué significa «verdadero amor» en el último párrafo?
+* El amor auténtico y profundo
+- El amor interesado por la riqueza
+- El amor de conveniencia
+- El amor que llega por error
+Q: ¿Qué expresa la frase «en un arranque de ira»?
+* Un impulso repentino de enojo
+- Una acción tranquila y meditada
+- Una orden del rey
+- Un acuerdo de paz
+Q: ¿Qué hizo la hechicera «en un arranque de ira»?
+* Puso una maldición en el cenote
+- Huyó de la ciudad
+- Casó a los jóvenes
+- Olvidó a su nieta
+Q: ¿Qué significa «presentimiento» en el texto?
+* Una sensación de que algo malo va a ocurrir
+- Una certeza de un viaje
+- Un recuerdo de la infancia
+- Una promesa de boda
+Q: ¿Qué significa «atroz» en la frase «atroz presentimiento»?
+* Cruel o terrible
+- Pequeño
+- Agradable
+- Dudoso
+Q: ¿Qué significa «maldiciendo» en el texto?
+* Pronunciando maldiciones
+- Bendiciendo
+- Cantando
+- Rezando en silencio
+Q: ¿Qué representaba la flor blanca que tiró la hechicera?
+* El nombre de Sac-Nicte, que significa flor blanca
+- Una ofrenda a los dioses de la lluvia
+- El símbolo del cacique
+- Una flor de cempasúchil
+Q: ¿Qué había logrado la hechicera según su grito?
+* Haber traído a Hul-Kin junto a Sac-Nicte
+- Haber vengado a su familia
+- Haber casado a los jóvenes
+- Haber salvado al pueblo
+Q: ¿Qué relación tiene la maldición con el amor prohibido?
+* La maldición surge de esa tragedia amorosa
+- No tiene ninguna relación
+- Es un castigo para el cacique
+- Es un regalo para el pueblo
+Q: ¿Cuándo cobra el cenote una vida?
+* Cada año, cuando el agua se oscurece
+- Cada siglo, en luna llena
+- Cada día de boda
+- Cada vez que llueve
+Q: ¿Qué sentimiento motivó la maldición?
+* Ira y dolor de la hechicera
+- Alegría del pueblo
+- Miedo al cacique
+- Indiferencia
+Q: ¿Qué papel tuvo el presentimiento en la historia?
+* Lo llevó a regresar a Zací esa misma noche
+- Lo llevó a casarse con otra mujer
+- Lo hizo olvidar a Sac-Nicte
+- Lo hizo huir al mar
+Q: ¿A qué lugar se acercó la hechicera?
+* Al borde de la bóveda
+- Al altar del templo
+- Al mercado del pueblo
+- A la orilla del río
+Q: ¿Quiénes murieron en el cenote según el relato?
+* Sac-Nicte y Hul-Kin
+- Solo la hechicera
+- El cacique y su hijo
+- Los cocomes del pueblo
+Q: ¿Qué quedó unido después de sus muertes, según la hechicera?
+* Los dos enamorados, para siempre
+- Las dos familias rivales
+- Los cenotes de la región
+- Los templos del pueblo
+Q: ¿Cuál fue la consecuencia final de la separación de los jóvenes?
+* Su muerte en el cenote
+- Su boda en el sur
+- El fin de la familia Cocom
+- Un nuevo cacique en Zací
+Q: ¿Qué significa «cobraría» en la maldición?
+* Tomaría o reclamaría
+- Pagaría
+- Vendería
+- Ayudaría
+Q: ¿Quién dictó la maldición del cenote?
+* La hechicera
+- El cacique Halach-Huinic
+- Hul-Kin
+- Sac-Nicte
+

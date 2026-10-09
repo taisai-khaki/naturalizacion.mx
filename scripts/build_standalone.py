@@ -8,7 +8,7 @@ root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 data = lambda n: json.load(open(os.path.join(root, "data", n), encoding="utf-8"))
 
 hist = data("questions.json")
-passages = data("reading_passages.json")
+lectura = data("reading_passages.json")  # una fila por párrafo (ver scripts/build_reading.py)
 iw = data("interview_writing.json")
 
 
@@ -50,37 +50,35 @@ for q in hist:
         "explicacion_fa": q.get("explicacion_fa"),
     })
 
-PASSAGES = []
-for p in passages:
+# Lectura: una entrada por párrafo. Ids de pregunta 50000 + id_párrafo*100 + i,
+# separados del banco de Historia (ids 1..728).
+LECTURA = []
+for p in lectura:
     qs = []
     for i, q in enumerate(p["questions"]):
-        new_options, new_correct, new_tran = shuffle_options(
+        assert i < 100, "más de 100 preguntas en un párrafo"
+        new_options, new_correct, _ = shuffle_options(
             q["options"],
-            q["correct"],
-            q.get("options_en"),
-            q.get("options_fa"),
+            q["options"][q["correct"]],
         )
         qs.append({
-            "id": 10000 + p["id"] * 100 + i,
+            "id": 50000 + p["id"] * 100 + i,
             "question": q["question"],
             "options": new_options,
             "correct": new_correct,
-            "question_en": q.get("question_en"),
-            "options_en": new_tran[0],
-            "question_fa": q.get("question_fa"),
-            "options_fa": new_tran[1],
         })
-    PASSAGES.append({
+    LECTURA.append({
         "id": p["id"],
+        "passage_id": p["passage_id"],
+        "passage": p["passage"],
+        "paragraph": p["paragraph"],
         "title": p["title"],
         "topic": p.get("topic"),
         "text": p["text"],
-        "text_en": p.get("text_en"),
-        "text_fa": p.get("text_fa"),
         "questions": qs,
     })
 
-APP_DATA = {"hist": HIST, "passages": PASSAGES, "iw": iw}
+APP_DATA = {"hist": HIST, "lectura": LECTURA, "iw": iw}
 
 # Versión visible del build: fecha + hash corto del contenido. Cambia cada vez
 # que cambian los datos, y permite detectar en un teléfono si quedó una copia
@@ -88,7 +86,7 @@ APP_DATA = {"hist": HIST, "passages": PASSAGES, "iw": iw}
 digest = hashlib.sha256(
     json.dumps(APP_DATA, ensure_ascii=False, sort_keys=True).encode("utf-8")
 ).hexdigest()[:10]
-VERSION = f"{date.today().isoformat()}-{len(HIST)}q-{digest}"
+VERSION = f"{date.today().isoformat()}-{len(HIST)}q-{sum(len(p['questions']) for p in LECTURA)}l-{digest}"
 
 tmpl = open(os.path.join(root, "scripts", "standalone.template.html"), encoding="utf-8").read()
 payload = json.dumps(APP_DATA, ensure_ascii=False).replace("</", "<\\/")
@@ -108,4 +106,4 @@ html = html.replace("/*__FC_REMAP__*/", json.dumps(remap, ensure_ascii=False))
 out = os.path.join(root, "index.html")
 open(out, "w", encoding="utf-8").write(html)
 
-print(f"OK -> {out}  ({len(HIST)} history questions, {len(PASSAGES)} passages, {os.path.getsize(out)/1024:.0f} KB)")
+print(f"OK -> {out}  ({len(HIST)} history questions, {len(LECTURA)} reading paragraphs, {sum(len(p['questions']) for p in LECTURA)} reading questions, {os.path.getsize(out)/1024:.0f} KB)")

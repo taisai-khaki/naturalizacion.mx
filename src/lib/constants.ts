@@ -1,8 +1,12 @@
 // Configuración del examen (misma que la app de escritorio original)
 export const SIMULADOR_TOTAL = 10; // preguntas del simulador de Historia/Cultura
 export const SIMULADOR_PASS = 8; // se aprueba con 8 de 10
-export const LECTURA_TOTAL = 6; // preguntas por pasaje de lectura
-export const LECTURA_PASS = 5; // se aprueba con 5 de 6
+// Lectura: el examen toma un párrafo y TODAS sus preguntas. Se aprueba con el 80%
+// (redondeado hacia arriba: 6 de 6 -> 5, 31 -> 25).
+export const LECTURA_PASS_RATIO = 0.8;
+export function lecturaPassBar(totalQuestions: number): number {
+  return Math.ceil(LECTURA_PASS_RATIO * totalQuestions);
+}
 
 // Límites de tiempo
 export const SIMULADOR_SECONDS = 10 * 60; // 10 minutos

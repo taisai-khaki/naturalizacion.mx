@@ -5,7 +5,7 @@ import { Timer, BookOpen, RotateCcw, Trophy, XCircle } from "lucide-react";
 import type { User, Question, Passage } from "@/lib/client";
 import { api, formatTime } from "@/lib/client";
 import { Card, PrimaryButton, OptionButton, Pill } from "./ui";
-import { LECTURA_PASS, LECTURA_SECONDS } from "@/lib/constants";
+import { LECTURA_SECONDS, lecturaPassBar } from "@/lib/constants";
 
 type Result = { correct: number; total: number; passed: boolean; passBar: number };
 
@@ -77,8 +77,8 @@ export default function Lectura({
         <BookOpen className="w-10 h-10 text-amber-300 mx-auto mb-3" />
         <h2 className="text-2xl font-extrabold mb-2">Examen de Lectura</h2>
         <p className="text-emerald-200/80 max-w-xl mx-auto mb-6">
-          Un pasaje completo + {LECTURA_PASS + 1} preguntas de comprensión. Apruebas con{" "}
-          {LECTURA_PASS} de {LECTURA_PASS + 1}. Banco de 16 lecturas.
+          Un párrafo del texto con todas sus preguntas de comprensión. Apruebas con el 80% de
+          aciertos (por ejemplo, {lecturaPassBar(6)} de 6).
         </p>
         <PrimaryButton onClick={start} disabled={loading}>
           {loading ? "Cargando..." : "Iniciar lectura"}

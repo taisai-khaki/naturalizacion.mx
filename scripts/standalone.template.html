@@ -78,7 +78,10 @@ window.__APP_DATA__ = /*__DATA__*/;
 var D = window.__APP_DATA__;
 var APP_VERSION = "/*__VERSION__*/"; // inyectado por build_standalone.py
 var HIST = D.hist;       // Spanish questions with _en and _fa translation fields
-var PASSAGES = D.passages; // Spanish readings with _en and _fa translation fields
+var LEC = D.lectura;     // 39 párrafos de lectura, cada uno con sus preguntas (sin traducción todavía)
+var LEC_Q = {};          // id de pregunta -> pregunta de lectura
+var LEC_PARA = {};       // id de pregunta -> párrafo al que pertenece
+LEC.forEach(function(p){ p.questions.forEach(function(q){ LEC_Q[q.id]=q; LEC_PARA[q.id]=p; }); });
 var IW = D.iw;           // {interview:[{question,tip}], writing:[], writingChecklist:[], writingWordRange:[]}
 var TRANSLATION = "";   // "", "en", or "fa"
 var FA_CACHE = loadFarsiCache();
@@ -113,9 +116,11 @@ function loadDB(){
     if(!db.correctDays || typeof db.correctDays !== "object") db.correctDays={};
     if(!Array.isArray(db.attempts)) db.attempts=[];
     if(!db.daily || typeof db.daily !== "object") db.daily={};
+    if(!db.lecParas || typeof db.lecParas !== "object") db.lecParas={};
+    if(!db.lecQ || typeof db.lecQ !== "object") db.lecQ={};
     return db;
   }
-  catch(e){ return {flashcards:{},simSeen:{},bankAdded:{},correctDays:{},attempts:[],daily:{}}; }
+  catch(e){ return {flashcards:{},simSeen:{},bankAdded:{},correctDays:{},attempts:[],daily:{},lecParas:{},lecQ:{}}; }
 }
 // Error del último guardado ("" si todo salió bien). Se muestra en Flashcards:
 // si localStorage está lleno o el navegador está en modo privado, el progreso se
@@ -286,7 +291,7 @@ function loginHTML(){
   return '<div class="loginbox card">'+
     '<div class="pill gold" style="margin-bottom:10px">Práctica de naturalización mexicana</div>'+
     '<h1 style="font-size:34px;margin-bottom:6px">Examen de <span style="font-style:italic;font-family:Georgia,serif">Naturalización</span></h1>'+
-    '<p class="mut" style="margin-bottom:18px">Simulador (10 preguntas, pasa con 8) · Lectura (6, pasa con 5) · Entrevista y Redacción · Flashcards · Banco. Tu progreso se guarda en este dispositivo.</p>'+
+    '<p class="mut" style="margin-bottom:18px">Simulador (10 preguntas, pasa con 8) · Lectura (un párrafo con todas sus preguntas, pasa con el 80%) · Entrevista y Redacción · Flashcards · Banco. Tu progreso se guarda en este dispositivo.</p>'+
     '<label class="small" for="ph">Número de teléfono</label>'+
     '<input id="ph" class="field" placeholder="+52 55 1234 5678" />'+
     '<label class="small" for="nm">Tu nombre (opcional)</label>'+
@@ -409,7 +414,7 @@ function currentFarsiWork(){
     if(mode==="hist"){
       HIST.filter(function(x){if(!query)return true;return (x.pregunta+" "+(x.pregunta_en||"")+" "+(x.subtema||"")).toLowerCase().indexOf(query)>=0;}).slice(0,10).forEach(function(q){addHistoryFarsiSources(out,q);});
     } else if(mode==="lec"){
-      PASSAGES.filter(function(p){if(!query)return true;return (p.title+" "+p.text+" "+(p.text_en||"")).toLowerCase().indexOf(query)>=0;}).slice(0,2).forEach(function(p){addFarsiSource(out,p.text_en,p.text_fa);p.questions.forEach(function(q){addReadingFarsiSources(out,q);});});
+      /* Lectura: aún sin traducciones (text_en/text_fa). */
     }
     signature+="-"+mode+"-"+query;
   }
@@ -505,7 +510,7 @@ function startTimer(){
   clearInterval(STATE.timer);
   STATE.timer=setInterval(function(){
     var v=STATE.view; if(!v) return;
-    if(v.phase==="active"&&v.left>0){ v.left--; var el=document.querySelector(".timer"); if(el)el.textContent=fmt(v.left); if(v.left<=0){ clearInterval(STATE.timer); submitSim(true); } }
+    if(v.phase==="active"&&v.left>0){ v.left--; var el=document.querySelector(".timer"); if(el)el.textContent=fmt(v.left); if(v.left<=0){ clearInterval(STATE.timer); if(v.kind==="lec") submitLec(); else submitSim(true); } }
   },1000);
 }
 function submitSim(force){
@@ -524,7 +529,9 @@ function submitSim(force){
 function recordAnswers(list,type){
   var day=sessionDay();
   var cd=DB.correctDays||{};
-  list.forEach(function(x){ if(x.ans===x.correct){ var arr=cd[x.id]||[]; if(arr.indexOf(day)<0){arr.push(day); arr.sort(function(a,b){return a-b;});} cd[x.id]=arr; } });
+  // Lectura usa su propio progreso (DB.lecQ): no toca correctDays ni el mazo de Historia.
+  if(type==="lectura") list.forEach(function(x){ if(x.ans!=null) lecMark(x.id,x.ans===x.correct); });
+  list.forEach(function(x){ if(type!=="lectura" && x.ans===x.correct){ var arr=cd[x.id]||[]; if(arr.indexOf(day)<0){arr.push(day); arr.sort(function(a,b){return a-b;});} cd[x.id]=arr; } });
   DB.correctDays=cd;
   var u=user(); u.totalAnswered+=(list.filter(function(x){return x.ans!=null;}).length); u.totalCorrect+=(list.filter(function(x){return x.ans===x.correct;}).length); u.practiceSession=day;
   // El simulador agrega a flashcards de forma automática SOLO las preguntas
@@ -569,36 +576,170 @@ function simReviewHTML(v){
 function byHistId(id){ for(var i=0;i<HIST.length;i++){ if(HIST[i].id===id) return HIST[i]; } return {pregunta:"",opciones:[],correct:0}; }
 
 /* ---------- Lectura ---------- */
+// Lectura: 39 párrafos con sus preguntas. El examen toma un párrafo al azar,
+// muestra el texto con TODAS sus preguntas y se aprueba con el 80%.
+var LEC_PASS_RATIO = 0.8;
+function lecPassBar(n){ return Math.ceil(LEC_PASS_RATIO*n); }
 function lecHTML(){
-  if(!STATE.view){ var p=shuffle(PASSAGES)[0]; STATE.view={p:p,qs:p.questions,ans:{},left:1200,phase:"active"}; startTimer(); }
+  if(!STATE.view){ var p=shuffle(LEC)[0]; STATE.view={kind:"lec",p:p,qs:p.questions,ans:{},left:1200,phase:"active"}; startTimer(); }
   var v=STATE.view;
-  if(v.phase==="review") return lecReviewHTML(v);
+  return (v.phase==="review"?lecReviewHTML(v):lecExamHTML(v))+lecProgressHTML();
+}
+function lecExamHTML(v){
+  var n=v.qs.length;
   return '<div class="grid" style="grid-template-columns:1fr 1fr;gap:16px">'+
     '<div><div class="card"><div class="top"><div><h2>'+esc(v.p.title)+'</h2>'+(v.p.topic?'<span class="pill gold">'+esc(v.p.topic)+'</span>':'')+'</div><div class="timer">'+fmt(v.left)+'</div></div>'+
     '<div class="passage">'+esc(v.p.text)+'</div>'+tr(v.p.text_en,v.p.text_fa)+'</div></div>'+
     '<div>'+v.qs.map(function(q,i){return '<div class="card"><div class="qtext">'+(i+1)+'. '+esc(q.question)+'</div>'+tr(q.question_en,q.question_fa)+
       q.options.map(function(o,oi){return '<button class="opt'+(v.ans[q.id]===oi?' sel':'')+'" data-id="'+q.id+'" data-i="'+oi+'"><b style="color:#fcd34d">'+String.fromCharCode(65+oi)+'.</b> '+esc(o)+trOption(q.options_en,q.options_fa,oi)+'</button>';}).join("")+'</div>';}).join("")+
+    '<p class="small mut" style="margin-bottom:8px">Responde las '+n+' preguntas de este párrafo. Apruebas con '+lecPassBar(n)+' de '+n+' (80%).</p>'+
     '<button class="btn" id="finlec" style="width:100%;justify-content:center">Enviar respuestas de lectura</button></div></div>';
 }
 function submitLec(){
-  var v=STATE.view; if(!v||v.phase!=="active") return;
+  var v=STATE.view; if(!v||v.kind!=="lec"||v.phase!=="active") return;
   clearInterval(STATE.timer);
   var list=v.qs.map(function(q){return {id:q.id, ans:v.ans[q.id], correct:q.correct};});
   var correct=list.filter(function(x){return x.ans===x.correct;}).length;
-  var total=v.qs.length, passed=correct>=5;
+  var total=v.qs.length, passBar=lecPassBar(total), passed=correct>=passBar;
   recordAnswers(list,"lectura");
   recordAttempt("lectura",correct,total,passed);
   if(passed) setUser({lecturaApproved:true});
-  v.phase="review"; v.correct=correct; v.total=total; v.passed=passed; v.list=list;
+  v.phase="review"; v.correct=correct; v.total=total; v.passed=passed; v.passBar=passBar; v.list=list;
   render();
 }
 function lecReviewHTML(v){
   return '<div class="card"><div class="top"><h2>'+(v.passed?'✅ APROBADO':'❌ NO APROBADO')+'</h2></div>'+
-    '<p class="mut" style="margin-bottom:10px">Obtuviste <b>'+v.correct+'</b> de '+v.total+' (necesitas 5).</p><button class="btn" id="againlec">Repetir lectura</button></div>'+
+    '<p class="mut" style="margin-bottom:10px">Obtuviste <b>'+v.correct+'</b> de '+v.total+' (necesitas '+v.passBar+').</p><button class="btn" id="againlec">Repetir lectura</button></div>'+
+    '<div class="card"><h3 style="margin-bottom:8px">'+esc(v.p.title)+'</h3><div class="passage">'+esc(v.p.text)+'</div></div>'+
     v.list.map(function(x,i){var q=byLecId(x.id); return '<div class="card"><div class="row" style="justify-content:space-between"><b>'+(i+1)+'. '+esc(q.question)+'</b><span class="badge '+(x.ans===x.correct?'ok':'no')+'">'+(x.ans===x.correct?'Correcta':'Incorrecta')+'</span></div>'+tr(q.question_en,q.question_fa)+
       '<div>'+q.options.map(function(o,oi){var cls="opt locked"; if(oi===q.correct)cls="opt ok"; else if(oi===x.ans)cls="opt bad"; return '<div class="'+cls+'">'+esc(o)+(oi===q.correct?' <span class="marker">✓</span>':(oi===x.ans?' <span class="badmark">✗</span>':''))+trOption(q.options_en,q.options_fa,oi)+'</div>';}).join("")+'</div></div>';}).join("");
 }
-function byLecId(id){ for(var i=0;i<PASSAGES.length;i++){ var qs=PASSAGES[i].questions; for(var j=0;j<qs.length;j++){ if(qs[j].id===id) return qs[j]; } } return {question:"",options:[],correct:0}; }
+function byLecId(id){ return LEC_Q[+id]||{question:"",options:[],correct:0}; }
+
+// Progreso de lectura. DB.lecParas = {id_párrafo: true} (párrafos en flashcards de
+// lectura) y DB.lecQ = {id_pregunta: {ok, last, wrong}}. Una pregunta se aprende con
+// UNA respuesta correcta (en flashcards o en el examen); un párrafo se aprende cuando
+// todas sus preguntas están ok. Una respuesta fallada vuelve al día siguiente.
+function lecMark(qid,isCorrect){
+  var lq=DB.lecQ=DB.lecQ||{};
+  var c=lq[qid]||{ok:false,last:null,wrong:false};
+  if(isCorrect){ c.ok=true; c.wrong=false; } else { c.wrong=true; }
+  c.last=new Date().toISOString();
+  lq[qid]=c;
+}
+function lecInDeck(pid){ return !!(DB.lecParas||{})[pid]; }
+function lecCard(qid){ return (DB.lecQ||{})[qid]||null; }
+function lecOk(qid){ var c=lecCard(qid); return !!(c&&c.ok); }
+function lecDue(qid){
+  var c=lecCard(qid);
+  if(!c) return true;
+  if(c.ok) return false;
+  if(!c.last) return true;
+  return daysSince(c.last) >= (c.wrong?1:FLASHCARD_MIN_DAYS);
+}
+function lecDeckParas(){ return LEC.filter(function(p){ return lecInDeck(p.id); }); }
+function lecDeckQuestions(){
+  var out=[];
+  lecDeckParas().forEach(function(p){ p.questions.forEach(function(q){ out.push(q); }); });
+  return out;
+}
+function lecPending(){ return lecDeckQuestions().filter(function(q){ return !lecOk(q.id); }); }
+function lecAvailable(){ return lecPending().filter(function(q){ return lecDue(q.id); }); }
+function lecParaLearned(p){ return p.questions.length>0 && p.questions.every(function(q){ return lecOk(q.id); }); }
+function lecParaProgress(p){ return {ok:p.questions.filter(function(q){return lecOk(q.id);}).length, total:p.questions.length}; }
+function lecLearnedParas(){ return lecDeckParas().filter(lecParaLearned); }
+// Selecciona un párrafo: todas sus preguntas pasan a flashcards de lectura.
+function addLecParagraph(pid){
+  var p=null; for(var i=0;i<LEC.length;i++){ if(LEC[i].id===pid){ p=LEC[i]; break; } }
+  if(!p) return;
+  var dp=DB.lecParas=DB.lecParas||{}; dp[pid]=true;
+  var lq=DB.lecQ=DB.lecQ||{};
+  p.questions.forEach(function(q){ if(!lq[q.id]) lq[q.id]={ok:false,last:null,wrong:false}; });
+  saveDB(); render();
+}
+function lecProgressHTML(){
+  var rows=LEC.map(function(p){
+    var right;
+    if(lecInDeck(p.id)){
+      var pr=lecParaProgress(p);
+      right='<span class="row" style="gap:8px">'+(lecParaLearned(p)?'<span class="pill green">✅ Aprendido</span>':'')+
+        '<span class="small mut">'+pr.ok+'/'+pr.total+' correctas</span><span class="pill gold">En flashcards</span></span>';
+    } else {
+      right='<button class="btn ghost" data-addlec="'+p.id+'" style="font-size:12px;padding:6px 12px">+ Agregar a flashcards</button>';
+    }
+    return '<div class="row" style="justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)"><span class="small">'+esc(p.title)+'</span>'+right+'</div>';
+  }).join("");
+  return '<div class="card" style="margin-top:16px"><div class="top"><h2>Lectura en progreso</h2><div class="row">'+
+    '<span class="pill gold">En flashcards: '+lecDeckParas().length+' de '+LEC.length+'</span><span class="pill green">Aprendidos: '+lecLearnedParas().length+'</span></div></div>'+
+    '<p class="small mut" style="margin-bottom:8px">Elige párrafos para pasarlos a tu mazo de Lectura (Flashcards → Lectura). Al agregar un párrafo, todas sus preguntas entran a flashcards. Un párrafo se aprende cuando respondes bien cada una de sus preguntas al menos una vez.</p>'+rows+'</div>';
+}
+
+// Flashcards de lectura: misma mecánica que Historia (revelar / opciones),
+// pero con su propio mazo y su propio criterio de aprendizaje.
+function lecCardOf(q){
+  var p=LEC_PARA[q.id]||null;
+  return {id:q.id,pregunta:q.question,opciones:q.options,correct:q.correct,explicacion:null,categoria:"Lectura",subtema:p?p.title:"",dificultad:null,para:p};
+}
+function flDeckBar(){
+  var lec=STATE.sel.fldeck==="lec";
+  return '<div class="row" style="margin-bottom:10px"><span class="small mut" style="font-size:11px;font-weight:700;letter-spacing:.06em">MAZO:</span>'+
+    '<button class="tab'+(!lec?' on':'')+'" data-fldeck="hist" style="font-size:12px;padding:6px 12px">Historia y cultura</button>'+
+    '<button class="tab'+(lec?' on':'')+'" data-fldeck="lec" style="font-size:12px;padding:6px 12px">Lectura</button></div>';
+}
+function flSaveWarnHTML(){
+  return DB_SAVE_ERROR?('<div class="card" style="background:rgba(251,113,133,.12);border-color:rgba(251,113,133,.4);margin-bottom:10px"><b>⚠️ No se pudo guardar tu progreso en este navegador</b><p class="small mut" style="margin-top:4px">Tus respuestas no se están registrando, así que las tarjetas seguirán repitiéndose. Prueba desactivar el modo privado/navegación incógnito o libera espacio. Detalle: '+esc(DB_SAVE_ERROR)+'</p></div>'):'';
+}
+function flLecHTML(){
+  var warn=flSaveWarnHTML();
+  var deckParas=lecDeckParas(), learnedParas=lecLearnedParas();
+  var pending=lecPending(), avail=lecAvailable();
+  var learnedQ=lecDeckQuestions().length-pending.length;
+  if(!deckParas.length){
+    return warn+'<div class="card" style="padding:40px;text-align:center"><h2>Aún no tienes lectura en flashcards</h2><p class="small mut" style="margin-top:8px">Ve a la pestaña <b>Lectura</b>, sección <b>Lectura en progreso</b>, y elige los párrafos que quieras estudiar. Al agregar un párrafo, todas sus preguntas pasan a flashcards.</p></div>';
+  }
+  if(!STATE.flash||!STATE.flash.lec){
+    if(!avail.length){
+      return warn+'<div class="card" style="padding:40px;text-align:center"><div class="row" style="margin-bottom:12px;justify-content:center"><span class="pill gold">Pendientes: '+pending.length+'</span><span class="pill green">Aprendidas: '+learnedQ+'</span><span class="pill">Párrafos aprendidos: '+learnedParas.length+'/'+deckParas.length+'</span></div>'+
+        '<h2>'+(pending.length?'¡Ninguna disponible hoy! ⏳':'¡Lectura aprendida! 🎉')+'</h2><p class="small mut" style="margin-top:8px">'+(pending.length?'Las preguntas falladas vuelven al día siguiente.':'Respondiste bien cada pregunta de los párrafos en tu mazo.')+'</p></div>';
+    }
+    STATE.flash={q:lecCardOf(shuffle(avail)[0]),lec:true,revealed:false,answered:false,selectedOption:null};
+  }
+  var v=STATE.flash,q=v.q,para=q.para;
+  var modeBtn='<button class="btn ghost" id="flmode" style="margin-left:auto;font-size:12px">'+(FL_MODE==="reveal"?"Cambiar a opciones":"Cambiar a autoevaluación")+'</button>';
+  var header='<div class="row" style="margin-bottom:10px;flex-wrap:wrap"><span class="pill gold">Pendientes: '+pending.length+'</span><span class="pill green">Aprendidas: '+learnedQ+'</span><span class="pill">Párrafos aprendidos: '+learnedParas.length+'/'+deckParas.length+'</span>'+modeBtn+'</div>';
+  var body='';
+  if(FL_MODE==="reveal"){
+    body=qpills(q)+'<div class="qtext">'+esc(q.pregunta)+'</div>'+
+      '<div id="flashcard">'+(v.revealed?'<div class="card" style="background:rgba(110,231,183,.1);border-color:rgba(110,231,183,.3)"><b>Respuesta:</b> '+esc(q.opciones[q.correct])+'</div>':'')+'</div>'+
+      '<div class="row">'+(v.answered?'<p class="small mut">¡Respuesta registrada! Cargando siguiente...</p>':(v.revealed?
+        '<button class="btn" id="flcorrect">✅ Correcta</button><button class="btn ghost" id="flwrong">❌ Incorrecta</button>'
+        :'<button class="btn ghost" id="flshow">Mostrar respuesta</button>'))+'</div>';
+  } else {
+    body=qpills(q)+'<div class="qtext">'+esc(q.pregunta)+'</div>'+
+      (v.answered?'<div style="text-align:center;margin-bottom:8px;font-weight:700" class="'+(v.selectedOption===q.correct?'marker':'badmark')+'">'+(v.selectedOption===q.correct?'¡Correcta! ✅':'Incorrecta ❌')+'</div>':'')+
+      '<div id="flashcard">'+q.opciones.map(function(o,i){
+        var cls="opt";
+        if(v.selectedOption!=null){ if(i===q.correct) cls="opt ok"; else if(i===v.selectedOption) cls="opt bad"; else cls="opt locked"; }
+        return '<button class="'+cls+'" data-fli="'+i+'"'+(v.selectedOption!=null?' disabled':'')+'><b style="color:#fcd34d">'+String.fromCharCode(65+i)+'.</b> '+esc(o)+
+          (v.selectedOption!=null&&i===q.correct?' <span class="marker">✓</span>':'')+
+          (v.selectedOption!=null&&i===v.selectedOption&&i!==q.correct?' <span class="badmark">✗</span>':'')+'</button>';
+      }).join("")+'</div>'+
+      (v.selectedOption==null?'<p class="small mut">Selecciona la opción correcta</p>':'');
+  }
+  var verParrafo='<details style="margin-top:12px"><summary class="small" style="cursor:pointer;color:#fcd34d">Ver el párrafo de esta pregunta</summary><div class="passage" style="margin-top:8px">'+esc(para?para.text:"")+'</div></details>';
+  return warn+'<div class="card">'+header+body+verParrafo+
+    '<p class="small mut" style="margin-top:8px">Modo '+(FL_MODE==="reveal"?"autoevaluación":"opciones múltiples")+' · Lectura: basta <b>una</b> respuesta correcta por pregunta para aprenderla. Una pregunta fallada vuelve <b>al día siguiente</b>. Un párrafo se aprende al completar todas sus preguntas.</p></div>';
+}
+function lecFlashMark(isCorrect){
+  var v=STATE.flash; if(!v||!v.lec||v.answered) return;
+  lecMark(v.q.id,isCorrect);
+  var d=DB.daily[today()]||{flashcards:0,simulador:false,lectura:false};
+  d.flashcards=(d.flashcards||0)+1; DB.daily[today()]=d;
+  var u=user(); u.masteredCount=learnedIds().length; setUser(u);
+  saveDB(); v.answered=true; render();
+  setTimeout(function(){ if(STATE.flash===v){ STATE.flash=null; render(); } },1500);
+}
+
 function recordAttempt(type,score,total,passed){ (DB.attempts=DB.attempts||[]).unshift({type:type,score:score,total:total,passed:passed,at:Date.now()}); DB.attempts=DB.attempts.slice(0,20); saveDB(); }
 
 /* ---------- Entrevista ---------- */
@@ -670,6 +811,9 @@ function availablePool(cat){
   return pool;
 }
 function flHTML(){
+  return flDeckBar()+(STATE.sel.fldeck==="lec"?flLecHTML():flHistHTML());
+}
+function flHistHTML(){
   var learned=learnedIds();
   var pending=pendingCards();
   var cat=STATE.sel.flcat||"all";
@@ -731,6 +875,7 @@ function getFlashcardInfo(qid){
   return fc[qid]||null;
 }
 function markFlashCorrect(isCorrect){
+  if(STATE.flash&&STATE.flash.lec) return lecFlashMark(isCorrect);
   var v=STATE.flash,q=v.q;
   var fc=DB.flashcards=DB.flashcards||{};
   var card=fc[q.id]||{correctCount:0,learned:false,lastReviewedAt:null};
@@ -767,17 +912,26 @@ function banHTML(){
   var mode=STATE.sel.banmode||"hist";
   var fcf=STATE.sel.banfc||"all";
   var hits=[];
+  var lechits=[];
   if(mode==="hist"){ hits=HIST.filter(function(x){ if(!q) return true; var hay=x.pregunta+" "+(x.pregunta_en||"")+" "+(x.pregunta_fa||"")+" "+(x.subtema||"")+" "+(x.categoria||"")+" "+x.opciones.join(" ")+" "+(x.opciones_en||[]).join(" ")+" "+(x.opciones_fa||[]).join(" "); return hay.toLowerCase().indexOf(q)>=0; }); }
   if(fcf!=="all"){ hits=hits.filter(function(x){ var inC=cardAllowed(x.id)&&!!((DB.flashcards||{})[x.id]); return fcf==="in"?inC:!inC; }); }
-  var lechits=[];
-  if(mode==="lec"){ lechits=PASSAGES.filter(function(p){ if(!q) return true; return (p.title+" "+p.text+" "+(p.text_en||"")+" "+(p.text_fa||"")).toLowerCase().indexOf(q)>=0; }); }
+  if(mode==="lec"){
+    lechits=LEC.filter(function(p){
+      if(fcf==="in"&&!lecInDeck(p.id)) return false;
+      if(fcf==="out"&&lecInDeck(p.id)) return false;
+      if(!q) return true;
+      var hay=p.title+" "+(p.topic||"")+" "+p.text+" "+p.questions.map(function(x){return x.question+" "+x.options.join(" ");}).join(" ");
+      return hay.toLowerCase().indexOf(q)>=0;
+    });
+  }
   var modes=[["hist","Historia y cultura"],["lec","Lecturas"],["conv","Conversación"]];
   var m=modes.map(function(x){return '<button class="tab'+(mode===x[0]?' on':'')+'" data-banmode="'+x[0]+'">'+x[1]+'</button>';}).join("");
+  var filtro='<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 12px"><span class="small mut" style="font-size:11px;font-weight:700;letter-spacing:.06em">FLASHCARDS:</span>'+
+    [["all","Todas"],["in","En flashcards"],["out","Sin agregar"]].map(function(f){return '<button class="tab'+(fcf===f[0]?' on':'')+'" data-banfc="'+f[0]+'" style="font-size:12px;padding:6px 12px">'+f[1]+'</button>';}).join("")+
+    '</div>';
   var body="";
   if(mode==="hist"){
-    body='<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 12px"><span class="small mut" style="font-size:11px;font-weight:700;letter-spacing:.06em">FLASHCARDS:</span>'+
-    [["all","Todas"],["in","En flashcards"],["out","Sin agregar"]].map(function(f){return '<button class="tab'+(fcf===f[0]?' on':'')+'" data-banfc="'+f[0]+'" style="font-size:12px;padding:6px 12px">'+f[1]+'</button>';}).join("")+
-    '</div>'+
+    body=filtro+
     '<p class="small mut">'+hits.length+' pregunta(s) encontradas · total del banco: <b>'+HIST.length+'</b>.</p>'+
     '<p class="small mut" style="background:rgba(2,132,199,.12);border:1px solid rgba(56,189,248,.25);border-radius:10px;padding:8px 10px;margin-bottom:10px">Las preguntas del simulador se agregan solas a tus flashcards y, a partir de ese momento, <b>ya no vuelven a salir en el simulador</b>: se estudian desde Flashcards. Si quieres, también puedes añadir cualquier otra pregunta del banco con “Agregar a flashcards”.</p>'+
     hits.map(function(x){var inCards=cardAllowed(x.id)&&!!((DB.flashcards||{})[x.id]); return '<div class="card"><div class="row">'+qpills(x)+'</div><div class="qtext" style="font-size:16px">'+esc(x.pregunta)+'</div>'+tr(x.pregunta_en,x.pregunta_fa)+
@@ -786,9 +940,19 @@ function banHTML(){
     (inCards?'<div style="margin-top:10px"><span class="pill green">✓ En tus tarjetas</span></div>':'<div style="margin-top:10px"><button class="btn ghost" style="font-size:12px;padding:6px 12px" data-addfl="'+x.id+'">+ Agregar a flashcards</button></div>')+
     '</div>';}).join("");
   }
-  else if(mode==="lec"){ body='<p class="small mut">'+lechits.length+' texto(s) encontrado(s).</p>'+lechits.map(function(p){return '<div class="card"><h2>LECTURA: '+esc(p.title)+'</h2>'+(p.topic?'<span class="pill gold">'+esc(p.topic)+'</span>':'')+
-    '<div class="passage" style="margin:10px 0">'+esc(p.text)+'</div>'+tr(p.text_en,p.text_fa)+
-    p.questions.map(function(q,i){return '<div style="margin:8px 0"><b>'+(i+1)+'. '+esc(q.question)+'</b>'+tr(q.question_en,q.question_fa)+q.options.map(function(o,oi){return '<div class="opt locked">'+esc(o)+(oi===q.correct?' <span class="marker">[CORRECTA]</span>':'')+trOption(q.options_en,q.options_fa,oi)+'</div>';}).join("")+'</div>';}).join("")+'</div>';}).join(""); }
+  else if(mode==="lec"){
+    body=filtro+
+    '<p class="small mut">'+lechits.length+' párrafo(s) encontrado(s) · total: <b>'+LEC.length+'</b>. Al agregar un párrafo, todas sus preguntas pasan a tus flashcards de Lectura.</p>'+
+    lechits.map(function(p){
+      var inDeck=lecInDeck(p.id), pr=lecParaProgress(p);
+      return '<div class="card"><div class="row" style="justify-content:space-between">'+
+        '<div><h2 style="font-size:18px">'+esc(p.title)+'</h2>'+(p.topic?'<span class="pill gold">'+esc(p.topic)+'</span> ':'')+'<span class="pill">'+p.questions.length+' preguntas</span></div>'+
+        (inDeck?'<span class="pill green">✓ En flashcards · '+pr.ok+'/'+pr.total+'</span>':'<button class="btn ghost" style="font-size:12px;padding:6px 12px" data-addlec="'+p.id+'">+ Agregar a flashcards</button>')+'</div>'+
+        '<div class="passage" style="margin:10px 0">'+esc(p.text)+'</div>'+
+        p.questions.map(function(x,i){return '<div style="margin:8px 0"><b>'+(i+1)+'. '+esc(x.question)+'</b>'+x.options.map(function(o,oi){return '<div class="opt locked">'+esc(o)+(oi===x.correct?' <span class="marker">[CORRECTA]</span>':'')+'</div>';}).join("")+'</div>';}).join("")+
+        '</div>';
+    }).join("");
+  }
   else { body='<div class="grid" style="grid-template-columns:1fr 1fr;gap:16px"><div class="card"><h2 style="margin-bottom:8px">Conversación</h2>'+IW.interview.map(function(x,i){return '<div style="margin:8px 0"><b>'+(i+1)+'. '+esc(x.question)+'</b><div class="small mut">Sugerencia: '+esc(x.tip)+'</div></div>';}).join("")+'</div><div class="card"><h2 style="margin-bottom:8px">Redacción</h2>'+IW.writing.map(function(w,i){return '<div style="margin:6px 0">'+(i+1)+'. '+esc(w)+'</div>';}).join("")+'</div></div>'; }
   return '<div class="card"><div class="top"><div class="tabs" style="margin:0">'+m+'</div>'+(mode!=="conv"?'<input class="field" style="max-width:280px;margin:0" id="banq" placeholder="Buscar palabra o tema…" value="'+esc(STATE.sel.banq||"")+'">':'')+'</div>'+body+'</div>';
 }
@@ -799,15 +963,20 @@ function proHTML(){
   var learned=learnedIds();
   var pending=pendingCards();
   var attempts=(DB.attempts||[]);
+  var lecDeck=lecDeckParas(), lecLearned=lecLearnedParas();
   return '<div class="grid"><div class="stat"><b>'+HIST.length+'</b><div class="small mut">Total banco</div></div>'+
     '<div class="stat"><b>'+learned.length+'</b><div class="small mut">Aprendidas</div></div>'+
+    '<div class="stat"><b>'+lecLearned.length+'</b><div class="small mut">Párrafos de lectura aprendidos</div></div>'+
     '<div class="stat"><b>'+u.totalCorrect+'</b><div class="small mut">Correctas totales</div></div>'+
     '<div class="stat"><b>'+u.totalAnswered+'</b><div class="small mut">Respondidas</div></div></div>'+
     '<div class="card"><h2 style="margin-bottom:8px">Últimos intentos</h2>'+(attempts.length?'<table><tr><th>Tipo</th><th>Resultado</th><th>Fecha</th></tr>'+attempts.slice(0,10).map(function(a){return '<tr><td>'+(a.type==="simulador"?"Simulador":"Lectura")+'</td><td>'+a.score+'/'+a.total+' <span class="badge '+(a.passed?'ok':'no')+'">'+(a.passed?'Aprobado':'No aprobado')+'</span></td><td class="small mut">'+new Date(a.at).toLocaleString()+'</td></tr>';}).join("")+'</table>':'<p class="small mut">Aún no hay intentos registrados.</p>')+'</div>'+
     '<div class="card"><h2 style="margin-bottom:8px">Preguntas aprendidas <span class="pill green">'+learned.length+'</span></h2>'+(learned.length?learned.map(function(id){var q=byHistId(id);var card=getFlashcardInfo(id);return '<div class="small" style="margin:4px 0;display:flex;justify-content:space-between">'+
       '<span>• '+esc(q.pregunta)+'</span><span class="mut">✅ '+(card?card.correctCount:FLASHCARD_LEARN_COUNT)+'/'+FLASHCARD_LEARN_COUNT+'</span></div>';}).join(""):'<p class="small mut">Responde correctamente '+FLASHCARD_LEARN_COUNT+' veces en flashcards para aprender una pregunta.</p>')+'</div>'+
     '<div class="card"><h2 style="margin-bottom:8px">En repaso <span class="pill gold">'+pending.length+' pendientes</span></h2>'+(pending.length?pending.map(function(p){var q=byHistId(p.id);var card=getFlashcardInfo(p.id);var minDays=card&&card.wrong?1:FLASHCARD_MIN_DAYS;var canReview=!p.lastReviewedAt||daysSince(p.lastReviewedAt)>=minDays;return '<div class="small" style="margin:4px 0;display:flex;justify-content:space-between">'+
-      '<span>• '+esc(q.pregunta)+' '+(canReview?'<span class="pill green" style="font-size:10px;padding:1px 6px">Disponible</span>':'<span class="pill rose" style="font-size:10px;padding:1px 6px">En espera</span>')+'</span><span class="mut">'+p.correctCount+'/'+FLASHCARD_LEARN_COUNT+'</span></div>';}).join(""):'<p class="small mut">Sin preguntas pendientes. Practica en el simulador o agrega preguntas desde el banco.</p>')+'</div>';
+      '<span>• '+esc(q.pregunta)+' '+(canReview?'<span class="pill green" style="font-size:10px;padding:1px 6px">Disponible</span>':'<span class="pill rose" style="font-size:10px;padding:1px 6px">En espera</span>')+'</span><span class="mut">'+p.correctCount+'/'+FLASHCARD_LEARN_COUNT+'</span></div>';}).join(""):'<p class="small mut">Sin preguntas pendientes. Practica en el simulador o agrega preguntas desde el banco.</p>')+'</div>'+
+    '<div class="card"><h2 style="margin-bottom:8px">Lectura en progreso <span class="pill green">'+lecLearned.length+' de '+lecDeck.length+' aprendidos</span></h2>'+
+    (lecDeck.length?lecDeck.map(function(p){var pr=lecParaProgress(p);return '<div class="small" style="margin:4px 0;display:flex;justify-content:space-between"><span>• '+esc(p.title)+'</span>'+
+      (lecParaLearned(p)?'<span class="pill green" style="font-size:10px;padding:1px 6px">✅ Aprendido</span>':'<span class="mut">'+pr.ok+'/'+pr.total+' correctas</span>')+'</div>';}).join(""):'<p class="small mut">Aún no hay párrafos en flashcards de lectura. Agrégalos desde la pestaña Lectura.</p>')+'</div>';
 }
 
 /* ---------- bind per view ---------- */
@@ -822,6 +991,7 @@ function bindView(){
     var fin=document.getElementById("fin"); if(fin)fin.onclick=function(){submitSim(false);};
   }
   if(tab==="lec"){
+    document.querySelectorAll("[data-addlec]").forEach(function(b){ b.onclick=function(){ addLecParagraph(+b.getAttribute("data-addlec")); }; });
     var lv=STATE.view;
     if(lv.phase==="review"){ document.getElementById("againlec").onclick=function(){ STATE.view=null; render(); }; return; }
     document.querySelectorAll(".opt[data-id]").forEach(function(b){ b.onclick=function(){ lv.ans[+b.getAttribute("data-id")]=+b.getAttribute("data-i"); render(); }; });
@@ -836,6 +1006,7 @@ function bindView(){
   if(tab==="fl"){
     var fv=STATE.flash;
     document.querySelectorAll("[data-flcat]").forEach(function(b){ b.onclick=function(){ STATE.sel.flcat=b.getAttribute("data-flcat"); STATE.flash=null; render(); }; });
+    document.querySelectorAll("[data-fldeck]").forEach(function(b){ b.onclick=function(){ STATE.sel.fldeck=b.getAttribute("data-fldeck"); STATE.flash=null; render(); }; });
     var modeBtn=document.getElementById("flmode"); if(modeBtn)modeBtn.onclick=function(){ FL_MODE=FL_MODE==="reveal"?"choice":"reveal"; if(fv){fv.revealed=false;fv.answered=false;fv.selectedOption=null;} render(); };
     var sh=document.getElementById("flshow"); if(sh)sh.onclick=function(){fv.revealed=true;render();};
     var fc=document.getElementById("flcorrect"); if(fc)fc.onclick=function(){markFlashCorrect(true);};
@@ -852,6 +1023,7 @@ function bindView(){
     document.querySelectorAll("[data-banfc]").forEach(function(b){ b.onclick=function(){ STATE.sel.banfc=b.getAttribute("data-banfc"); render(); }; });
     var bq=document.getElementById("banq"); if(bq){ bq.oninput=function(){ STATE.sel.banq=bq.value; }; }
     document.querySelectorAll("[data-addfl]").forEach(function(b){ b.onclick=function(){ addFromBank(+b.getAttribute("data-addfl")); }; });
+    document.querySelectorAll("[data-addlec]").forEach(function(b){ b.onclick=function(){ addLecParagraph(+b.getAttribute("data-addlec")); }; });
   }
   if(tab==="pro"){ /* static */ }
 }
