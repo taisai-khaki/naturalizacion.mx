@@ -29,7 +29,7 @@ SRC_TEXT = os.path.join(ROOT, "data", "reading", "pasajes.txt")
 SRC_QS_GLOB = os.path.join(ROOT, "data", "reading", "preguntas_*.txt")
 OUT = os.path.join(ROOT, "data", "reading_passages.json")
 
-TARGET_TOTAL = 600
+TARGET_TOTAL = 474
 MIN_PER_PARAGRAPH = 6
 DISTRACTORS = 3
 PARA_ID = re.compile(r"^(\d+)\.(\d+)$")

@@ -9,7 +9,7 @@ preguntas real extraído de las aplicaciones de escritorio originales
 | Sección | Detalle |
 | --- | --- |
 | **Simulador Historia/Cultura** | 10 preguntas al azar de un banco limpio de **683**. Apruebas con **8/10**. Las preguntas que ya están en tus flashcards **no vuelven a salir aquí**: se estudian desde Flashcards. |
-| **Examen de Lectura** | Un **párrafo** de los 6 textos de lectura, mostrado con **todas** sus preguntas de comprensión (**600** preguntas en **39** párrafos). Apruebas con el **80%** de aciertos (p. ej. 5 de 6, 25 de 31). |
+| **Examen de Lectura** | Un **párrafo** de los 6 textos de lectura, mostrado con **todas** sus preguntas de comprensión (**474** preguntas en **39** párrafos). Apruebas con el **80%** de aciertos (p. ej. 5 de 6, 25 de 31). |
 | **Lectura en progreso** | En la pestaña Lectura eliges párrafos (por nombre). Al agregar uno, **todas sus preguntas** pasan a un mazo de **Lectura** en Flashcards. Un párrafo se aprende cuando respondes bien **cada una** de sus preguntas al menos una vez. Progreso lo muestra solo por nombre. |
 | **Entrevista y Redacción** | 10 preguntas de entrevista con tips + 5 temas de redacción (80–120 palabras) con checklist. |
 | **Flashcards** | Tarjetas de Historia/Cultura; se aprenden con **5 respuestas correctas** y cada tarjeta se repasa **una vez al día** (la que respondes hoy vuelve al día siguiente). Solo entran preguntas que ya respondiste en el simulador o que agregaste desde el banco. |
@@ -36,9 +36,9 @@ Todo en `data/`:
   el navegador la traducción al farsi cuando se activa **FA**.
 - `reading_passages.json` — **39 párrafos** de los **6 textos** de lectura ("Leyenda del maíz",
   "Parque Nacional Cañón del Sumidero", "La celebración del día de muertos", "Leyenda del
-  Mayab…", "Los volcanes", "La leyenda del Cenote Zací") con **600 preguntas** de opción múltiple.
+  Mayab…", "Los volcanes", "La leyenda del Cenote Zací") con **474 preguntas** de opción múltiple.
   Se genera con `scripts/build_reading.py` desde `data/reading/pasajes.txt` (textos) y
-  `data/reading/preguntas_1..6.txt` (preguntas), y el script **falla** si el total no es 600.
+  `data/reading/preguntas_1..6.txt` (preguntas), y el script **falla** si el total no es 474.
   **Aún sin traducción** al inglés ni al farsi (los botones EN/FA no muestran la lectura todavía).
 - `interview_writing.json` — entrevista + redacción.
 - `questions_from_images.json` — las **576 preguntas únicas** extraídas por OCR de tus
@@ -164,7 +164,7 @@ párrafos. Cada párrafo se muestra con su nombre (`Párrafo 1 · Leyenda del ma
 - Alcance: el mazo de Lectura y el examen con el 80% están en la app autocontenida
   (`index.html`). La app Next.js recibe los mismos datos (`npm run db:seed`) y usa el 80%
   en el examen, pero todavía no tiene el mazo de Lectura.
-- Las preguntas de lectura se escriben como 600 preguntas sobre el mismo texto, así que
+- Las preguntas de lectura se escriben como 474 preguntas sobre el mismo texto, así que
   muchas repiten un dato desde distintos ángulos. Los enunciados no se repiten exactamente.
 
 ## 🌐 App en GitHub Pages (un solo archivo)
@@ -217,7 +217,7 @@ python3 scripts/dedupe_original.py  # deduplica el banco original (33 conceptos)
 python3 scripts/repair_added.py     # reconstruye el lote OCR 2026 corregido (idempotente)
 python3 scripts/dedupe_duplicates.py # elimina casi-duplicadas del banco y escribe data/dedupe_remap.json
 python3 scripts/validate_bank.py    # audita calidad del banco (sale 1 si hay defectos)
-python3 scripts/build_reading.py    # genera reading_passages.json desde data/reading/ (valida 600 preguntas)
+python3 scripts/build_reading.py    # genera reading_passages.json desde data/reading/ (valida 474 preguntas)
 python3 scripts/add_farsi_translations.py # traduce al farsi los campos nuevos o faltantes
 python3 scripts/build_standalone.py # regenera index.html
 ```
@@ -235,7 +235,7 @@ Con `DATABASE_URL` definido se usa PostgreSQL real vía `pg`; sin él, PGlite lo
 
 - Revisar 2–3 preguntas dependientes del tiempo (p. ej. titular de la SRE, personaje
   del billete de 100 pesos) si quieres mantenerlas actualizadas.
-- Traducir al inglés y al farsi las 600 preguntas y los textos de lectura.
+- Traducir al inglés y al farsi las 474 preguntas y los textos de lectura.
 - Llevar el mazo de Lectura a la app Next.js (hoy solo lo tiene la app autocontenida).
 
 ## 📄 Licencia

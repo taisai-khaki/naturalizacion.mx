@@ -8,7 +8,7 @@ Datos reales extraídos de las aplicaciones de práctica originales
 | Archivo | Contenido |
 | --- | --- |
 | `questions.json` | **3,000** preguntas de Historia y Cultura (4 opciones c/u, con categoría, subtema, dificultad, explicación y fuente). |
-| `reading_passages.json` | **39** párrafos de los **6** textos de lectura, con **600** preguntas de comprensión. Se genera con `python3 scripts/build_reading.py` desde `data/reading/`. |
+| `reading_passages.json` | **39** párrafos de los **6** textos de lectura, con **474** preguntas de comprensión. Se genera con `python3 scripts/build_reading.py` desde `data/reading/`. |
 | `interview_writing.json` | **10** preguntas de entrevista (con tips) y **5** temas de redacción. |
 
 ## Cómo cargar los datos
