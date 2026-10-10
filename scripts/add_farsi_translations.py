@@ -5,9 +5,16 @@ Translations are generated from the existing, reviewed English text so Spanish
 question and answer data is never modified. Existing Persian fields are reused,
 which makes this script safe to run again after adding new questions.
 
+The reading bank is the exception: its translations (English *and* Persian)
+live in `data/reading/traducciones.tsv`, because `data/reading_passages.json`
+is rewritten from the text sources by `scripts/build_reading.py` and would
+otherwise drop whatever was added here. Strings that this script translates for
+the reading bank are therefore appended to that TSV first, and then applied.
+
 The script uses Google's public translation endpoint and needs internet access:
 
     python3 scripts/add_farsi_translations.py
+    python3 scripts/build_reading.py        # only if the TSV gained new rows
     python3 scripts/build_standalone.py
 """
 
@@ -151,6 +158,30 @@ def collect_sources(questions, passages) -> list[str]:
     return list(dict.fromkeys(source for source in sources if source))
 
 
+def sync_reading_tsv(translations: dict[str, str]) -> int:
+    """Write machine-generated reading Farsi into data/reading/traducciones.tsv.
+
+    The TSV is the source of truth for reading translations, so anything that is
+    only put into the JSON would be lost on the next `build_reading.py` run.
+    Returns the number of rows completed.
+    """
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import reading_translations as rt  # noqa: PLC0415 (cíclico por diseño: comparten datos)
+
+    rows = rt.load_rows()
+    table = rt.load_tsv()
+    updated = 0
+    for text in rt.canonical(rows):
+        entry = table.get(text) or {}
+        english, persian = entry.get("en", ""), entry.get("fa", "")
+        if english and not persian and translations.get(english):
+            table.setdefault(text, {})["fa"] = translations[english]
+            updated += 1
+    if updated:
+        rt.save_tsv(rt.canonical(rows), table)
+    return updated
+
+
 def populate_fields(questions, passages, translations: dict[str, str]) -> None:
     for question in questions:
         question["pregunta_fa"] = translations[question["pregunta_en"]]
@@ -159,8 +190,19 @@ def populate_fields(questions, passages, translations: dict[str, str]) -> None:
             question["explicacion_fa"] = translations[question["explicacion_en"]]
 
     for passage in passages:
+        for key in ("text_en",):
+            if not passage.get(key):
+                raise SystemExit(
+                    f'el párrafo {passage["id"]} no tiene "{key}": completa primero '
+                    "data/reading/traducciones.tsv (python3 scripts/reading_translations.py status)"
+                )
         passage["text_fa"] = translations[passage["text_en"]]
-        for question in passage["questions"]:
+        for index, question in enumerate(passage["questions"], 1):
+            if not question.get("question_en"):
+                raise SystemExit(
+                    f'el párrafo {passage["id"]} pregunta {index} no tiene "question_en": '
+                    "agrega su inglés a data/reading/traducciones.tsv antes de continuar"
+                )
             question["question_fa"] = translations[question["question_en"]]
             question["options_fa"] = [translations[value] for value in question["options_en"]]
 
@@ -214,6 +256,13 @@ def main() -> int:
         except Exception:
             save_json(CACHE_PATH, translations)
             raise
+
+    reading_rows = sync_reading_tsv(translations)
+    if reading_rows:
+        print(
+            f"  {reading_rows} fila(s) nuevos en data/reading/traducciones.tsv; "
+            "revisa el farsi automático y ejecuta python3 scripts/build_reading.py"
+        )
 
     populate_fields(questions, passages, translations)
     validate(questions, passages)

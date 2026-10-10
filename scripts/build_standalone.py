@@ -57,15 +57,34 @@ for p in lectura:
     qs = []
     for i, q in enumerate(p["questions"]):
         assert i < 100, "más de 100 preguntas en un párrafo"
-        new_options, new_correct, _ = shuffle_options(
+        # Las traducciones viajan en el mismo orden que las opciones: se pasan a
+        # shuffle_options para que las permuten juntas y "opciones_en[3]" siga
+        # siendo la traducción de "options[3]" después de barajar.
+        en, fa = q.get("options_en") or [], q.get("options_fa") or []
+        if not en or not fa:
+            raise SystemExit(
+                f'el párrafo {p["id"]} pregunta {i + 1} no tiene traducciones: '
+                "ejecuta primero python3 scripts/build_reading.py"
+            )
+        assert len(en) == len(fa) == len(q["options"]), (
+            f'párrafo {p["id"]} pregunta {i + 1}: las traducciones de las opciones '
+            f"deben tener {len(q['options'])} elementos"
+        )
+        new_options, new_correct, (new_en, new_fa) = shuffle_options(
             q["options"],
             q["options"][q["correct"]],
+            en,
+            fa,
         )
         qs.append({
             "id": 50000 + p["id"] * 100 + i,
             "question": q["question"],
             "options": new_options,
             "correct": new_correct,
+            "question_en": q["question_en"],
+            "question_fa": q["question_fa"],
+            "options_en": new_en,
+            "options_fa": new_fa,
         })
     LECTURA.append({
         "id": p["id"],
@@ -75,6 +94,8 @@ for p in lectura:
         "title": p["title"],
         "topic": p.get("topic"),
         "text": p["text"],
+        "text_en": p["text_en"],
+        "text_fa": p["text_fa"],
         "questions": qs,
     })
 

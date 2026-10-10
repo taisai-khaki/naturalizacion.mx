@@ -23,7 +23,7 @@ preguntas real extraído de las aplicaciones de escritorio originales
   (por ejemplo, de versiones anteriores) se descartan automáticamente al cargar la app.
 - Una pregunta se considera **dominada** al acertarla en **5 sesiones distintas**.
 - Estado **"¡Listo!"** cuando apruebas simulador y lectura.
-- Botones **EN** y **FA** para ver las traducciones al **inglés** o **farsi/persa** de cada texto, pregunta y opción. El farsi se muestra de derecha a izquierda y se guarda en el navegador después de cargarlo por primera vez.
+- Botones **EN** y **FA** para ver las traducciones al **inglés** o **farsi/persa** de cada texto, pregunta y opción — también en Lectura: los 39 párrafos y sus 474 preguntas vienen traducidos en los datos, así que no necesitan conexión. El farsi se muestra de derecha a izquierda.
 
 ## Datos
 
@@ -37,9 +37,17 @@ Todo en `data/`:
 - `reading_passages.json` — **39 párrafos** de los **6 textos** de lectura ("Leyenda del maíz",
   "Parque Nacional Cañón del Sumidero", "La celebración del día de muertos", "Leyenda del
   Mayab…", "Los volcanes", "La leyenda del Cenote Zací") con **474 preguntas** de opción múltiple.
+  Cada párrafo lleva `text_en` / `text_fa` y cada pregunta `question_en` / `question_fa` y sus
+  `options_en` / `options_fa`.
   Se genera con `scripts/build_reading.py` desde `data/reading/pasajes.txt` (textos) y
-  `data/reading/preguntas_1..6.txt` (preguntas), y el script **falla** si el total no es 474.
-  **Aún sin traducción** al inglés ni al farsi (los botones EN/FA no muestran la lectura todavía).
+  `data/reading/preguntas_1..6.txt` (preguntas), y el script **falla** si el total no es 474
+  o si a algún párrafo le falta traducción.
+- `reading/traducciones.tsv` — **fuente de verdad de las traducciones de Lectura**: una fila por
+  frase única del banco de lectura (2,246), en columnas `es · en · fa`, en el orden canónico que
+  produce `scripts/reading_translations.py`. `build_reading.py` la aplica al JSON; no edites
+  `reading_passages.json` a mano, se sobreescribe. Las preguntas de opción múltiple exigen que la
+  opción correcta traducida sea un fragmento literal del párrafo traducido (en inglés y en farsi):
+  `reading_translations.py qa` lo revisa.
 - `interview_writing.json` — entrevista + redacción.
 - `questions_from_images.json` — las **576 preguntas únicas** extraídas por OCR de tus
   imágenes.
@@ -166,13 +174,22 @@ párrafos. Cada párrafo se muestra con su nombre (`Párrafo 1 · Leyenda del ma
   en el examen, pero todavía no tiene el mazo de Lectura.
 - Las preguntas de lectura se escriben como 474 preguntas sobre el mismo texto, así que
   muchas repiten un dato desde distintos ángulos. Los enunciados no se repiten exactamente.
+- **Traducciones:** con **EN** o **FA** se traduce el párrafo, el enunciado, las cuatro
+  opciones y el párrafo que se despliega desde la tarjeta. Como el build baraja las opciones,
+  `options_en` y `options_fa` viajan barajadas en el mismo orden que `options`, así que la
+  opción marcada como correcta sigue coincidiendo con su traducción.
+- Para editar o ampliar traducciones de lectura:
+  `python3 scripts/reading_translations.py status` (qué falta), `show <desde> <hasta>` (ver
+  filas), `fill archivo.tsv` (aplicar) y `qa` (avisos de calidad). Después
+  `python3 scripts/build_reading.py && python3 scripts/build_standalone.py`.
 
 ## 🌐 App en GitHub Pages (un solo archivo)
 
 `index.html` es una **app autocontenida**: funciona sin servidor y sin base de datos
-(guarda el progreso de cada persona en `localStorage` del navegador). La primera carga
-de cada traducción al farsi requiere conexión; después también queda guardada en
-`localStorage`. Se genera a partir de los datos de `data/` con:
+(guarda el progreso de cada persona en `localStorage` del navegador). La lectura ya trae
+sus traducciones dentro del archivo; en Historia solo la primera carga de cada traducción
+al farsi requiere conexión (después queda guardada en `localStorage`). Se genera a partir
+de los datos de `data/` con:
 
 ```bash
 python3 scripts/build_standalone.py
@@ -218,8 +235,11 @@ python3 scripts/repair_added.py     # reconstruye el lote OCR 2026 corregido (id
 python3 scripts/dedupe_duplicates.py # elimina casi-duplicadas del banco y escribe data/dedupe_remap.json
 python3 scripts/validate_bank.py    # audita calidad del banco (sale 1 si hay defectos)
 python3 scripts/build_reading.py    # genera reading_passages.json desde data/reading/ (valida 474 preguntas)
+python3 scripts/reading_translations.py status  # progreso de las traducciones de lectura (es/en/fa)
+python3 scripts/reading_translations.py qa      # calidad: huecos, farsi con letras latinas, opciones desalineadas
 python3 scripts/add_farsi_translations.py # traduce al farsi los campos nuevos o faltantes
 python3 scripts/build_standalone.py # regenera index.html
+node scripts/check_standalone_translations.mjs  # verifica las traducciones del index.html generado
 ```
 
 ## 🚀 Desplegar en producción (Vercel + Neon)
@@ -235,8 +255,9 @@ Con `DATABASE_URL` definido se usa PostgreSQL real vía `pg`; sin él, PGlite lo
 
 - Revisar 2–3 preguntas dependientes del tiempo (p. ej. titular de la SRE, personaje
   del billete de 100 pesos) si quieres mantenerlas actualizadas.
-- Traducir al inglés y al farsi las 474 preguntas y los textos de lectura.
-- Llevar el mazo de Lectura a la app Next.js (hoy solo lo tiene la app autocontenida).
+- Llevar el mazo de Lectura a la app Next.js (hoy solo lo tiene la app autocontenida), y con
+  él las traducciones: `src/db/schema.ts` aún no tiene columnas `*_en` / `*_fa` para pasajes
+  y preguntas, así que `npm run db:seed` siembra solo el español.
 
 ## 📄 Licencia
 

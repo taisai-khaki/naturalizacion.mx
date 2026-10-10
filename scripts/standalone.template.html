@@ -78,7 +78,8 @@ window.__APP_DATA__ = /*__DATA__*/;
 var D = window.__APP_DATA__;
 var APP_VERSION = "/*__VERSION__*/"; // inyectado por build_standalone.py
 var HIST = D.hist;       // Spanish questions with _en and _fa translation fields
-var LEC = D.lectura;     // 39 párrafos de lectura, cada uno con sus preguntas (sin traducción todavía)
+var LEC = D.lectura;     // 39 párrafos de lectura con sus preguntas; texto, enunciados y
+                         // opciones también traen sus campos _en y _fa
 var LEC_Q = {};          // id de pregunta -> pregunta de lectura
 var LEC_PARA = {};       // id de pregunta -> párrafo al que pertenece
 LEC.forEach(function(p){ p.questions.forEach(function(q){ LEC_Q[q.id]=q; LEC_PARA[q.id]=p; }); });
@@ -414,7 +415,18 @@ function currentFarsiWork(){
     if(mode==="hist"){
       HIST.filter(function(x){if(!query)return true;return (x.pregunta+" "+(x.pregunta_en||"")+" "+(x.subtema||"")).toLowerCase().indexOf(query)>=0;}).slice(0,10).forEach(function(q){addHistoryFarsiSources(out,q);});
     } else if(mode==="lec"){
-      /* Lectura: aún sin traducciones (text_en/text_fa). */
+      // El banco muestra los párrafos con su texto y todas sus preguntas. La
+      // traducción al farsi ya viene en los datos (data/reading/traducciones.tsv),
+      // así que aquí solo se encolan las frases que falten, y solo entre los
+      // párrafos visibles: si no, una traducción pendiente dispararía cientos de
+      // peticiones al servicio en línea.
+      LEC.filter(function(p){
+        if(!query) return true;
+        return (p.title+" "+(p.topic||"")+" "+p.text).toLowerCase().indexOf(query)>=0;
+      }).slice(0,3).forEach(function(p){
+        addFarsiSource(out,p.text_en,p.text_fa);
+        p.questions.forEach(function(q){addReadingFarsiSources(out,q);});
+      });
     }
     signature+="-"+mode+"-"+query;
   }
@@ -678,7 +690,10 @@ function lecProgressHTML(){
 // pero con su propio mazo y su propio criterio de aprendizaje.
 function lecCardOf(q){
   var p=LEC_PARA[q.id]||null;
-  return {id:q.id,pregunta:q.question,opciones:q.options,correct:q.correct,explicacion:null,categoria:"Lectura",subtema:p?p.title:"",dificultad:null,para:p};
+  // Mismas claves que una tarjeta de Historia (pregunta/opciones/…) para que los
+  // botones EN y FA y la cola de farsi funcionen igual en los dos mazos.
+  return {id:q.id,pregunta:q.question,opciones:q.options,correct:q.correct,explicacion:null,categoria:"Lectura",subtema:p?p.title:"",dificultad:null,para:p,
+    pregunta_en:q.question_en,pregunta_fa:q.question_fa,opciones_en:q.options_en,opciones_fa:q.options_fa};
 }
 function flDeckBar(){
   var lec=STATE.sel.fldeck==="lec";
@@ -709,24 +724,24 @@ function flLecHTML(){
   var header='<div class="row" style="margin-bottom:10px;flex-wrap:wrap"><span class="pill gold">Pendientes: '+pending.length+'</span><span class="pill green">Aprendidas: '+learnedQ+'</span><span class="pill">Párrafos aprendidos: '+learnedParas.length+'/'+deckParas.length+'</span>'+modeBtn+'</div>';
   var body='';
   if(FL_MODE==="reveal"){
-    body=qpills(q)+'<div class="qtext">'+esc(q.pregunta)+'</div>'+
-      '<div id="flashcard">'+(v.revealed?'<div class="card" style="background:rgba(110,231,183,.1);border-color:rgba(110,231,183,.3)"><b>Respuesta:</b> '+esc(q.opciones[q.correct])+'</div>':'')+'</div>'+
+    body=qpills(q)+'<div class="qtext">'+esc(q.pregunta)+tr(q.pregunta_en,q.pregunta_fa)+'</div>'+
+      '<div id="flashcard">'+(v.revealed?'<div class="card" style="background:rgba(110,231,183,.1);border-color:rgba(110,231,183,.3)"><b>Respuesta:</b> '+esc(q.opciones[q.correct])+trOption(q.opciones_en,q.opciones_fa,q.correct)+'</div>':'')+'</div>'+
       '<div class="row">'+(v.answered?'<p class="small mut">¡Respuesta registrada! Cargando siguiente...</p>':(v.revealed?
         '<button class="btn" id="flcorrect">✅ Correcta</button><button class="btn ghost" id="flwrong">❌ Incorrecta</button>'
         :'<button class="btn ghost" id="flshow">Mostrar respuesta</button>'))+'</div>';
   } else {
-    body=qpills(q)+'<div class="qtext">'+esc(q.pregunta)+'</div>'+
+    body=qpills(q)+'<div class="qtext">'+esc(q.pregunta)+tr(q.pregunta_en,q.pregunta_fa)+'</div>'+
       (v.answered?'<div style="text-align:center;margin-bottom:8px;font-weight:700" class="'+(v.selectedOption===q.correct?'marker':'badmark')+'">'+(v.selectedOption===q.correct?'¡Correcta! ✅':'Incorrecta ❌')+'</div>':'')+
       '<div id="flashcard">'+q.opciones.map(function(o,i){
         var cls="opt";
         if(v.selectedOption!=null){ if(i===q.correct) cls="opt ok"; else if(i===v.selectedOption) cls="opt bad"; else cls="opt locked"; }
-        return '<button class="'+cls+'" data-fli="'+i+'"'+(v.selectedOption!=null?' disabled':'')+'><b style="color:#fcd34d">'+String.fromCharCode(65+i)+'.</b> '+esc(o)+
+        return '<button class="'+cls+'" data-fli="'+i+'"'+(v.selectedOption!=null?' disabled':'')+'><b style="color:#fcd34d">'+String.fromCharCode(65+i)+'.</b> '+esc(o)+trOption(q.opciones_en,q.opciones_fa,i)+
           (v.selectedOption!=null&&i===q.correct?' <span class="marker">✓</span>':'')+
           (v.selectedOption!=null&&i===v.selectedOption&&i!==q.correct?' <span class="badmark">✗</span>':'')+'</button>';
       }).join("")+'</div>'+
       (v.selectedOption==null?'<p class="small mut">Selecciona la opción correcta</p>':'');
   }
-  var verParrafo='<details style="margin-top:12px"><summary class="small" style="cursor:pointer;color:#fcd34d">Ver el párrafo de esta pregunta</summary><div class="passage" style="margin-top:8px">'+esc(para?para.text:"")+'</div></details>';
+  var verParrafo='<details style="margin-top:12px"><summary class="small" style="cursor:pointer;color:#fcd34d">Ver el párrafo de esta pregunta</summary><div class="passage" style="margin-top:8px">'+esc(para?para.text:"")+tr(para?para.text_en:"",para?para.text_fa:"")+'</div></details>';
   return warn+'<div class="card">'+header+body+verParrafo+
     '<p class="small mut" style="margin-top:8px">Modo '+(FL_MODE==="reveal"?"autoevaluación":"opciones múltiples")+' · Lectura: basta <b>una</b> respuesta correcta por pregunta para aprenderla. Una pregunta fallada vuelve <b>al día siguiente</b>. Un párrafo se aprende al completar todas sus preguntas.</p></div>';
 }
@@ -920,7 +935,9 @@ function banHTML(){
       if(fcf==="in"&&!lecInDeck(p.id)) return false;
       if(fcf==="out"&&lecInDeck(p.id)) return false;
       if(!q) return true;
-      var hay=p.title+" "+(p.topic||"")+" "+p.text+" "+p.questions.map(function(x){return x.question+" "+x.options.join(" ");}).join(" ");
+      var hay=p.title+" "+(p.topic||"")+" "+p.text+" "+(p.text_en||"")+" "+(p.text_fa||"")+" "+p.questions.map(function(x){
+        return x.question+" "+(x.question_en||"")+" "+(x.question_fa||"")+" "+x.options.join(" ")+" "+(x.options_en||[]).join(" ")+" "+(x.options_fa||[]).join(" ");
+      }).join(" ");
       return hay.toLowerCase().indexOf(q)>=0;
     });
   }
@@ -948,8 +965,8 @@ function banHTML(){
       return '<div class="card"><div class="row" style="justify-content:space-between">'+
         '<div><h2 style="font-size:18px">'+esc(p.title)+'</h2>'+(p.topic?'<span class="pill gold">'+esc(p.topic)+'</span> ':'')+'<span class="pill">'+p.questions.length+' preguntas</span></div>'+
         (inDeck?'<span class="pill green">✓ En flashcards · '+pr.ok+'/'+pr.total+'</span>':'<button class="btn ghost" style="font-size:12px;padding:6px 12px" data-addlec="'+p.id+'">+ Agregar a flashcards</button>')+'</div>'+
-        '<div class="passage" style="margin:10px 0">'+esc(p.text)+'</div>'+
-        p.questions.map(function(x,i){return '<div style="margin:8px 0"><b>'+(i+1)+'. '+esc(x.question)+'</b>'+x.options.map(function(o,oi){return '<div class="opt locked">'+esc(o)+(oi===x.correct?' <span class="marker">[CORRECTA]</span>':'')+'</div>';}).join("")+'</div>';}).join("")+
+        '<div class="passage" style="margin:10px 0">'+esc(p.text)+tr(p.text_en,p.text_fa)+'</div>'+
+        p.questions.map(function(x,i){return '<div style="margin:8px 0"><b>'+(i+1)+'. '+esc(x.question)+tr(x.question_en,x.question_fa)+'</b>'+x.options.map(function(o,oi){return '<div class="opt locked">'+esc(o)+(oi===x.correct?' <span class="marker">[CORRECTA]</span>':'')+trOption(x.options_en,x.options_fa,oi)+'</div>';}).join("")+'</div>';}).join("")+
         '</div>';
     }).join("");
   }

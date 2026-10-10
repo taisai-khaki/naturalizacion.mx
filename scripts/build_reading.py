@@ -9,7 +9,15 @@ Fuentes (fuente de verdad, editables a mano):
 
 Salida: data/reading_passages.json, una fila por párrafo (39 filas):
   {id, passage_id, passage, paragraph, title, topic, source_hint, text,
-   questions: [{question, options, correct}]}
+   text_en, text_fa, questions: [{question, options, correct,
+                                  question_en, question_fa,
+                                  options_en, options_fa}]}
+
+Las traducciones al inglés y al farsi NO se escriben a mano en el JSON: viven en
+data/reading/traducciones.tsv (una fila por frase única del español) y se
+incorporan aquí con scripts/reading_translations.py, así que regenerar el JSON no
+las pierde. Faltan traducciones => el build falla (usa
+--allow-missing-traducciones para saltarte ese control).
 
 El script FALLA (exit 1) si los datos no cuadran: el total de preguntas debe ser
 exactamente TARGET_TOTAL, cada párrafo debe tener al menos MIN_PER_PARAGRAPH
@@ -17,12 +25,16 @@ preguntas, cada pregunta debe tener una sola respuesta correcta y 3 distractores
 y no puede haber enunciados repetidos.
 
 Uso:  python3 scripts/build_reading.py
+      python3 scripts/build_reading.py --allow-missing-traducciones
 """
 import glob
 import json
 import os
 import re
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import reading_translations  # noqa: E402  (data/reading/traducciones.tsv -> JSON)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC_TEXT = os.path.join(ROOT, "data", "reading", "pasajes.txt")
@@ -204,11 +216,25 @@ def main():
         print(f"({len(errors)} problema(s); no se escribió {OUT})", file=sys.stderr)
         return 1
 
+    # Traducciones al inglés y al farsi (data/reading/traducciones.tsv). Se aplican
+    # aquí, y no a mano en el JSON, para que regenerar el banco no las borre.
+    strict = "--allow-missing-traducciones" not in sys.argv
+    try:
+        reading_translations.apply_translations(rows, strict=strict)
+    except SystemExit as exit_error:
+        if strict:
+            raise
+        print(str(exit_error), file=sys.stderr)
+        print("  (continuando por --allow-missing-traducciones)", file=sys.stderr)
+    reading_translations.save_tsv(reading_translations.canonical(rows), reading_translations.load_tsv())
+
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(rows, f, ensure_ascii=False, indent=1)
         f.write("\n")
 
+    translated = sum(1 for r in rows if r.get("text_en") and r.get("text_fa"))
     print(f"OK -> {OUT}: {len(rows)} párrafos, {len(passages)} pasajes, {total} preguntas")
+    print(f"  traducciones: {translated}/{len(rows)} párrafos con texto en inglés y farsi")
     for pid in sorted(passages):
         n = sum(len(r["questions"]) for r in rows if r["passage_id"] == pid)
         print(f"  Pasaje {pid} · {passages[pid]['title']}: {n} preguntas")
