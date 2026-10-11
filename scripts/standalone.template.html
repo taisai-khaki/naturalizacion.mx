@@ -706,10 +706,18 @@ function flSaveWarnHTML(){
 }
 function flLecHTML(){
   var warn=flSaveWarnHTML();
-  var deckParas=lecDeckParas(), learnedParas=lecLearnedParas();
-  var pending=lecPending(), avail=lecAvailable();
-  var learnedQ=lecDeckQuestions().length-pending.length;
+  var pass=STATE.sel.flpass||0;
+  // Filtra por pasaje (1..6); 0 = todos los pasajes.
+  var deckParas=lecDeckParas().filter(function(p){ return !pass||p.passage_id===pass; });
+  var learnedParas=deckParas.filter(lecParaLearned);
+  var deckQs=[]; deckParas.forEach(function(p){ p.questions.forEach(function(q){ deckQs.push(q); }); });
+  var pending=deckQs.filter(function(q){ return !lecOk(q.id); });
+  var avail=pending.filter(function(q){ return lecDue(q.id); });
+  var learnedQ=deckQs.length-pending.length;
   if(!deckParas.length){
+    if(pass){
+      return warn+'<div class="card" style="padding:40px;text-align:center"><h2>El Pasaje '+pass+' aún no está en flashcards</h2><p class="small mut" style="margin-top:8px">Ve a la pestaña <b>Lectura</b>, sección <b>Lectura en progreso</b>, y agrega los párrafos del Pasaje '+pass+' que quieras estudiar.</p></div>';
+    }
     return warn+'<div class="card" style="padding:40px;text-align:center"><h2>Aún no tienes lectura en flashcards</h2><p class="small mut" style="margin-top:8px">Ve a la pestaña <b>Lectura</b>, sección <b>Lectura en progreso</b>, y elige los párrafos que quieras estudiar. Al agregar un párrafo, todas sus preguntas pasan a flashcards.</p></div>';
   }
   if(!STATE.flash||!STATE.flash.lec){
@@ -825,8 +833,18 @@ function availablePool(cat){
   });
   return pool;
 }
+// Pestañas de pasaje para el mazo de Lectura: "Todos los pasajes" o uno de los 6 pasajes.
+function flPassBar(){
+  var sel=STATE.sel.flpass||0;
+  var names=["Leyenda del maíz","Cañón del Sumidero","Día de muertos","Leyenda del Mayab","Los volcanes","Cenote Zací"];
+  var btn=function(id,label,title){ return '<button class="tab'+(sel===id?' on':'')+'" data-flpass="'+id+'" title="'+esc(title)+'" style="font-size:12px;padding:6px 12px">'+label+'</button>'; };
+  var out=btn(0,"Todos los pasajes","Todos los pasajes de lectura");
+  for(var i=1;i<=6;i++) out+=btn(i,"Pasaje "+i,names[i-1]||("Pasaje "+i));
+  return '<div class="row" style="margin-bottom:10px;flex-wrap:wrap"><span class="small mut" style="font-size:11px;font-weight:700;letter-spacing:.06em">PASAJE:</span>'+out+'</div>';
+}
 function flHTML(){
-  return flDeckBar()+(STATE.sel.fldeck==="lec"?flLecHTML():flHistHTML());
+  var lec=STATE.sel.fldeck==="lec";
+  return flDeckBar()+(lec?flPassBar()+flLecHTML():flHistHTML());
 }
 function flHistHTML(){
   var learned=learnedIds();
@@ -1024,6 +1042,7 @@ function bindView(){
     var fv=STATE.flash;
     document.querySelectorAll("[data-flcat]").forEach(function(b){ b.onclick=function(){ STATE.sel.flcat=b.getAttribute("data-flcat"); STATE.flash=null; render(); }; });
     document.querySelectorAll("[data-fldeck]").forEach(function(b){ b.onclick=function(){ STATE.sel.fldeck=b.getAttribute("data-fldeck"); STATE.flash=null; render(); }; });
+    document.querySelectorAll("[data-flpass]").forEach(function(b){ b.onclick=function(){ STATE.sel.flpass=+b.getAttribute("data-flpass"); STATE.flash=null; render(); }; });
     var modeBtn=document.getElementById("flmode"); if(modeBtn)modeBtn.onclick=function(){ FL_MODE=FL_MODE==="reveal"?"choice":"reveal"; if(fv){fv.revealed=false;fv.answered=false;fv.selectedOption=null;} render(); };
     var sh=document.getElementById("flshow"); if(sh)sh.onclick=function(){fv.revealed=true;render();};
     var fc=document.getElementById("flcorrect"); if(fc)fc.onclick=function(){markFlashCorrect(true);};
